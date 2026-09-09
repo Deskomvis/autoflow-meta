@@ -108,6 +108,21 @@ const flow = [
     'Meta Ads + Claude',
   ],
 ];
+const flowTools = [
+  ['meta', 'claude'],
+  ['claude'],
+  ['scalev', 'claude'],
+  ['vistudio', 'claudinary', 'claude'],
+  ['meta', 'claude'],
+  ['meta', 'claude'],
+];
+const toolNames: Record<string, string> = {
+  claude: 'Claude',
+  claudinary: 'Cloudinary',
+  meta: 'Meta Ads',
+  scalev: 'Scalev',
+  vistudio: 'Vistudio',
+};
 const faqs = [
   [
     'Saya belum pernah pakai MCP. Bisa mengikuti?',
@@ -386,6 +401,19 @@ export default function Home() {
                 <p className="eyebrow">{flow[active][3]}</p>
                 <h3>{flow[active][1]}</h3>
                 <p>{flow[active][2]}</p>
+              </div>
+              <div className="flow-tools" aria-label={`Tools pada tahap ${flow[active][0]}`}>
+                {flowTools[active].map((tool, index) => (
+                  <Image
+                    unoptimized
+                    className={`tool-orb tool-orb-${index + 1}`}
+                    key={tool}
+                    src={`/images/${tool}.webp`}
+                    alt={toolNames[tool]}
+                    width="144"
+                    height="144"
+                  />
+                ))}
               </div>
               <span className="flow-output">
                 Kamu tetap
