@@ -260,10 +260,70 @@ h2 span {
   overflow: hidden;
   box-shadow: 0 12px 65px #006bff13;
 }
+.hero-cover {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  text-align: left;
+  background: #0c1728;
+  position: relative;
+}
 .hero-art img {
   aspect-ratio: 1.777;
   object-fit: cover;
 }
+.hero-cover-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #06101a05 35%, #06101ad9 100%);
+}
+.hero-cover-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffae66;
+  color: #18110c;
+  font-size: 21px;
+  padding-left: 4px;
+  box-shadow: 0 8px 28px #0009, inset 0 1px #fff9;
+  transition: transform .25s, background .25s;
+}
+.hero-cover:hover .hero-cover-play,
+.hero-cover:focus-visible .hero-cover-play { transform: translate(-50%, -50%) scale(1.1); background: #ffc390; }
+.hero-cover .art-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+}
+.hero-art iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.777;
+  border: 0;
+  background: #06101a;
+}
+.hero-video-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: 1px solid #b8d3ed88;
+  border-radius: 5px;
+  background: #07111fe8;
+  color: #fff;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+.hero-video-close:hover { background: #173453; }
 .art-caption {
   display: flex;
   align-items: center;

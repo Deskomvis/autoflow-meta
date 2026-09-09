@@ -182,6 +182,23 @@ export default function Home() {
       elements.forEach(element => element.classList.remove('reveal-ready', 'revealed'));
     };
   }, []);
+  const [heroPlaying, setHeroPlaying] = useState(false);
+  useEffect(() => {
+    if (!heroPlaying) return;
+    function handlePlayerMessage(event: MessageEvent) {
+      if (event.origin !== 'https://www.youtube-nocookie.com') return;
+      try {
+        const message = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+        if (message?.event === 'onStateChange' && message.info === 0) {
+          setHeroPlaying(false);
+        }
+      } catch {
+        // Ignore messages from the embedded player that are not JSON events.
+      }
+    }
+    window.addEventListener('message', handlePlayerMessage);
+    return () => window.removeEventListener('message', handlePlayerMessage);
+  }, [heroPlaying]);
   const [selected, setSelected] = useState<number | null>(null);
   const [checkout, setCheckout] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -230,20 +247,22 @@ export default function Home() {
               AUTO FLOW PRODIG META ADS DENGAN CLAUDE AI
             </p>
             <h1>
-              Berhenti jadi
+              Jangan habiskan
               <br />
-              operator.
+              berbulan-bulan
               <br />
               <span>
-                Mulai kendalikan
+                merakit flow
                 <br />
-                mesinnya.
+                dari nol.
               </span>
             </h1>
             <p className="hero-lead">
-              Ide produkmu jangan cuma numpuk di kepala. Bangun{' '}
-              <strong>“mesin cuan semi-auto pilot”</strong> yang menghubungkan
-              riset, landing page, creative, sampai iklan tayang lewat Claude.
+              Menemukan autoflow yang benar-benar layak dijalankan itu mahal:
+              waktu testing, biaya riset, dan banyak eksperimen yang tidak
+              terlihat. Kamu tidak sedang membeli kumpulan video. Kamu membeli{' '}
+              <strong>informasi kerja yang sudah dipadatkan</strong> menjadi
+              satu mesin dari riset sampai iklan tayang.
             </p>
             <div className="hero-actions">
               <a className="cta" href="#akses">
@@ -254,7 +273,8 @@ export default function Home() {
               </a>
             </div>
             <p className="hero-note">
-              Kamu pegang strategi. AI bantu eksekusi.
+              Diback test pada satu produk dan menghasilkan profit. Kamu pegang
+              strategi. AI bantu eksekusi.
             </p>
           </div>
           <div className="hero-media">
@@ -262,29 +282,52 @@ export default function Home() {
               <span>RUANG KENDALI BARUMU</span>
               <span>01 / 09</span>
             </div>
-            <button
-              className="hero-art"
-              onClick={() => setSelected(0)}
-              aria-label="Lihat isi video Intro Claude MCP"
-            >
-              <Image unoptimized
-                src="/images/video-1.webp"
-                alt="Materi Intro Claude MCP dengan koneksi Scalev dan Meta Ads"
-                width="1400"
-                height="788"
-                fetchPriority="high"
-              />
-              <span className="art-caption">
-                <span className="play-symbol" aria-hidden="true">
-                  ▶
-                </span>
-                <span>
-                  Kenali mesin di balik flow ini
-                  <small>Lihat detail materi pengantar</small>
-                </span>
-                <span aria-hidden="true">↗</span>
-              </span>
-            </button>
+            <div className={`hero-art ${heroPlaying ? 'hero-video-playing' : ''}`}>
+              {heroPlaying ? (
+                <>
+                  <iframe
+                    id="hero-youtube-player"
+                    src="https://www.youtube-nocookie.com/embed/c3oPWww8Y2w?autoplay=1&controls=1&enablejsapi=1&modestbranding=1&playsinline=1&rel=0"
+                    title="Teaser Auto Flow Prodig"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    onLoad={event => {
+                      const player = event.currentTarget.contentWindow;
+                      const target = 'https://www.youtube-nocookie.com';
+                      player?.postMessage(JSON.stringify({ event: 'listening', id: 'hero-youtube-player' }), target);
+                      player?.postMessage(JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }), target);
+                    }}
+                  />
+                  <button className="hero-video-close" onClick={() => setHeroPlaying(false)}>
+                    Tutup video
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="hero-cover"
+                  onClick={() => setHeroPlaying(true)}
+                  aria-label="Putar teaser Auto Flow Prodig di YouTube"
+                >
+                  <Image
+                    unoptimized
+                    src="/images/autoflow-teaser-cover.webp"
+                    alt="Teaser Auto Flow Prodig dengan bukti back test produk"
+                    width="1600"
+                    height="900"
+                    fetchPriority="high"
+                  />
+                  <span className="hero-cover-shade" aria-hidden="true" />
+                  <span className="hero-cover-play" aria-hidden="true">▶</span>
+                  <span className="art-caption">
+                    <span>
+                      Tonton teaser Auto Flow Prodig
+                      <small>Putar video untuk melihat alur dan hasil back test</small>
+                    </span>
+                    <span aria-hidden="true">↗</span>
+                  </span>
+                </button>
+              )}
+            </div>
             <div className="connection">
               <span>Claude</span>
               <i aria-hidden="true" />
@@ -649,19 +692,22 @@ export default function Home() {
           <div className="offer-copy">
             <p className="eyebrow">SEKARANG GILIRANMU</p>
             <h2>
-              Idemu berikutnya
+              Kamu tidak sedang
               <br />
-              layak dapat
+              membeli kelas.
               <br />
-              <span>kesempatan tayang.</span>
+              <span>Kamu membeli informasi.</span>
             </h2>
             <p>
-              Besok, daftar pekerjaan manual itu masih ada. Yang bisa kamu ubah
-              hari ini: cara kamu mengerjakannya.
+              Informasi yang tepat bisa memangkas jalan memutar: dari menebak
+              produk, membangun halaman, menyiapkan creative, sampai membaca
+              hasil campaign.
             </p>
             <p>
-              Bangun fondasinya sekali. Pelajari alurnya. Gunakan lagi saat kamu
-              siap menguji penawaran berikutnya.
+              Racikan ini lahir dari proses testing berbulan-bulan dan sudah
+              diback test pada satu produk. Pelajari alurnya, praktikkan dengan
+              produkmu, lalu gunakan lagi saat kamu siap menguji peluang
+              berikutnya.
             </p>
             <div className="support-note">
               <strong>Belajar dengan tempat bertanya.</strong>
