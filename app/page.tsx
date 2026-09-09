@@ -114,7 +114,7 @@ const faqs = [
     'Mulai dari video pengantar dan Modul 0. Materinya membahas koneksi dan pengujian tools sebelum masuk ke riset, landing page, creative, dan campaign. Siapkan waktu untuk praktik, akun tools, serta akses akun iklan yang diperlukan.',
   ],
   [
-    'Apakah Rp499.000 sudah termasuk biaya tools dan iklan?',
+    'Apakah Rp497.000 sudah termasuk biaya tools dan iklan?',
     'Harga ini untuk materi video webinar dan ecourse, 8 file modul, grup support, serta bonus riset. Langganan Claude, tools pendukung, kredit pembuatan aset, dan budget Meta Ads berada di luar harga materi.',
   ],
   [
@@ -177,7 +177,7 @@ export default function Home() {
   async function copyOrder() {
     try {
       await navigator.clipboard.writeText(
-        'Saya ingin membeli Auto Flow Prodig Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket Rp499.000: 9 video teknis, 8 file modul, grup support, dan bonus riset.',
+        'Saya ingin membeli Auto Flow Prodig Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket harga launch Rp497.000: 9 video teknis, 8 file modul, grup support, dan bonus riset.',
       );
       setCopied(true);
       setCopyError(false);
@@ -646,8 +646,8 @@ export default function Home() {
           <div className="offer-card">
             <span className="package-label">PAKET LENGKAP AUTOFLOW PRODIG</span>
             <h3>Mesinmu dimulai di sini.</h3>
-            <p className="price">Rp499.000</p>
-            <p className="price-note">Untuk satu paket materi & bonus</p>
+            <p className="price">Rp497.000</p>
+            <p className="price-note">Harga launch untuk satu paket materi & bonus</p>
             <ul className="check-list">
               <li>9 video teknis webinar & ecourse</li>
               <li>8 file modul Autoflow</li>
@@ -701,7 +701,7 @@ export default function Home() {
       </footer>
       <div className="mobile-buy">
         <span>
-          Paket lengkap<strong>Rp499.000</strong>
+          Harga launch<strong>Rp497.000</strong>
         </span>
         <button className="cta" onClick={() => setCheckout(true)}>
           Lihat akses paket
@@ -752,7 +752,7 @@ export default function Home() {
             9 video, 8 file modul, grup support, dan bonus riset. Oleh Gus Rezha
             Cozy.
           </DialogDescription>
-          <strong className="dialog-price">Rp499.000</strong>
+          <strong className="dialog-price">Rp497.000</strong>
           {checkoutUrl ? (
             <a className="cta" href={checkoutUrl}>
               Lanjut ke pembayaran
