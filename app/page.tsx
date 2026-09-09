@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
   Accordion,
@@ -135,6 +135,38 @@ const faqs = [
   ],
 ];
 export default function Home() {
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!('IntersectionObserver' in window)) return;
+    const elements = document.querySelectorAll('.section-heading, .problem > div, .video-card, .modules-inner > *, .bonus > *, .mentor, .offer > *, .faq > *');
+    let observer: IntersectionObserver | undefined;
+    function configure() {
+      observer?.disconnect();
+      elements.forEach(element => element.classList.remove('reveal-ready', 'revealed'));
+      if (preference.matches) return;
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer?.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      elements.forEach(element => {
+        if (element.getBoundingClientRect().top > window.innerHeight) {
+          element.classList.add('reveal-ready');
+          observer?.observe(element);
+        }
+      });
+    }
+    configure();
+    preference.addEventListener('change', configure);
+    return () => {
+      observer?.disconnect();
+      preference.removeEventListener('change', configure);
+      elements.forEach(element => element.classList.remove('reveal-ready', 'revealed'));
+    };
+  }, []);
   const [selected, setSelected] = useState<number | null>(null);
   const [checkout, setCheckout] = useState(false);
   const [copied, setCopied] = useState(false);
