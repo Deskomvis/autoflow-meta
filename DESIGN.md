@@ -15,6 +15,7 @@ ENERGY 3 / RHYTHM 3 / MOTION 1.
 - 118 iklan, 53 page, 7 kategori berasal dari workbook pengguna tanggal 9 September 2026; bukan 118 produk profit.
 - 8 PDF meliputi 6 modul inti, bonus prompt, dan kompilasi 71 halaman.
 - Rp499.000 adalah harga rekomendasi yang diminta pengguna. Tidak ada diskon, deadline, testimoni, kapasitas harian, atau jaminan profit yang dibuat-buat.
+- Profil Gus Rezha Cozy dan screenshot back test berasal dari aset pengguna. Bukti dibuat sebagai satu bagian khusus agar klaim performa tetap terbatas pada satu produk yang didokumentasikan: 53 purchases, ROAS 1,98, profit bersih Rp2.340.533 pada screenshot Ads Manager. Angka order pada dashboard tidak digabungkan sebagai klaim kedua.
 
 ## Belum tersedia
 Link pembayaran belum diberikan. Tombol paket membuka ringkasan dengan pemberitahuan pembayaran belum dibuka. Ganti checkoutUrl hanya dengan tujuan resmi pemilik sebelum membuka penjualan publik.

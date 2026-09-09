@@ -138,7 +138,7 @@ export default function Home() {
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (!('IntersectionObserver' in window)) return;
-    const elements = document.querySelectorAll('.section-heading, .problem > div, .video-card, .modules-inner > *, .bonus > *, .mentor, .offer > *, .faq > *');
+    const elements = document.querySelectorAll('.section-heading, .problem > div, .video-card, .modules-inner > *, .bonus > *, .mentor, .proof > *, .offer > *, .faq > *');
     let observer: IntersectionObserver | undefined;
     function configure() {
       observer?.disconnect();
@@ -530,21 +530,91 @@ export default function Home() {
           </div>
         </section>
         <section className="mentor wrap">
+          <div className="mentor-avatar">
+            <Image
+              unoptimized
+              src="/images/gus-rezha-cozy.jpg"
+              alt="Gus Rezha Cozy, Founder Roketmedia"
+              width="640"
+              height="640"
+              loading="lazy"
+            />
+          </div>
           <div className="mentor-label">
             <span>MATERI OLEH</span>
             <h3>Gus Rezha Cozy</h3>
-            <p>Auto Flow Prodig Meta Ads dengan Claude AI</p>
+            <p>Founder Roketmedia · Praktisi AI & Meta Ads</p>
           </div>
           <div className="mentor-copy">
             <p>
-              Punya alur kerja yang bisa kamu jalankan lagi, tanpa merakit
-              semuanya dari nol.
+              Dari praktik membangun flow, bukan sekadar mengumpulkan prompt.
             </p>
             <span>
-              Pelajari contoh penerapan dari riset sampai persiapan iklan
-              tayang. Bawa alurnya ke produkmu, lalu evaluasi dari hasil testing
-              sendiri.
+              Gus Rezha merangkai materi ini agar kamu bisa melihat hubungan
+              antara riset, halaman, creative, campaign, dan evaluasi dalam satu
+              alur yang bisa kamu praktikkan ulang.
             </span>
+          </div>
+        </section>
+        <section className="proof wrap section" aria-labelledby="proof-title">
+          <div className="proof-copy">
+            <p className="eyebrow">BUKTI BACK TEST · SATU PRODUK</p>
+            <h2 id="proof-title">
+              Bukan teori yang belum
+              <br />
+              menyentuh <span>market.</span>
+            </h2>
+            <p>
+              Flow ini sudah diback test pada <strong>satu produk</strong>.
+              Hasilnya menunjukkan iklan berjalan, order masuk, dan ada profit
+              bersih pada periode pengujian yang ditampilkan.
+            </p>
+            <div className="proof-metrics" aria-label="Ringkasan hasil back test">
+              <div>
+                <strong>53</strong>
+                <span>pembelian</span>
+              </div>
+              <div>
+                <strong>1,98</strong>
+                <span>purchase ROAS</span>
+              </div>
+              <div>
+                <strong>Rp2,34 jt</strong>
+                <span>profit bersih</span>
+              </div>
+            </div>
+            <p className="fineprint">
+              Berdasarkan screenshot Ads Manager untuk 1–22 Agustus 2026: 53
+              purchases, purchase conversion value Rp4.717.000, purchase ROAS
+              1,98, dan profit bersih tercatat Rp2.340.533. Screenshot dashboard
+              order juga menunjukkan 76 order selesai dengan estimasi gross
+              revenue Rp6.772.000. Ini satu hasil back test, bukan jaminan hasil
+              yang sama untuk setiap produk atau campaign.
+            </p>
+          </div>
+          <div className="proof-visuals">
+            <figure className="proof-meta">
+              <Image
+                unoptimized
+                src="/images/backtest-meta-ads.png"
+                alt="Screenshot Meta Ads Manager menampilkan 53 purchases, ROAS 1,98, dan profit bersih Rp2.340.533"
+                width="1387"
+                height="425"
+                loading="lazy"
+              />
+              <figcaption>Data performa campaign pada Ads Manager</figcaption>
+            </figure>
+            <figure className="proof-orders">
+              <Image
+                unoptimized
+                src="/images/backtest-order-dashboard.png"
+                alt="Screenshot dashboard order dengan estimasi gross revenue Rp6.772.000 dan 76 order selesai"
+                width="1152"
+                height="586"
+                loading="lazy"
+              />
+              <figcaption>Dashboard order dari produk yang diback test</figcaption>
+            </figure>
           </div>
         </section>
         <section className="offer section wrap" id="akses">
