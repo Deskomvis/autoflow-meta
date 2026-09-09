@@ -224,6 +224,11 @@ h2 span {
   background: #ffc390;
   transform: translateY(-2px);
 }
+.cta:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
+}
 .cta span {
   font-size: 20px;
 }
@@ -1015,6 +1020,28 @@ h2 span {
 }
 .checkout-dialog .fineprint {
   margin: 0;
+}
+.checkout-error {
+  border: 1px solid #ff8b7a;
+  border-radius: 6px;
+  color: #ffd2ca;
+  font-size: 13px;
+  line-height: 1.55;
+  padding: 12px;
+}
+.text-button {
+  align-self: flex-start;
+  background: transparent;
+  border: 0;
+  color: #d8e8f8;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.text-button:hover {
+  color: var(--blue);
 }
 [data-slot='dialog-overlay'] {
   background: #000b !important;

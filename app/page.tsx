@@ -149,6 +149,10 @@ const faqs = [
     'Gunakan riset untuk memahami kebutuhan pasar dan menemukan angle baru. Bangun materi, desain, dan penawaran milikmu sendiri. Bonus ini tidak memberikan hak untuk menyalin atau menjual ulang produk maupun aset milik pengiklan lain.',
   ],
 ];
+type CheckoutResponse = {
+  paymentUrl?: string;
+  message?: string;
+};
 export default function Home() {
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -201,11 +205,34 @@ export default function Home() {
   }, [heroPlaying]);
   const [selected, setSelected] = useState<number | null>(null);
   const [checkout, setCheckout] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState('');
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const [active, setActive] = useState(0);
-  // Set the verified payment URL before opening sales to the public.
-  const checkoutUrl = '';
+  async function createCheckout() {
+    setCheckoutLoading(true);
+    setCheckoutError('');
+    try {
+      const response = await fetch('/api/singapay/checkout', {
+        method: 'POST',
+      });
+      const body = (await response
+        .json()
+        .catch(() => null)) as CheckoutResponse | null;
+      if (!response.ok || !body?.paymentUrl) {
+        throw new Error(body?.message || 'Payment link sandbox belum bisa dibuat.');
+      }
+      window.location.assign(body.paymentUrl);
+    } catch (error) {
+      setCheckoutError(
+        error instanceof Error
+          ? error.message
+          : 'Payment link sandbox belum bisa dibuat.',
+      );
+      setCheckoutLoading(false);
+    }
+  }
   async function copyOrder() {
     try {
       await navigator.clipboard.writeText(
@@ -828,31 +855,34 @@ export default function Home() {
             Cozy.
           </DialogDescription>
           <strong className="dialog-price">Rp497.000</strong>
-          {checkoutUrl ? (
-            <a className="cta" href={checkoutUrl}>
-              Lanjut ke pembayaran
-            </a>
+          <div className="checkout-notice">
+            <strong>Checkout sandbox Singapay.</strong>
+            <p>
+              Tombol ini membuat payment link sandbox. Tidak ada pembayaran live
+              sampai credential production dipakai.
+            </p>
+          </div>
+          <button className="cta" onClick={createCheckout} disabled={checkoutLoading}>
+            {checkoutLoading ? 'Membuat link sandbox...' : 'Lanjut ke pembayaran sandbox'}
+          </button>
+          {checkoutError ? (
+            <output className="checkout-error">{checkoutError}</output>
           ) : (
-            <>
-              <div className="checkout-notice">
-                <strong>Pembayaran belum dibuka di halaman ini.</strong>
-                <p>
-                  Link checkout sedang disiapkan. Belum ada transaksi atau data
-                  pribadi yang dikirim.
-                </p>
-              </div>
-              <button className="cta" onClick={copyOrder}>
-                {copied ? 'Ringkasan tersalin' : 'Salin ringkasan paket'}
-              </button>
-              <output className="fineprint">
-                {copyError
-                  ? 'Penyalinan tidak tersedia. Kamu bisa menyalin nama paket dan harga yang tampil di atas.'
-                  : copied
-                    ? 'Ringkasan paket sudah disalin ke clipboard.'
-                    : 'Simpan ringkasan jika ingin melanjutkan saat checkout tersedia.'}
-              </output>
-            </>
+            <output className="fineprint">
+              Kamu akan diarahkan ke halaman pembayaran Singapay setelah link
+              sandbox berhasil dibuat.
+            </output>
           )}
+          <button className="text-button" onClick={copyOrder}>
+            {copied ? 'Ringkasan tersalin' : 'Salin ringkasan paket'}
+          </button>
+          <output className="fineprint">
+            {copyError
+              ? 'Penyalinan tidak tersedia. Kamu bisa menyalin nama paket dan harga yang tampil di atas.'
+              : copied
+                ? 'Ringkasan paket sudah disalin ke clipboard.'
+                : ''}
+          </output>
         </DialogContent>
       </Dialog>
     </>
