@@ -209,7 +209,7 @@ export default function Home() {
   async function copyOrder() {
     try {
       await navigator.clipboard.writeText(
-        'Saya ingin membeli Auto Flow Prodig Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket harga launch Rp497.000: 9 video teknis, 8 file modul, grup support, dan bonus riset.',
+        'Saya ingin membeli Auto Flow Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket harga launch Rp497.000: 9 video teknis, 8 file modul, grup support, dan bonus riset.',
       );
       setCopied(true);
       setCopyError(false);
@@ -227,9 +227,9 @@ export default function Home() {
         Rezha Cozy
       </div>
       <header className="header wrap">
-        <a className="brand" href="#main" aria-label="Auto Flow Prodig, beranda">
+        <a className="brand" href="#main" aria-label="Auto Flow Meta Ads, beranda">
           AUTO<span>FLOW</span>
-          <small>PRODIG / META ADS</small>
+          <small>META ADS / CLAUDE AI</small>
         </a>
         <nav aria-label="Navigasi utama">
           <a href="#mesin">Cara kerjanya</a>
@@ -244,7 +244,7 @@ export default function Home() {
         <section className="hero wrap">
           <div className="hero-copy">
             <p className="eyebrow">
-              AUTO FLOW PRODIG META ADS DENGAN CLAUDE AI
+              AUTO FLOW META ADS DENGAN CLAUDE AI
             </p>
             <h1>
               Jangan habiskan
@@ -274,7 +274,8 @@ export default function Home() {
             </div>
             <p className="hero-note">
               Diback test pada satu produk dan menghasilkan profit. Kamu pegang
-              strategi. AI bantu eksekusi.
+              strategi. AI bantu eksekusi. Cocok untuk produk fisik, digital,
+              maupun jasa.
             </p>
           </div>
           <div className="hero-media">
@@ -288,7 +289,7 @@ export default function Home() {
                   <iframe
                     id="hero-youtube-player"
                     src="https://www.youtube-nocookie.com/embed/c3oPWww8Y2w?autoplay=1&controls=1&enablejsapi=1&modestbranding=1&playsinline=1&rel=0"
-                    title="Teaser Auto Flow Prodig"
+                    title="Teaser Auto Flow Meta Ads"
                     allow="autoplay; encrypted-media; picture-in-picture"
                     allowFullScreen
                     onLoad={event => {
@@ -306,12 +307,12 @@ export default function Home() {
                 <button
                   className="hero-cover"
                   onClick={() => setHeroPlaying(true)}
-                  aria-label="Putar teaser Auto Flow Prodig di YouTube"
+                  aria-label="Putar teaser Auto Flow Meta Ads di YouTube"
                 >
                   <Image
                     unoptimized
                     src="/images/autoflow-teaser-cover.webp"
-                    alt="Teaser Auto Flow Prodig dengan bukti back test produk"
+                    alt="Teaser Auto Flow Meta Ads dengan bukti back test produk"
                     width="1600"
                     height="900"
                     fetchPriority="high"
@@ -320,7 +321,7 @@ export default function Home() {
                   <span className="hero-cover-play" aria-hidden="true">▶</span>
                   <span className="art-caption">
                     <span>
-                      Tonton teaser Auto Flow Prodig
+                      Tonton teaser Auto Flow Meta Ads
                       <small>Putar video untuk melihat alur dan hasil back test</small>
                     </span>
                     <span aria-hidden="true">↗</span>
@@ -718,7 +719,7 @@ export default function Home() {
             </div>
           </div>
           <div className="offer-card">
-            <span className="package-label">PAKET LENGKAP AUTOFLOW PRODIG</span>
+            <span className="package-label">PAKET LENGKAP AUTO FLOW META ADS</span>
             <h3>Mesinmu dimulai di sini.</h3>
             <p className="price">Rp497.000</p>
             <p className="price-note">Harga launch untuk satu paket materi & bonus</p>
@@ -821,7 +822,7 @@ export default function Home() {
       <Dialog open={checkout} onOpenChange={setCheckout}>
         <DialogContent className="checkout-dialog">
           <p className="eyebrow">RINGKASAN PAKET</p>
-          <DialogTitle>Auto Flow Prodig Meta Ads</DialogTitle>
+          <DialogTitle>Auto Flow Meta Ads</DialogTitle>
           <DialogDescription>
             9 video, 8 file modul, grup support, dan bonus riset. Oleh Gus Rezha
             Cozy.

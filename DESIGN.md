@@ -1,6 +1,6 @@
-# Auto Flow Prodig
+# Auto Flow Meta Ads
 
-Landing page penjualan ecourse untuk penjual produk digital Indonesia. Arah dari brief dan gambar pengguna: mesin semi-auto pilot, future-based, biru elektrik dengan CTA oranye.
+Landing page penjualan ecourse untuk internet marketer Indonesia yang menjual produk fisik, produk digital, maupun jasa. Arah dari brief dan gambar pengguna: mesin semi-auto pilot, future-based, biru elektrik dengan CTA oranye.
 
 ENERGY 3 / RHYTHM 3 / MOTION 1.
 

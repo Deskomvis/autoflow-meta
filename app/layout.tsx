@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
 export const metadata: Metadata = {
-  title: 'Auto Flow Prodig Meta Ads dengan Claude AI | Gus Rezha Cozy',
+  title: 'Auto Flow Meta Ads dengan Claude AI | Gus Rezha Cozy',
   description:
-    'Bangun alur riset, landing page, creative, dan campaign melalui Claude AI. 9 video teknis, 8 file modul, grup support, dan bonus 100+ data riset iklan produk digital. Harga launch Rp497.000.',
+    'Bangun alur riset, landing page, creative, dan campaign melalui Claude AI untuk produk fisik, produk digital, maupun jasa. 9 video teknis, 8 file modul, grup support, dan bonus riset. Harga launch Rp497.000.',
 };
 export default function RootLayout({
   children,
