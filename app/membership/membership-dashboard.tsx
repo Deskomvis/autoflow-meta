@@ -7,26 +7,113 @@ const filesUrl =
   'https://drive.google.com/drive/folders/1GlUFAsbVnToGVeD9cpcLAYxnd__S7eJr?usp=sharing';
 const telegramUrl = 'https://t.me/+v8NHYYcrq-9jMWM1';
 
+// A note line that starts with "*" renders as an italic hint instead of a bullet.
 const lessons = [
-  { id: 'h69NhYHnvCM', title: 'Intro Claude MCP' },
-  { id: 'm0Ee0wluBpE', title: 'Menghubungkan Meta Ads MCP di Claude Connector' },
-  { id: 'iLj4hnRTcbk', title: 'Menghubungkan Scalev MCP di Claude Connector' },
-  { id: 'Cgi8QuN2iW4', title: 'Menghubungkan Vistudio MCP di Claude Connector' },
+  {
+    id: 'h69NhYHnvCM',
+    title: 'Intro Claude MCP',
+    notes: [
+      'Silakan langganan Claude Pro.',
+      'Download Claude for Desktop dan login dengan akun Claude browser yang sudah upgrade Pro.',
+      'Buka menu Customize lalu klik tab Connectors.',
+    ],
+  },
+  {
+    id: 'm0Ee0wluBpE',
+    title: 'Menghubungkan Meta Ads MCP di Claude Connector',
+    notes: [
+      'Input URL MCP Meta Ads: https://mcp.facebook.com/ads',
+      '*Pastikan sudah login Facebook di browser (akun yang terhubung Business Manager).',
+    ],
+  },
+  {
+    id: 'iLj4hnRTcbk',
+    title: 'Menghubungkan Scalev MCP di Claude Connector',
+    notes: [
+      'Input URL MCP Scalev: https://mcp.scalev.com/mcp',
+      '*Pastikan sudah login Scalev di browser (membership masih aktif).',
+    ],
+  },
+  {
+    id: 'Cgi8QuN2iW4',
+    title: 'Menghubungkan Vistudio MCP di Claude Connector',
+    notes: [
+      'Input URL MCP Vistudio: https://vistudio.id/mcp',
+      '*Pastikan sudah login Vistudio di browser (membership masih aktif).',
+    ],
+  },
   {
     id: 'OjUu5oRyc2g',
     title: 'Menghubungkan Cloudinary MCP ke Claude Connector',
+    notes: [
+      'Bikin akun gratis di https://cloudinary.com',
+      'Isikan key sesuai yang ditunjukkan di video.',
+    ],
   },
-  { id: 'bNBMBu3IIYs', title: 'Install Skill dan Schema LP Scalev Builder' },
+  {
+    id: 'bNBMBu3IIYs',
+    title: 'Install Skill dan Schema LP Scalev Builder',
+    notes: [
+      'Download modul Google Drive, buka folder "Upload Skill & Schema". Atau lewat link: https://drive.google.com/drive/folders/1B1uh_M_4LJHEFSjn1vR7jU4Y3KCTp9QD?usp=sharing',
+      'Stepnya: Upload skill > Upload 2 file referensi schema > Upload contoh file template Scalev berisi komponen untuk LP model builder.',
+    ],
+  },
   {
     id: 'P4S2N_O3Uz4',
     title: 'Generate Ad Creative menggunakan Vistudio.id MCP di Claude',
+    notes: [
+      'Generate static ad creative (gambar) menggunakan Vistudio MCP dan minta upload ke Cloudinary.',
+      '*Coba lebih kreatif memberi instruksi prompt — contoh di video hanya contoh. Kamu juga bisa membuat video pakai model yang tersedia di Vistudio, cukup ketik perintah dan prompt-nya.',
+    ],
   },
   {
     id: 'vlsV_BDfJAo',
     title: 'Create Campaign Menggunakan Meta Ads MCP di Claude',
+    notes: [
+      'Prompt dan eksplorasi custom bisa dikreasikan lagi, misal pakai struktur campaign selain 1-1-3. Edit budget default, pakai Page FB tertentu, atau penargetan custom bisa ditambahkan ke prompt.',
+      'Sesi Meta Ad MCP ini juga bisa dipakai untuk: analisa iklan, buat rules campaign, tambah ad creative, editing campaign, riset, dan semua hal yang bisa diakses Claude.',
+    ],
   },
-  { id: 'sBS3uB2pE1M', title: 'Cara Riset Menggunakan META MCP di Claude' },
+  {
+    id: 'sBS3uB2pE1M',
+    title: 'Cara Riset Menggunakan META MCP di Claude',
+    notes: [
+      'Buat riset mendalam dengan niche/kategori pilihanmu. Kamu bisa eksplor iklan di Ad Library dengan Claude + MCP Meta Ad.',
+    ],
+  },
 ];
+
+function renderNoteText(text: string) {
+  return text.split(/(https?:\/\/[^\s]+)/g).map((part, index) =>
+    /^https?:\/\//.test(part) ? (
+      <a key={index} href={part} target="_blank" rel="noreferrer">
+        {part}
+      </a>
+    ) : (
+      <span key={index}>{part}</span>
+    ),
+  );
+}
+
+function LessonNotes({ notes }: { notes: string[] }) {
+  if (!notes.length) return null;
+
+  return (
+    <div className="course-notes">
+      <h3>Catatan video</h3>
+      <ul>
+        {notes.map((note, index) => {
+          const isHint = note.startsWith('*');
+          return (
+            <li key={index} className={isHint ? 'is-hint' : undefined}>
+              {renderNoteText(isHint ? note.slice(1).trim() : note)}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
 
 // Jump to the next video just before the current one ends so YouTube's
 // end-screen (branding + recommended videos) never gets a chance to render.
@@ -332,6 +419,7 @@ export default function MembershipDashboard({
               </p>
               <h2>{lessons[activeLesson].title}</h2>
             </div>
+            <LessonNotes notes={lessons[activeLesson].notes} />
           </div>
 
           <aside className="course-playlist">
