@@ -9,7 +9,14 @@ type SingapayTokenResponse = {
 
 type PaymentHistory = {
   reff_no?: string;
+  reference?: string;
+  merchant_reff_no?: string;
   payment_link_reff_no?: string | null;
+  payment_link?: {
+    reff_no?: string;
+    reference?: string;
+    merchant_reff_no?: string;
+  } | null;
   status?: string;
   status_computed?: string;
   payment_date?: string | null;
@@ -84,34 +91,50 @@ export async function isSingapayPaymentReferencePaid(reference: string) {
 
   if (!accessToken) return false;
 
-  const url = new URL(`${baseUrl}/api/v1.0/payment-link-histories/${accountId}`);
-  url.searchParams.set('reff_no', reference);
-  url.searchParams.set('per_page', '5');
-  url.searchParams.set('sort_by', 'created_at');
-  url.searchParams.set('sort_order', 'desc');
+  async function listHistories(params: Record<string, string>) {
+    const url = new URL(`${baseUrl}/api/v1.0/payment-link-histories/${accountId}`);
+    url.searchParams.set('per_page', '25');
+    url.searchParams.set('sort_by', 'created_at');
+    url.searchParams.set('sort_order', 'desc');
+    Object.entries(params).forEach(([key, value]) => {
+      url.searchParams.set(key, value);
+    });
 
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'X-PARTNER-ID': apiKey,
-    },
-    cache: 'no-store',
-  });
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'X-PARTNER-ID': apiKey,
+      },
+      cache: 'no-store',
+    });
 
-  if (!response.ok) return false;
+    if (!response.ok) return [];
 
-  const body = (await response
-    .json()
-    .catch(() => null)) as PaymentHistoryResponse | null;
-  const histories = Array.isArray(body?.data) ? body.data : [];
+    const body = (await response
+      .json()
+      .catch(() => null)) as PaymentHistoryResponse | null;
 
-  return histories.some((history) => {
+    return Array.isArray(body?.data) ? body.data : [];
+  }
+
+  function hasPaidReference(history: PaymentHistory) {
     const matchesReference =
       history.reff_no?.toUpperCase() === reference ||
-      history.payment_link_reff_no?.toUpperCase() === reference;
+      history.reference?.toUpperCase() === reference ||
+      history.merchant_reff_no?.toUpperCase() === reference ||
+      history.payment_link_reff_no?.toUpperCase() === reference ||
+      history.payment_link?.reff_no?.toUpperCase() === reference ||
+      history.payment_link?.reference?.toUpperCase() === reference ||
+      history.payment_link?.merchant_reff_no?.toUpperCase() === reference;
     const status = (history.status_computed ?? history.status ?? '').toLowerCase();
 
     return matchesReference && status === 'paid';
-  });
+  }
+
+  const directMatches = await listHistories({ reff_no: reference });
+  if (directMatches.some(hasPaidReference)) return true;
+
+  const recentPaid = await listHistories({ status: 'paid' });
+  return recentPaid.some(hasPaidReference);
 }

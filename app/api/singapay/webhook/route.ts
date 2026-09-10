@@ -82,9 +82,11 @@ function extractPaymentFields(body: JsonValue) {
     readString(body.reff_no) ||
     readString(body.merchant_reff_no) ||
     readString(body.reference) ||
+    readString(body.payment_link_reff_no) ||
     readString(dataObject.reff_no) ||
     readString(dataObject.merchant_reff_no) ||
-    readString(dataObject.reference);
+    readString(dataObject.reference) ||
+    readString(dataObject.payment_link_reff_no);
   const status =
     readString(body.status) ||
     readString(body.transaction_status) ||
