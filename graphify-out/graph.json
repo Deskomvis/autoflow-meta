@@ -9,7 +9,7 @@
       "source_file": "postcss.config.mjs",
       "source_location": "L1",
       "id": "postcss_config_mjs",
-      "community": 25,
+      "community": 34,
       "norm_label": "postcss.config.mjs"
     },
     {
@@ -18,7 +18,7 @@
       "source_file": "next-env.d.ts",
       "source_location": "L1",
       "id": "next_env_d_ts",
-      "community": 26,
+      "community": 35,
       "norm_label": "next-env.d.ts"
     },
     {
@@ -27,7 +27,7 @@
       "source_file": "vite.config.ts",
       "source_location": "L1",
       "id": "vite_config_ts",
-      "community": 27,
+      "community": 36,
       "norm_label": "vite.config.ts"
     },
     {
@@ -36,7 +36,7 @@
       "source_file": "next.config.ts",
       "source_location": "L1",
       "id": "next_config_ts",
-      "community": 28,
+      "community": 37,
       "norm_label": "next.config.ts"
     },
     {
@@ -45,7 +45,7 @@
       "source_file": "app/layout.tsx",
       "source_location": "L1",
       "id": "app_layout_tsx",
-      "community": 17,
+      "community": 19,
       "norm_label": "layout.tsx"
     },
     {
@@ -54,7 +54,7 @@
       "source_file": "app/layout.tsx",
       "source_location": "L9",
       "id": "app_layout_rootlayout",
-      "community": 17,
+      "community": 19,
       "norm_label": "rootlayout()"
     },
     {
@@ -63,43 +63,43 @@
       "source_file": "app/page.tsx",
       "source_location": "L1",
       "id": "app_page_tsx",
-      "community": 4,
+      "community": 5,
       "norm_label": "page.tsx"
     },
     {
       "label": "configure()",
       "file_type": "code",
       "source_file": "app/page.tsx",
-      "source_location": "L162",
+      "source_location": "L169",
       "id": "app_page_configure",
-      "community": 4,
+      "community": 5,
       "norm_label": "configure()"
     },
     {
       "label": "handlePlayerMessage()",
       "file_type": "code",
       "source_file": "app/page.tsx",
-      "source_location": "L192",
+      "source_location": "L199",
       "id": "app_page_handleplayermessage",
-      "community": 4,
+      "community": 5,
       "norm_label": "handleplayermessage()"
     },
     {
       "label": "createCheckout()",
       "file_type": "code",
       "source_file": "app/page.tsx",
-      "source_location": "L213",
+      "source_location": "L253",
       "id": "app_page_createcheckout",
-      "community": 4,
+      "community": 5,
       "norm_label": "createcheckout()"
     },
     {
       "label": "copyOrder()",
       "file_type": "code",
       "source_file": "app/page.tsx",
-      "source_location": "L236",
+      "source_location": "L282",
       "id": "app_page_copyorder",
-      "community": 4,
+      "community": 5,
       "norm_label": "copyorder()"
     },
     {
@@ -108,8 +108,98 @@
       "source_file": "app/thank-you/page.tsx",
       "source_location": "L1",
       "id": "app_thank_you_page_tsx",
-      "community": 29,
+      "community": 38,
       "norm_label": "page.tsx"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L1",
+      "id": "app_api_roketchat_webhook_route_ts",
+      "community": 4,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "safeEqual()",
+      "file_type": "code",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L15",
+      "id": "webhook_route_safeequal",
+      "community": 4,
+      "norm_label": "safeequal()"
+    },
+    {
+      "label": "verifySignature()",
+      "file_type": "code",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L39",
+      "id": "webhook_route_verifysignature",
+      "community": 4,
+      "norm_label": "verifysignature()"
+    },
+    {
+      "label": "normalizePhone()",
+      "file_type": "code",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L37",
+      "id": "webhook_route_normalizephone",
+      "community": 4,
+      "norm_label": "normalizephone()"
+    },
+    {
+      "label": "greetingMessage()",
+      "file_type": "code",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L41",
+      "id": "webhook_route_greetingmessage",
+      "community": 4,
+      "norm_label": "greetingmessage()"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L105",
+      "id": "webhook_route_post",
+      "community": 4,
+      "norm_label": "post()"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L175",
+      "id": "webhook_route_get",
+      "community": 4,
+      "norm_label": "get()"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L1",
+      "id": "app_api_roketchat_resend_pending_route_ts",
+      "community": 0,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "isAuthorized()",
+      "file_type": "code",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L16",
+      "id": "resend_pending_route_isauthorized",
+      "community": 0,
+      "norm_label": "isauthorized()"
+    },
+    {
+      "label": "POST()",
+      "file_type": "code",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L23",
+      "id": "resend_pending_route_post",
+      "community": 0,
+      "norm_label": "post()"
     },
     {
       "label": "route.ts",
@@ -117,71 +207,44 @@
       "source_file": "app/api/singapay/webhook/route.ts",
       "source_location": "L1",
       "id": "app_api_singapay_webhook_route_ts",
-      "community": 1,
+      "community": 4,
       "norm_label": "route.ts"
     },
     {
       "label": "sortJson()",
       "file_type": "code",
       "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L15",
+      "source_location": "L19",
       "id": "webhook_route_sortjson",
-      "community": 1,
+      "community": 4,
       "norm_label": "sortjson()"
     },
     {
       "label": "safeEqualHex()",
       "file_type": "code",
       "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L29",
+      "source_location": "L33",
       "id": "webhook_route_safeequalhex",
-      "community": 1,
+      "community": 4,
       "norm_label": "safeequalhex()"
-    },
-    {
-      "label": "verifySignature()",
-      "file_type": "code",
-      "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L35",
-      "id": "webhook_route_verifysignature",
-      "community": 1,
-      "norm_label": "verifysignature()"
     },
     {
       "label": "readString()",
       "file_type": "code",
       "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L69",
+      "source_location": "L73",
       "id": "webhook_route_readstring",
-      "community": 1,
+      "community": 4,
       "norm_label": "readstring()"
     },
     {
       "label": "extractPaymentFields()",
       "file_type": "code",
       "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L73",
+      "source_location": "L77",
       "id": "webhook_route_extractpaymentfields",
-      "community": 1,
+      "community": 4,
       "norm_label": "extractpaymentfields()"
-    },
-    {
-      "label": "POST()",
-      "file_type": "code",
-      "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L99",
-      "id": "webhook_route_post",
-      "community": 1,
-      "norm_label": "post()"
-    },
-    {
-      "label": "GET()",
-      "file_type": "code",
-      "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L146",
-      "id": "webhook_route_get",
-      "community": 1,
-      "norm_label": "get()"
     },
     {
       "label": "route.ts",
@@ -189,52 +252,61 @@
       "source_file": "app/api/singapay/checkout/route.ts",
       "source_location": "L1",
       "id": "app_api_singapay_checkout_route_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "route.ts"
     },
     {
       "label": "requiredEnv()",
       "file_type": "code",
       "source_file": "app/api/singapay/checkout/route.ts",
-      "source_location": "L23",
+      "source_location": "L33",
       "id": "checkout_route_requiredenv",
-      "community": 1,
+      "community": 0,
       "norm_label": "requiredenv()"
     },
     {
       "label": "jakartaDate()",
       "file_type": "code",
       "source_file": "app/api/singapay/checkout/route.ts",
-      "source_location": "L31",
+      "source_location": "L41",
       "id": "checkout_route_jakartadate",
-      "community": 1,
+      "community": 0,
       "norm_label": "jakartadate()"
     },
     {
       "label": "getBaseUrl()",
       "file_type": "code",
       "source_file": "app/api/singapay/checkout/route.ts",
-      "source_location": "L42",
+      "source_location": "L52",
       "id": "checkout_route_getbaseurl",
-      "community": 1,
+      "community": 0,
       "norm_label": "getbaseurl()"
+    },
+    {
+      "label": "getSiteUrl()",
+      "file_type": "code",
+      "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L59",
+      "id": "checkout_route_getsiteurl",
+      "community": 0,
+      "norm_label": "getsiteurl()"
     },
     {
       "label": "requestAccessToken()",
       "file_type": "code",
       "source_file": "app/api/singapay/checkout/route.ts",
-      "source_location": "L49",
+      "source_location": "L70",
       "id": "checkout_route_requestaccesstoken",
-      "community": 1,
+      "community": 0,
       "norm_label": "requestaccesstoken()"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "app/api/singapay/checkout/route.ts",
-      "source_location": "L85",
+      "source_location": "L106",
       "id": "checkout_route_post",
-      "community": 1,
+      "community": 0,
       "norm_label": "post()"
     },
     {
@@ -243,35 +315,53 @@
       "source_file": "app/api/membership/verify/route.ts",
       "source_location": "L1",
       "id": "app_api_membership_verify_route_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "route.ts"
     },
     {
       "label": "configuredCodes()",
       "file_type": "code",
       "source_file": "app/api/membership/verify/route.ts",
-      "source_location": "L10",
+      "source_location": "L16",
       "id": "verify_route_configuredcodes",
-      "community": 1,
+      "community": 0,
       "norm_label": "configuredcodes()"
     },
     {
       "label": "looksLikePaymentReference()",
       "file_type": "code",
       "source_file": "app/api/membership/verify/route.ts",
-      "source_location": "L17",
+      "source_location": "L23",
       "id": "verify_route_lookslikepaymentreference",
-      "community": 1,
+      "community": 0,
       "norm_label": "lookslikepaymentreference()"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "app/api/membership/verify/route.ts",
-      "source_location": "L21",
+      "source_location": "L27",
       "id": "verify_route_post",
-      "community": 1,
+      "community": 0,
       "norm_label": "post()"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "app/api/membership/stats/route.ts",
+      "source_location": "L1",
+      "id": "app_api_membership_stats_route_ts",
+      "community": 0,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "app/api/membership/stats/route.ts",
+      "source_location": "L9",
+      "id": "stats_route_get",
+      "community": 0,
+      "norm_label": "get()"
     },
     {
       "label": "page.tsx",
@@ -279,7 +369,7 @@
       "source_file": "app/membership/page.tsx",
       "source_location": "L1",
       "id": "app_membership_page_tsx",
-      "community": 8,
+      "community": 9,
       "norm_label": "page.tsx"
     },
     {
@@ -288,7 +378,7 @@
       "source_file": "app/membership/page.tsx",
       "source_location": "L15",
       "id": "membership_page_membershippage",
-      "community": 8,
+      "community": 9,
       "norm_label": "membershippage()"
     },
     {
@@ -297,7 +387,7 @@
       "source_file": "app/membership/membership-dashboard.tsx",
       "source_location": "L1",
       "id": "app_membership_membership_dashboard_tsx",
-      "community": 8,
+      "community": 9,
       "norm_label": "membership-dashboard.tsx"
     },
     {
@@ -306,7 +396,7 @@
       "source_file": "app/membership/membership-dashboard.tsx",
       "source_location": "L43",
       "id": "membership_membership_dashboard_loadyoutubeapi",
-      "community": 8,
+      "community": 9,
       "norm_label": "loadyoutubeapi()"
     },
     {
@@ -315,7 +405,7 @@
       "source_file": "app/membership/membership-dashboard.tsx",
       "source_location": "L62",
       "id": "membership_membership_dashboard_forcehd",
-      "community": 8,
+      "community": 9,
       "norm_label": "forcehd()"
     },
     {
@@ -324,7 +414,7 @@
       "source_file": "app/membership/membership-dashboard.tsx",
       "source_location": "L78",
       "id": "membership_membership_dashboard_courseplayer",
-      "community": 8,
+      "community": 9,
       "norm_label": "courseplayer()"
     },
     {
@@ -333,7 +423,7 @@
       "source_file": "app/membership/membership-dashboard.tsx",
       "source_location": "L243",
       "id": "membership_membership_dashboard_verifyaccess",
-      "community": 8,
+      "community": 9,
       "norm_label": "verifyaccess()"
     },
     {
@@ -342,7 +432,7 @@
       "source_file": "components/whatsapp-bubble.tsx",
       "source_location": "L1",
       "id": "components_whatsapp_bubble_tsx",
-      "community": 17,
+      "community": 19,
       "norm_label": "whatsapp-bubble.tsx"
     },
     {
@@ -351,7 +441,7 @@
       "source_file": "components/whatsapp-bubble.tsx",
       "source_location": "L6",
       "id": "components_whatsapp_bubble_whatsappbubble",
-      "community": 17,
+      "community": 19,
       "norm_label": "whatsappbubble()"
     },
     {
@@ -360,7 +450,7 @@
       "source_file": "components/ui/aspect-ratio.tsx",
       "source_location": "L1",
       "id": "components_ui_aspect_ratio_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "aspect-ratio.tsx"
     },
     {
@@ -369,7 +459,7 @@
       "source_file": "components/ui/aspect-ratio.tsx",
       "source_location": "L3",
       "id": "ui_aspect_ratio_aspectratio",
-      "community": 0,
+      "community": 1,
       "norm_label": "aspectratio()"
     },
     {
@@ -378,7 +468,7 @@
       "source_file": "components/ui/alert-dialog.tsx",
       "source_location": "L1",
       "id": "components_ui_alert_dialog_tsx",
-      "community": 3,
+      "community": 2,
       "norm_label": "alert-dialog.tsx"
     },
     {
@@ -387,7 +477,7 @@
       "source_file": "components/ui/alert-dialog.tsx",
       "source_location": "L13",
       "id": "ui_alert_dialog_alertdialogtrigger",
-      "community": 3,
+      "community": 2,
       "norm_label": "alertdialogtrigger()"
     },
     {
@@ -396,7 +486,7 @@
       "source_file": "components/ui/alert-dialog.tsx",
       "source_location": "L19",
       "id": "ui_alert_dialog_alertdialogportal",
-      "community": 3,
+      "community": 2,
       "norm_label": "alertdialogportal()"
     },
     {
@@ -405,7 +495,7 @@
       "source_file": "components/ui/alert-dialog.tsx",
       "source_location": "L54",
       "id": "ui_alert_dialog_cn",
-      "community": 3,
+      "community": 2,
       "norm_label": "cn()"
     },
     {
@@ -414,7 +504,7 @@
       "source_file": "components/ui/alert-dialog.tsx",
       "source_location": "L157",
       "id": "ui_alert_dialog_alertdialogcancel",
-      "community": 3,
+      "community": 2,
       "norm_label": "alertdialogcancel()"
     },
     {
@@ -423,7 +513,7 @@
       "source_file": "components/ui/pagination.tsx",
       "source_location": "L1",
       "id": "components_ui_pagination_tsx",
-      "community": 3,
+      "community": 10,
       "norm_label": "pagination.tsx"
     },
     {
@@ -432,7 +522,7 @@
       "source_file": "components/ui/pagination.tsx",
       "source_location": "L11",
       "id": "ui_pagination_pagination",
-      "community": 3,
+      "community": 10,
       "norm_label": "pagination()"
     },
     {
@@ -441,7 +531,7 @@
       "source_file": "components/ui/pagination.tsx",
       "source_location": "L23",
       "id": "ui_pagination_paginationcontent",
-      "community": 3,
+      "community": 10,
       "norm_label": "paginationcontent()"
     },
     {
@@ -450,7 +540,7 @@
       "source_file": "components/ui/pagination.tsx",
       "source_location": "L36",
       "id": "ui_pagination_paginationitem",
-      "community": 3,
+      "community": 10,
       "norm_label": "paginationitem()"
     },
     {
@@ -459,7 +549,7 @@
       "source_file": "components/ui/pagination.tsx",
       "source_location": "L45",
       "id": "ui_pagination_paginationlink",
-      "community": 3,
+      "community": 10,
       "norm_label": "paginationlink()"
     },
     {
@@ -468,7 +558,7 @@
       "source_file": "components/ui/pagination.tsx",
       "source_location": "L87",
       "id": "ui_pagination_paginationnext",
-      "community": 3,
+      "community": 10,
       "norm_label": "paginationnext()"
     },
     {
@@ -477,7 +567,7 @@
       "source_file": "components/ui/pagination.tsx",
       "source_location": "L105",
       "id": "ui_pagination_paginationellipsis",
-      "community": 3,
+      "community": 10,
       "norm_label": "paginationellipsis()"
     },
     {
@@ -486,7 +576,7 @@
       "source_file": "components/ui/direction.tsx",
       "source_location": "L1",
       "id": "components_ui_direction_tsx",
-      "community": 30,
+      "community": 39,
       "norm_label": "direction.tsx"
     },
     {
@@ -495,7 +585,7 @@
       "source_file": "components/ui/tabs.tsx",
       "source_location": "L1",
       "id": "components_ui_tabs_tsx",
-      "community": 12,
+      "community": 13,
       "norm_label": "tabs.tsx"
     },
     {
@@ -504,7 +594,7 @@
       "source_file": "components/ui/tabs.tsx",
       "source_location": "L8",
       "id": "ui_tabs_tabs",
-      "community": 12,
+      "community": 13,
       "norm_label": "tabs()"
     },
     {
@@ -513,7 +603,7 @@
       "source_file": "components/ui/tabs.tsx",
       "source_location": "L41",
       "id": "ui_tabs_tabslist",
-      "community": 12,
+      "community": 13,
       "norm_label": "tabslist()"
     },
     {
@@ -522,7 +612,7 @@
       "source_file": "components/ui/tabs.tsx",
       "source_location": "L56",
       "id": "ui_tabs_tabstrigger",
-      "community": 12,
+      "community": 13,
       "norm_label": "tabstrigger()"
     },
     {
@@ -531,7 +621,7 @@
       "source_file": "components/ui/tabs.tsx",
       "source_location": "L72",
       "id": "ui_tabs_tabscontent",
-      "community": 12,
+      "community": 13,
       "norm_label": "tabscontent()"
     },
     {
@@ -567,7 +657,7 @@
       "source_file": "components/ui/card.tsx",
       "source_location": "L1",
       "id": "components_ui_card_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "card.tsx"
     },
     {
@@ -576,7 +666,7 @@
       "source_file": "components/ui/card.tsx",
       "source_location": "L14",
       "id": "ui_card_cn",
-      "community": 0,
+      "community": 1,
       "norm_label": "cn()"
     },
     {
@@ -585,7 +675,7 @@
       "source_file": "components/ui/card.tsx",
       "source_location": "L59",
       "id": "ui_card_cardaction",
-      "community": 0,
+      "community": 1,
       "norm_label": "cardaction()"
     },
     {
@@ -594,7 +684,7 @@
       "source_file": "components/ui/slider.tsx",
       "source_location": "L1",
       "id": "components_ui_slider_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "slider.tsx"
     },
     {
@@ -603,7 +693,7 @@
       "source_file": "components/ui/input-group.tsx",
       "source_location": "L1",
       "id": "components_ui_input_group_tsx",
-      "community": 5,
+      "community": 6,
       "norm_label": "input-group.tsx"
     },
     {
@@ -612,7 +702,7 @@
       "source_file": "components/ui/input-group.tsx",
       "source_location": "L16",
       "id": "ui_input_group_cn",
-      "community": 5,
+      "community": 6,
       "norm_label": "cn()"
     },
     {
@@ -621,7 +711,7 @@
       "source_file": "components/ui/input-group.tsx",
       "source_location": "L107",
       "id": "ui_input_group_inputgrouptext",
-      "community": 5,
+      "community": 6,
       "norm_label": "inputgrouptext()"
     },
     {
@@ -630,7 +720,7 @@
       "source_file": "components/ui/popover.tsx",
       "source_location": "L1",
       "id": "components_ui_popover_tsx",
-      "community": 18,
+      "community": 21,
       "norm_label": "popover.tsx"
     },
     {
@@ -639,7 +729,7 @@
       "source_file": "components/ui/popover.tsx",
       "source_location": "L39",
       "id": "ui_popover_cn",
-      "community": 18,
+      "community": 21,
       "norm_label": "cn()"
     },
     {
@@ -648,7 +738,7 @@
       "source_file": "components/ui/popover.tsx",
       "source_location": "L60",
       "id": "ui_popover_popovertitle",
-      "community": 18,
+      "community": 21,
       "norm_label": "popovertitle()"
     },
     {
@@ -657,7 +747,7 @@
       "source_file": "components/ui/popover.tsx",
       "source_location": "L70",
       "id": "ui_popover_popoverdescription",
-      "community": 18,
+      "community": 21,
       "norm_label": "popoverdescription()"
     },
     {
@@ -666,7 +756,7 @@
       "source_file": "components/ui/progress.tsx",
       "source_location": "L1",
       "id": "components_ui_progress_tsx",
-      "community": 0,
+      "community": 14,
       "norm_label": "progress.tsx"
     },
     {
@@ -675,7 +765,7 @@
       "source_file": "components/ui/progress.tsx",
       "source_location": "L7",
       "id": "ui_progress_progress",
-      "community": 0,
+      "community": 14,
       "norm_label": "progress()"
     },
     {
@@ -684,7 +774,7 @@
       "source_file": "components/ui/progress.tsx",
       "source_location": "L28",
       "id": "ui_progress_progresstrack",
-      "community": 0,
+      "community": 14,
       "norm_label": "progresstrack()"
     },
     {
@@ -693,7 +783,7 @@
       "source_file": "components/ui/progress.tsx",
       "source_location": "L54",
       "id": "ui_progress_progresslabel",
-      "community": 0,
+      "community": 14,
       "norm_label": "progresslabel()"
     },
     {
@@ -702,7 +792,7 @@
       "source_file": "components/ui/progress.tsx",
       "source_location": "L64",
       "id": "ui_progress_progressvalue",
-      "community": 0,
+      "community": 14,
       "norm_label": "progressvalue()"
     },
     {
@@ -711,7 +801,7 @@
       "source_file": "components/ui/input-otp.tsx",
       "source_location": "L1",
       "id": "components_ui_input_otp_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "input-otp.tsx"
     },
     {
@@ -720,7 +810,7 @@
       "source_file": "components/ui/input-otp.tsx",
       "source_location": "L19",
       "id": "ui_input_otp_cn",
-      "community": 0,
+      "community": 1,
       "norm_label": "cn()"
     },
     {
@@ -729,7 +819,7 @@
       "source_file": "components/ui/chart.tsx",
       "source_location": "L1",
       "id": "components_ui_chart_tsx",
-      "community": 0,
+      "community": 29,
       "norm_label": "chart.tsx"
     },
     {
@@ -738,7 +828,7 @@
       "source_file": "components/ui/chart.tsx",
       "source_location": "L32",
       "id": "ui_chart_usechart",
-      "community": 0,
+      "community": 29,
       "norm_label": "usechart()"
     },
     {
@@ -747,7 +837,7 @@
       "source_file": "components/ui/chart.tsx",
       "source_location": "L67",
       "id": "ui_chart_cn",
-      "community": 0,
+      "community": 29,
       "norm_label": "cn()"
     },
     {
@@ -756,7 +846,7 @@
       "source_file": "components/ui/hover-card.tsx",
       "source_location": "L1",
       "id": "components_ui_hover_card_tsx",
-      "community": 0,
+      "community": 26,
       "norm_label": "hover-card.tsx"
     },
     {
@@ -765,7 +855,7 @@
       "source_file": "components/ui/hover-card.tsx",
       "source_location": "L11",
       "id": "ui_hover_card_hovercardtrigger",
-      "community": 0,
+      "community": 26,
       "norm_label": "hovercardtrigger()"
     },
     {
@@ -774,7 +864,7 @@
       "source_file": "components/ui/hover-card.tsx",
       "source_location": "L17",
       "id": "ui_hover_card_hovercardcontent",
-      "community": 0,
+      "community": 26,
       "norm_label": "hovercardcontent()"
     },
     {
@@ -783,7 +873,7 @@
       "source_file": "components/ui/sheet.tsx",
       "source_location": "L1",
       "id": "components_ui_sheet_tsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "sheet.tsx"
     },
     {
@@ -792,7 +882,7 @@
       "source_file": "components/ui/sheet.tsx",
       "source_location": "L55",
       "id": "ui_sheet_cn",
-      "community": 2,
+      "community": 3,
       "norm_label": "cn()"
     },
     {
@@ -801,7 +891,7 @@
       "source_file": "components/ui/sheet.tsx",
       "source_location": "L102",
       "id": "ui_sheet_sheettitle",
-      "community": 2,
+      "community": 3,
       "norm_label": "sheettitle()"
     },
     {
@@ -810,7 +900,7 @@
       "source_file": "components/ui/field.tsx",
       "source_location": "L1",
       "id": "components_ui_field_tsx",
-      "community": 0,
+      "community": 7,
       "norm_label": "field.tsx"
     },
     {
@@ -819,7 +909,7 @@
       "source_file": "components/ui/field.tsx",
       "source_location": "L14",
       "id": "ui_field_cn",
-      "community": 0,
+      "community": 7,
       "norm_label": "cn()"
     },
     {
@@ -828,7 +918,7 @@
       "source_file": "components/ui/scroll-area.tsx",
       "source_location": "L1",
       "id": "components_ui_scroll_area_tsx",
-      "community": 0,
+      "community": 24,
       "norm_label": "scroll-area.tsx"
     },
     {
@@ -837,7 +927,7 @@
       "source_file": "components/ui/scroll-area.tsx",
       "source_location": "L8",
       "id": "ui_scroll_area_scrollarea",
-      "community": 0,
+      "community": 24,
       "norm_label": "scrollarea()"
     },
     {
@@ -846,7 +936,7 @@
       "source_file": "components/ui/scroll-area.tsx",
       "source_location": "L31",
       "id": "ui_scroll_area_scrollbar",
-      "community": 0,
+      "community": 24,
       "norm_label": "scrollbar()"
     },
     {
@@ -855,7 +945,7 @@
       "source_file": "components/ui/resizable.tsx",
       "source_location": "L1",
       "id": "components_ui_resizable_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "resizable.tsx"
     },
     {
@@ -864,7 +954,7 @@
       "source_file": "components/ui/label.tsx",
       "source_location": "L1",
       "id": "components_ui_label_tsx",
-      "community": 0,
+      "community": 7,
       "norm_label": "label.tsx"
     },
     {
@@ -873,7 +963,7 @@
       "source_file": "components/ui/label.tsx",
       "source_location": "L11",
       "id": "ui_label_cn",
-      "community": 0,
+      "community": 7,
       "norm_label": "cn()"
     },
     {
@@ -882,7 +972,7 @@
       "source_file": "components/ui/navigation-menu.tsx",
       "source_location": "L1",
       "id": "components_ui_navigation_menu_tsx",
-      "community": 10,
+      "community": 12,
       "norm_label": "navigation-menu.tsx"
     },
     {
@@ -891,7 +981,7 @@
       "source_file": "components/ui/navigation-menu.tsx",
       "source_location": "L7",
       "id": "ui_navigation_menu_navigationmenu",
-      "community": 10,
+      "community": 12,
       "norm_label": "navigationmenu()"
     },
     {
@@ -900,7 +990,7 @@
       "source_file": "components/ui/navigation-menu.tsx",
       "source_location": "L29",
       "id": "ui_navigation_menu_navigationmenulist",
-      "community": 10,
+      "community": 12,
       "norm_label": "navigationmenulist()"
     },
     {
@@ -909,7 +999,7 @@
       "source_file": "components/ui/navigation-menu.tsx",
       "source_location": "L62",
       "id": "ui_navigation_menu_navigationmenutrigger",
-      "community": 10,
+      "community": 12,
       "norm_label": "navigationmenutrigger()"
     },
     {
@@ -918,7 +1008,7 @@
       "source_file": "components/ui/navigation-menu.tsx",
       "source_location": "L82",
       "id": "ui_navigation_menu_navigationmenucontent",
-      "community": 10,
+      "community": 12,
       "norm_label": "navigationmenucontent()"
     },
     {
@@ -927,7 +1017,7 @@
       "source_file": "components/ui/navigation-menu.tsx",
       "source_location": "L127",
       "id": "ui_navigation_menu_navigationmenulink",
-      "community": 10,
+      "community": 12,
       "norm_label": "navigationmenulink()"
     },
     {
@@ -936,7 +1026,7 @@
       "source_file": "components/ui/accordion.tsx",
       "source_location": "L1",
       "id": "components_ui_accordion_tsx",
-      "community": 4,
+      "community": 5,
       "norm_label": "accordion.tsx"
     },
     {
@@ -945,7 +1035,7 @@
       "source_file": "components/ui/accordion.tsx",
       "source_location": "L6",
       "id": "ui_accordion_accordion",
-      "community": 4,
+      "community": 5,
       "norm_label": "accordion()"
     },
     {
@@ -954,7 +1044,7 @@
       "source_file": "components/ui/accordion.tsx",
       "source_location": "L16",
       "id": "ui_accordion_accordionitem",
-      "community": 4,
+      "community": 5,
       "norm_label": "accordionitem()"
     },
     {
@@ -963,7 +1053,7 @@
       "source_file": "components/ui/accordion.tsx",
       "source_location": "L26",
       "id": "ui_accordion_accordiontrigger",
-      "community": 4,
+      "community": 5,
       "norm_label": "accordiontrigger()"
     },
     {
@@ -972,7 +1062,7 @@
       "source_file": "components/ui/accordion.tsx",
       "source_location": "L55",
       "id": "ui_accordion_accordioncontent",
-      "community": 4,
+      "community": 5,
       "norm_label": "accordioncontent()"
     },
     {
@@ -981,7 +1071,7 @@
       "source_file": "components/ui/bubble.tsx",
       "source_location": "L1",
       "id": "components_ui_bubble_tsx",
-      "community": 13,
+      "community": 17,
       "norm_label": "bubble.tsx"
     },
     {
@@ -990,7 +1080,7 @@
       "source_file": "components/ui/bubble.tsx",
       "source_location": "L8",
       "id": "ui_bubble_bubblegroup",
-      "community": 13,
+      "community": 17,
       "norm_label": "bubblegroup()"
     },
     {
@@ -999,7 +1089,7 @@
       "source_file": "components/ui/bubble.tsx",
       "source_location": "L45",
       "id": "ui_bubble_bubble",
-      "community": 13,
+      "community": 17,
       "norm_label": "bubble()"
     },
     {
@@ -1008,7 +1098,7 @@
       "source_file": "components/ui/bubble.tsx",
       "source_location": "L65",
       "id": "ui_bubble_bubblecontent",
-      "community": 13,
+      "community": 17,
       "norm_label": "bubblecontent()"
     },
     {
@@ -1017,7 +1107,7 @@
       "source_file": "components/ui/bubble.tsx",
       "source_location": "L108",
       "id": "ui_bubble_bubblereactions",
-      "community": 13,
+      "community": 17,
       "norm_label": "bubblereactions()"
     },
     {
@@ -1026,7 +1116,7 @@
       "source_file": "components/ui/drawer.tsx",
       "source_location": "L1",
       "id": "components_ui_drawer_tsx",
-      "community": 0,
+      "community": 22,
       "norm_label": "drawer.tsx"
     },
     {
@@ -1035,7 +1125,7 @@
       "source_file": "components/ui/drawer.tsx",
       "source_location": "L17",
       "id": "ui_drawer_usedrawer",
-      "community": 0,
+      "community": 22,
       "norm_label": "usedrawer()"
     },
     {
@@ -1044,7 +1134,7 @@
       "source_file": "components/ui/drawer.tsx",
       "source_location": "L27",
       "id": "ui_drawer_drawer",
-      "community": 0,
+      "community": 22,
       "norm_label": "drawer()"
     },
     {
@@ -1053,7 +1143,7 @@
       "source_file": "components/ui/drawer.tsx",
       "source_location": "L59",
       "id": "ui_drawer_drawerportal",
-      "community": 0,
+      "community": 22,
       "norm_label": "drawerportal()"
     },
     {
@@ -1062,7 +1152,7 @@
       "source_file": "components/ui/empty.tsx",
       "source_location": "L1",
       "id": "components_ui_empty_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "empty.tsx"
     },
     {
@@ -1071,7 +1161,7 @@
       "source_file": "components/ui/empty.tsx",
       "source_location": "L9",
       "id": "ui_empty_cn",
-      "community": 0,
+      "community": 1,
       "norm_label": "cn()"
     },
     {
@@ -1080,7 +1170,7 @@
       "source_file": "components/ui/tooltip.tsx",
       "source_location": "L1",
       "id": "components_ui_tooltip_tsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "tooltip.tsx"
     },
     {
@@ -1089,7 +1179,7 @@
       "source_file": "components/ui/tooltip.tsx",
       "source_location": "L7",
       "id": "ui_tooltip_tooltipprovider",
-      "community": 2,
+      "community": 3,
       "norm_label": "tooltipprovider()"
     },
     {
@@ -1098,7 +1188,7 @@
       "source_file": "components/ui/tooltip.tsx",
       "source_location": "L28",
       "id": "ui_tooltip_tooltipcontent",
-      "community": 2,
+      "community": 3,
       "norm_label": "tooltipcontent()"
     },
     {
@@ -1107,7 +1197,7 @@
       "source_file": "components/ui/alert.tsx",
       "source_location": "L1",
       "id": "components_ui_alert_tsx",
-      "community": 0,
+      "community": 28,
       "norm_label": "alert.tsx"
     },
     {
@@ -1116,7 +1206,7 @@
       "source_file": "components/ui/alert.tsx",
       "source_location": "L22",
       "id": "ui_alert_alert",
-      "community": 0,
+      "community": 28,
       "norm_label": "alert()"
     },
     {
@@ -1125,7 +1215,7 @@
       "source_file": "components/ui/alert.tsx",
       "source_location": "L41",
       "id": "ui_alert_cn",
-      "community": 0,
+      "community": 28,
       "norm_label": "cn()"
     },
     {
@@ -1134,7 +1224,7 @@
       "source_file": "components/ui/combobox.tsx",
       "source_location": "L1",
       "id": "components_ui_combobox_tsx",
-      "community": 5,
+      "community": 6,
       "norm_label": "combobox.tsx"
     },
     {
@@ -1143,7 +1233,7 @@
       "source_file": "components/ui/combobox.tsx",
       "source_location": "L18",
       "id": "ui_combobox_comboboxvalue",
-      "community": 5,
+      "community": 6,
       "norm_label": "comboboxvalue()"
     },
     {
@@ -1152,7 +1242,7 @@
       "source_file": "components/ui/combobox.tsx",
       "source_location": "L87",
       "id": "ui_combobox_comboboxcontent",
-      "community": 5,
+      "community": 6,
       "norm_label": "comboboxcontent()"
     },
     {
@@ -1161,7 +1251,7 @@
       "source_file": "components/ui/combobox.tsx",
       "source_location": "L173",
       "id": "ui_combobox_comboboxlabel",
-      "community": 5,
+      "community": 6,
       "norm_label": "comboboxlabel()"
     },
     {
@@ -1170,7 +1260,7 @@
       "source_file": "components/ui/combobox.tsx",
       "source_location": "L186",
       "id": "ui_combobox_comboboxcollection",
-      "community": 5,
+      "community": 6,
       "norm_label": "comboboxcollection()"
     },
     {
@@ -1179,7 +1269,7 @@
       "source_file": "components/ui/combobox.tsx",
       "source_location": "L192",
       "id": "ui_combobox_comboboxempty",
-      "community": 5,
+      "community": 6,
       "norm_label": "comboboxempty()"
     },
     {
@@ -1188,7 +1278,7 @@
       "source_file": "components/ui/combobox.tsx",
       "source_location": "L218",
       "id": "ui_combobox_comboboxchips",
-      "community": 5,
+      "community": 6,
       "norm_label": "comboboxchips()"
     },
     {
@@ -1197,7 +1287,7 @@
       "source_file": "components/ui/switch.tsx",
       "source_location": "L1",
       "id": "components_ui_switch_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "switch.tsx"
     },
     {
@@ -1206,7 +1296,7 @@
       "source_file": "components/ui/switch.tsx",
       "source_location": "L7",
       "id": "ui_switch_switch",
-      "community": 0,
+      "community": 1,
       "norm_label": "switch()"
     },
     {
@@ -1215,7 +1305,7 @@
       "source_file": "components/ui/calendar.tsx",
       "source_location": "L1",
       "id": "components_ui_calendar_tsx",
-      "community": 3,
+      "community": 1,
       "norm_label": "calendar.tsx"
     },
     {
@@ -1224,7 +1314,7 @@
       "source_file": "components/ui/calendar.tsx",
       "source_location": "L221",
       "id": "ui_calendar_cn",
-      "community": 3,
+      "community": 1,
       "norm_label": "cn()"
     },
     {
@@ -1233,7 +1323,7 @@
       "source_file": "components/ui/native-select.tsx",
       "source_location": "L1",
       "id": "components_ui_native_select_tsx",
-      "community": 19,
+      "community": 20,
       "norm_label": "native-select.tsx"
     },
     {
@@ -1242,7 +1332,7 @@
       "source_file": "components/ui/native-select.tsx",
       "source_location": "L10",
       "id": "ui_native_select_nativeselect",
-      "community": 19,
+      "community": 20,
       "norm_label": "nativeselect()"
     },
     {
@@ -1251,7 +1341,7 @@
       "source_file": "components/ui/native-select.tsx",
       "source_location": "L39",
       "id": "ui_native_select_nativeselectoption",
-      "community": 19,
+      "community": 20,
       "norm_label": "nativeselectoption()"
     },
     {
@@ -1260,7 +1350,7 @@
       "source_file": "components/ui/native-select.tsx",
       "source_location": "L52",
       "id": "ui_native_select_nativeselectoptgroup",
-      "community": 19,
+      "community": 20,
       "norm_label": "nativeselectoptgroup()"
     },
     {
@@ -1269,7 +1359,7 @@
       "source_file": "components/ui/breadcrumb.tsx",
       "source_location": "L1",
       "id": "components_ui_breadcrumb_tsx",
-      "community": 14,
+      "community": 18,
       "norm_label": "breadcrumb.tsx"
     },
     {
@@ -1278,7 +1368,7 @@
       "source_file": "components/ui/breadcrumb.tsx",
       "source_location": "L8",
       "id": "ui_breadcrumb_breadcrumb",
-      "community": 14,
+      "community": 18,
       "norm_label": "breadcrumb()"
     },
     {
@@ -1287,7 +1377,7 @@
       "source_file": "components/ui/breadcrumb.tsx",
       "source_location": "L23",
       "id": "ui_breadcrumb_cn",
-      "community": 14,
+      "community": 18,
       "norm_label": "cn()"
     },
     {
@@ -1296,7 +1386,7 @@
       "source_file": "components/ui/breadcrumb.tsx",
       "source_location": "L42",
       "id": "ui_breadcrumb_breadcrumblink",
-      "community": 14,
+      "community": 18,
       "norm_label": "breadcrumblink()"
     },
     {
@@ -1305,7 +1395,7 @@
       "source_file": "components/ui/breadcrumb.tsx",
       "source_location": "L62",
       "id": "ui_breadcrumb_breadcrumbpage",
-      "community": 14,
+      "community": 18,
       "norm_label": "breadcrumbpage()"
     },
     {
@@ -1314,7 +1404,7 @@
       "source_file": "components/ui/radio-group.tsx",
       "source_location": "L1",
       "id": "components_ui_radio_group_tsx",
-      "community": 0,
+      "community": 27,
       "norm_label": "radio-group.tsx"
     },
     {
@@ -1323,7 +1413,7 @@
       "source_file": "components/ui/radio-group.tsx",
       "source_location": "L8",
       "id": "ui_radio_group_radiogroup",
-      "community": 0,
+      "community": 27,
       "norm_label": "radiogroup()"
     },
     {
@@ -1332,7 +1422,7 @@
       "source_file": "components/ui/radio-group.tsx",
       "source_location": "L18",
       "id": "ui_radio_group_radiogroupitem",
-      "community": 0,
+      "community": 27,
       "norm_label": "radiogroupitem()"
     },
     {
@@ -1341,7 +1431,7 @@
       "source_file": "components/ui/command.tsx",
       "source_location": "L1",
       "id": "components_ui_command_tsx",
-      "community": 4,
+      "community": 5,
       "norm_label": "command.tsx"
     },
     {
@@ -1350,7 +1440,7 @@
       "source_file": "components/ui/command.tsx",
       "source_location": "L24",
       "id": "ui_command_cn",
-      "community": 4,
+      "community": 5,
       "norm_label": "cn()"
     },
     {
@@ -1359,7 +1449,7 @@
       "source_file": "components/ui/command.tsx",
       "source_location": "L147",
       "id": "ui_command_commanditem",
-      "community": 4,
+      "community": 5,
       "norm_label": "commanditem()"
     },
     {
@@ -1404,7 +1494,7 @@
       "source_file": "components/ui/toggle-group.tsx",
       "source_location": "L1",
       "id": "components_ui_toggle_group_tsx",
-      "community": 0,
+      "community": 16,
       "norm_label": "toggle-group.tsx"
     },
     {
@@ -1413,7 +1503,7 @@
       "source_file": "components/ui/toggle-group.tsx",
       "source_location": "L23",
       "id": "ui_toggle_group_togglegroup",
-      "community": 0,
+      "community": 16,
       "norm_label": "togglegroup()"
     },
     {
@@ -1422,7 +1512,7 @@
       "source_file": "components/ui/toggle-group.tsx",
       "source_location": "L59",
       "id": "ui_toggle_group_togglegroupitem",
-      "community": 0,
+      "community": 16,
       "norm_label": "togglegroupitem()"
     },
     {
@@ -1431,7 +1521,7 @@
       "source_file": "components/ui/avatar.tsx",
       "source_location": "L1",
       "id": "components_ui_avatar_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "avatar.tsx"
     },
     {
@@ -1440,7 +1530,7 @@
       "source_file": "components/ui/avatar.tsx",
       "source_location": "L32",
       "id": "ui_avatar_cn",
-      "community": 0,
+      "community": 1,
       "norm_label": "cn()"
     },
     {
@@ -1485,7 +1575,7 @@
       "source_file": "components/ui/kbd.tsx",
       "source_location": "L1",
       "id": "components_ui_kbd_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "kbd.tsx"
     },
     {
@@ -1494,7 +1584,7 @@
       "source_file": "components/ui/kbd.tsx",
       "source_location": "L7",
       "id": "ui_kbd_cn",
-      "community": 0,
+      "community": 1,
       "norm_label": "cn()"
     },
     {
@@ -1503,7 +1593,7 @@
       "source_file": "components/ui/dialog.tsx",
       "source_location": "L1",
       "id": "components_ui_dialog_tsx",
-      "community": 4,
+      "community": 5,
       "norm_label": "dialog.tsx"
     },
     {
@@ -1512,7 +1602,7 @@
       "source_file": "components/ui/dialog.tsx",
       "source_location": "L55",
       "id": "ui_dialog_cn",
-      "community": 4,
+      "community": 5,
       "norm_label": "cn()"
     },
     {
@@ -1521,7 +1611,7 @@
       "source_file": "components/ui/badge.tsx",
       "source_location": "L1",
       "id": "components_ui_badge_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "badge.tsx"
     },
     {
@@ -1530,7 +1620,7 @@
       "source_file": "components/ui/badge.tsx",
       "source_location": "L30",
       "id": "ui_badge_badge",
-      "community": 0,
+      "community": 1,
       "norm_label": "badge()"
     },
     {
@@ -1539,7 +1629,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L1",
       "id": "components_ui_sidebar_tsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebar.tsx"
     },
     {
@@ -1548,7 +1638,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L47",
       "id": "ui_sidebar_usesidebar",
-      "community": 2,
+      "community": 3,
       "norm_label": "usesidebar()"
     },
     {
@@ -1557,7 +1647,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L56",
       "id": "ui_sidebar_sidebarprovider",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebarprovider()"
     },
     {
@@ -1566,7 +1656,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L354",
       "id": "ui_sidebar_sidebarseparator",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebarseparator()"
     },
     {
@@ -1575,7 +1665,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L373",
       "id": "ui_sidebar_cn",
-      "community": 2,
+      "community": 3,
       "norm_label": "cn()"
     },
     {
@@ -1584,7 +1674,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L393",
       "id": "ui_sidebar_sidebargrouplabel",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebargrouplabel()"
     },
     {
@@ -1593,7 +1683,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L417",
       "id": "ui_sidebar_sidebargroupaction",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebargroupaction()"
     },
     {
@@ -1602,7 +1692,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L441",
       "id": "ui_sidebar_sidebargroupcontent",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebargroupcontent()"
     },
     {
@@ -1611,7 +1701,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L455",
       "id": "ui_sidebar_sidebarmenu",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebarmenu()"
     },
     {
@@ -1620,7 +1710,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L466",
       "id": "ui_sidebar_sidebarmenuitem",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebarmenuitem()"
     },
     {
@@ -1629,7 +1719,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L499",
       "id": "ui_sidebar_sidebarmenubutton",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebarmenubutton()"
     },
     {
@@ -1638,7 +1728,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L553",
       "id": "ui_sidebar_sidebarmenuaction",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebarmenuaction()"
     },
     {
@@ -1647,7 +1737,7 @@
       "source_file": "components/ui/sidebar.tsx",
       "source_location": "L666",
       "id": "ui_sidebar_sidebarmenusubbutton",
-      "community": 2,
+      "community": 3,
       "norm_label": "sidebarmenusubbutton()"
     },
     {
@@ -1656,7 +1746,7 @@
       "source_file": "components/ui/message.tsx",
       "source_location": "L1",
       "id": "components_ui_message_tsx",
-      "community": 0,
+      "community": 30,
       "norm_label": "message.tsx"
     },
     {
@@ -1665,7 +1755,7 @@
       "source_file": "components/ui/message.tsx",
       "source_location": "L5",
       "id": "ui_message_messagegroup",
-      "community": 0,
+      "community": 30,
       "norm_label": "messagegroup()"
     },
     {
@@ -1674,7 +1764,7 @@
       "source_file": "components/ui/message.tsx",
       "source_location": "L24",
       "id": "ui_message_cn",
-      "community": 0,
+      "community": 30,
       "norm_label": "cn()"
     },
     {
@@ -1746,7 +1836,7 @@
       "source_file": "components/ui/button.tsx",
       "source_location": "L1",
       "id": "components_ui_button_tsx",
-      "community": 3,
+      "community": 2,
       "norm_label": "button.tsx"
     },
     {
@@ -1755,7 +1845,7 @@
       "source_file": "components/ui/button.tsx",
       "source_location": "L52",
       "id": "ui_button_cn",
-      "community": 3,
+      "community": 2,
       "norm_label": "cn()"
     },
     {
@@ -1764,7 +1854,7 @@
       "source_file": "components/ui/toggle.tsx",
       "source_location": "L1",
       "id": "components_ui_toggle_tsx",
-      "community": 0,
+      "community": 16,
       "norm_label": "toggle.tsx"
     },
     {
@@ -1773,7 +1863,7 @@
       "source_file": "components/ui/toggle.tsx",
       "source_location": "L39",
       "id": "ui_toggle_cn",
-      "community": 0,
+      "community": 16,
       "norm_label": "cn()"
     },
     {
@@ -1782,7 +1872,7 @@
       "source_file": "components/ui/marker.tsx",
       "source_location": "L1",
       "id": "components_ui_marker_tsx",
-      "community": 21,
+      "community": 25,
       "norm_label": "marker.tsx"
     },
     {
@@ -1791,7 +1881,7 @@
       "source_file": "components/ui/marker.tsx",
       "source_location": "L22",
       "id": "ui_marker_marker",
-      "community": 21,
+      "community": 25,
       "norm_label": "marker()"
     },
     {
@@ -1800,7 +1890,7 @@
       "source_file": "components/ui/marker.tsx",
       "source_location": "L49",
       "id": "ui_marker_cn",
-      "community": 21,
+      "community": 25,
       "norm_label": "cn()"
     },
     {
@@ -1809,7 +1899,7 @@
       "source_file": "components/ui/toast.tsx",
       "source_location": "L1",
       "id": "components_ui_toast_tsx",
-      "community": 9,
+      "community": 2,
       "norm_label": "toast.tsx"
     },
     {
@@ -1818,7 +1908,7 @@
       "source_file": "components/ui/toast.tsx",
       "source_location": "L19",
       "id": "ui_toast_toastprovider",
-      "community": 9,
+      "community": 2,
       "norm_label": "toastprovider()"
     },
     {
@@ -1827,7 +1917,7 @@
       "source_file": "components/ui/toast.tsx",
       "source_location": "L44",
       "id": "ui_toast_cn",
-      "community": 9,
+      "community": 2,
       "norm_label": "cn()"
     },
     {
@@ -1836,7 +1926,7 @@
       "source_file": "components/ui/toast.tsx",
       "source_location": "L90",
       "id": "ui_toast_toastdescription",
-      "community": 9,
+      "community": 2,
       "norm_label": "toastdescription()"
     },
     {
@@ -1845,7 +1935,7 @@
       "source_file": "components/ui/toast.tsx",
       "source_location": "L103",
       "id": "ui_toast_toastaction",
-      "community": 9,
+      "community": 2,
       "norm_label": "toastaction()"
     },
     {
@@ -1854,7 +1944,7 @@
       "source_file": "components/ui/toast.tsx",
       "source_location": "L118",
       "id": "ui_toast_toastclose",
-      "community": 9,
+      "community": 2,
       "norm_label": "toastclose()"
     },
     {
@@ -1863,7 +1953,7 @@
       "source_file": "components/ui/toast.tsx",
       "source_location": "L140",
       "id": "ui_toast_toasticon",
-      "community": 9,
+      "community": 2,
       "norm_label": "toasticon()"
     },
     {
@@ -1872,7 +1962,7 @@
       "source_file": "components/ui/checkbox.tsx",
       "source_location": "L1",
       "id": "components_ui_checkbox_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "checkbox.tsx"
     },
     {
@@ -1881,7 +1971,7 @@
       "source_file": "components/ui/checkbox.tsx",
       "source_location": "L8",
       "id": "ui_checkbox_checkbox",
-      "community": 0,
+      "community": 1,
       "norm_label": "checkbox()"
     },
     {
@@ -1890,7 +1980,7 @@
       "source_file": "components/ui/spinner.tsx",
       "source_location": "L1",
       "id": "components_ui_spinner_tsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "spinner.tsx"
     },
     {
@@ -1899,7 +1989,7 @@
       "source_file": "components/ui/spinner.tsx",
       "source_location": "L4",
       "id": "ui_spinner_spinner",
-      "community": 0,
+      "community": 1,
       "norm_label": "spinner()"
     },
     {
@@ -1908,7 +1998,7 @@
       "source_file": "components/ui/collapsible.tsx",
       "source_location": "L1",
       "id": "components_ui_collapsible_tsx",
-      "community": 22,
+      "community": 31,
       "norm_label": "collapsible.tsx"
     },
     {
@@ -1917,7 +2007,7 @@
       "source_file": "components/ui/collapsible.tsx",
       "source_location": "L9",
       "id": "ui_collapsible_collapsibletrigger",
-      "community": 22,
+      "community": 31,
       "norm_label": "collapsibletrigger()"
     },
     {
@@ -1926,7 +2016,7 @@
       "source_file": "components/ui/collapsible.tsx",
       "source_location": "L15",
       "id": "ui_collapsible_collapsiblecontent",
-      "community": 22,
+      "community": 31,
       "norm_label": "collapsiblecontent()"
     },
     {
@@ -1953,7 +2043,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L1",
       "id": "components_ui_select_tsx",
-      "community": 6,
+      "community": 8,
       "norm_label": "select.tsx"
     },
     {
@@ -1962,7 +2052,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L11",
       "id": "ui_select_selectgroup",
-      "community": 6,
+      "community": 8,
       "norm_label": "selectgroup()"
     },
     {
@@ -1971,7 +2061,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L21",
       "id": "ui_select_selectvalue",
-      "community": 6,
+      "community": 8,
       "norm_label": "selectvalue()"
     },
     {
@@ -1980,7 +2070,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L31",
       "id": "ui_select_selecttrigger",
-      "community": 6,
+      "community": 8,
       "norm_label": "selecttrigger()"
     },
     {
@@ -1989,7 +2079,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L59",
       "id": "ui_select_selectcontent",
-      "community": 6,
+      "community": 8,
       "norm_label": "selectcontent()"
     },
     {
@@ -1998,7 +2088,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L101",
       "id": "ui_select_selectlabel",
-      "community": 6,
+      "community": 8,
       "norm_label": "selectlabel()"
     },
     {
@@ -2007,7 +2097,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L114",
       "id": "ui_select_selectitem",
-      "community": 6,
+      "community": 8,
       "norm_label": "selectitem()"
     },
     {
@@ -2016,7 +2106,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L142",
       "id": "ui_select_selectseparator",
-      "community": 6,
+      "community": 8,
       "norm_label": "selectseparator()"
     },
     {
@@ -2025,7 +2115,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L155",
       "id": "ui_select_selectscrollupbutton",
-      "community": 6,
+      "community": 8,
       "norm_label": "selectscrollupbutton()"
     },
     {
@@ -2034,7 +2124,7 @@
       "source_file": "components/ui/select.tsx",
       "source_location": "L173",
       "id": "ui_select_selectscrolldownbutton",
-      "community": 6,
+      "community": 8,
       "norm_label": "selectscrolldownbutton()"
     },
     {
@@ -2043,7 +2133,7 @@
       "source_file": "components/ui/textarea.tsx",
       "source_location": "L1",
       "id": "components_ui_textarea_tsx",
-      "community": 5,
+      "community": 6,
       "norm_label": "textarea.tsx"
     },
     {
@@ -2052,7 +2142,7 @@
       "source_file": "components/ui/textarea.tsx",
       "source_location": "L9",
       "id": "ui_textarea_cn",
-      "community": 5,
+      "community": 6,
       "norm_label": "cn()"
     },
     {
@@ -2061,7 +2151,7 @@
       "source_file": "components/ui/input.tsx",
       "source_location": "L1",
       "id": "components_ui_input_tsx",
-      "community": 5,
+      "community": 6,
       "norm_label": "input.tsx"
     },
     {
@@ -2070,7 +2160,7 @@
       "source_file": "components/ui/input.tsx",
       "source_location": "L6",
       "id": "ui_input_input",
-      "community": 5,
+      "community": 6,
       "norm_label": "input()"
     },
     {
@@ -2079,7 +2169,7 @@
       "source_file": "components/ui/message-scroller.tsx",
       "source_location": "L1",
       "id": "components_ui_message_scroller_tsx",
-      "community": 3,
+      "community": 2,
       "norm_label": "message-scroller.tsx"
     },
     {
@@ -2088,7 +2178,7 @@
       "source_file": "components/ui/message-scroller.tsx",
       "source_location": "L15",
       "id": "ui_message_scroller_messagescrollerprovider",
-      "community": 3,
+      "community": 2,
       "norm_label": "messagescrollerprovider()"
     },
     {
@@ -2097,7 +2187,7 @@
       "source_file": "components/ui/message-scroller.tsx",
       "source_location": "L44",
       "id": "ui_message_scroller_cn",
-      "community": 3,
+      "community": 2,
       "norm_label": "cn()"
     },
     {
@@ -2106,7 +2196,7 @@
       "source_file": "components/ui/attachment.tsx",
       "source_location": "L1",
       "id": "components_ui_attachment_tsx",
-      "community": 3,
+      "community": 2,
       "norm_label": "attachment.tsx"
     },
     {
@@ -2115,7 +2205,7 @@
       "source_file": "components/ui/attachment.tsx",
       "source_location": "L27",
       "id": "ui_attachment_attachment",
-      "community": 3,
+      "community": 2,
       "norm_label": "attachment()"
     },
     {
@@ -2124,7 +2214,7 @@
       "source_file": "components/ui/attachment.tsx",
       "source_location": "L65",
       "id": "ui_attachment_attachmentmedia",
-      "community": 3,
+      "community": 2,
       "norm_label": "attachmentmedia()"
     },
     {
@@ -2133,7 +2223,7 @@
       "source_file": "components/ui/attachment.tsx",
       "source_location": "L87",
       "id": "ui_attachment_cn",
-      "community": 3,
+      "community": 2,
       "norm_label": "cn()"
     },
     {
@@ -2142,7 +2232,7 @@
       "source_file": "components/ui/skeleton.tsx",
       "source_location": "L1",
       "id": "components_ui_skeleton_tsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "skeleton.tsx"
     },
     {
@@ -2151,7 +2241,7 @@
       "source_file": "components/ui/skeleton.tsx",
       "source_location": "L3",
       "id": "ui_skeleton_skeleton",
-      "community": 2,
+      "community": 3,
       "norm_label": "skeleton()"
     },
     {
@@ -2160,7 +2250,7 @@
       "source_file": "components/ui/context-menu.tsx",
       "source_location": "L1",
       "id": "components_ui_context_menu_tsx",
-      "community": 20,
+      "community": 23,
       "norm_label": "context-menu.tsx"
     },
     {
@@ -2169,7 +2259,7 @@
       "source_file": "components/ui/context-menu.tsx",
       "source_location": "L13",
       "id": "ui_context_menu_contextmenuportal",
-      "community": 20,
+      "community": 23,
       "norm_label": "contextmenuportal()"
     },
     {
@@ -2178,7 +2268,7 @@
       "source_file": "components/ui/context-menu.tsx",
       "source_location": "L19",
       "id": "ui_context_menu_contextmenutrigger",
-      "community": 20,
+      "community": 23,
       "norm_label": "contextmenutrigger()"
     },
     {
@@ -2187,7 +2277,7 @@
       "source_file": "components/ui/context-menu.tsx",
       "source_location": "L32",
       "id": "ui_context_menu_contextmenucontent",
-      "community": 20,
+      "community": 23,
       "norm_label": "contextmenucontent()"
     },
     {
@@ -2196,7 +2286,7 @@
       "source_file": "components/ui/carousel.tsx",
       "source_location": "L1",
       "id": "components_ui_carousel_tsx",
-      "community": 16,
+      "community": 2,
       "norm_label": "carousel.tsx"
     },
     {
@@ -2205,7 +2295,7 @@
       "source_file": "components/ui/carousel.tsx",
       "source_location": "L35",
       "id": "ui_carousel_usecarousel",
-      "community": 16,
+      "community": 2,
       "norm_label": "usecarousel()"
     },
     {
@@ -2214,7 +2304,7 @@
       "source_file": "components/ui/carousel.tsx",
       "source_location": "L45",
       "id": "ui_carousel_carousel",
-      "community": 16,
+      "community": 2,
       "norm_label": "carousel()"
     },
     {
@@ -2223,7 +2313,7 @@
       "source_file": "components/ui/carousel.tsx",
       "source_location": "L145",
       "id": "ui_carousel_cn",
-      "community": 16,
+      "community": 2,
       "norm_label": "cn()"
     },
     {
@@ -2232,7 +2322,7 @@
       "source_file": "components/ui/carousel.tsx",
       "source_location": "L204",
       "id": "ui_carousel_carouselnext",
-      "community": 16,
+      "community": 2,
       "norm_label": "carouselnext()"
     },
     {
@@ -2241,7 +2331,7 @@
       "source_file": "hooks/use-mobile.ts",
       "source_location": "L1",
       "id": "hooks_use_mobile_ts",
-      "community": 2,
+      "community": 3,
       "norm_label": "use-mobile.ts"
     },
     {
@@ -2250,8 +2340,71 @@
       "source_file": "hooks/use-mobile.ts",
       "source_location": "L5",
       "id": "hooks_use_mobile_useismobile",
-      "community": 2,
+      "community": 3,
       "norm_label": "useismobile()"
+    },
+    {
+      "label": "singapay-payment-status.ts",
+      "file_type": "code",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L1",
+      "id": "lib_singapay_payment_status_ts",
+      "community": 0,
+      "norm_label": "singapay-payment-status.ts"
+    },
+    {
+      "label": "requiredEnv()",
+      "file_type": "code",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L30",
+      "id": "lib_singapay_payment_status_requiredenv",
+      "community": 0,
+      "norm_label": "requiredenv()"
+    },
+    {
+      "label": "getBaseUrl()",
+      "file_type": "code",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L38",
+      "id": "lib_singapay_payment_status_getbaseurl",
+      "community": 0,
+      "norm_label": "getbaseurl()"
+    },
+    {
+      "label": "jakartaDate()",
+      "file_type": "code",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L45",
+      "id": "lib_singapay_payment_status_jakartadate",
+      "community": 0,
+      "norm_label": "jakartadate()"
+    },
+    {
+      "label": "requestAccessToken()",
+      "file_type": "code",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L56",
+      "id": "lib_singapay_payment_status_requestaccesstoken",
+      "community": 0,
+      "norm_label": "requestaccesstoken()"
+    },
+    {
+      "label": "isSingapayPaymentReferencePaid()",
+      "file_type": "code",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L86",
+      "id": "lib_singapay_payment_status_issingapaypaymentreferencepaid",
+      "community": 0,
+      "norm_label": "issingapaypaymentreferencepaid()"
+    },
+    {
+      "label": "getSingapayPaymentLinkReference()",
+      "file_type": "code",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L142",
+      "id": "lib_singapay_payment_status_getsingapaypaymentlinkreference",
+      "community": 0,
+      "norm_label": "getsingapaypaymentlinkreference()"
     },
     {
       "label": "utils.ts",
@@ -2259,7 +2412,7 @@
       "source_file": "lib/utils.ts",
       "source_location": "L1",
       "id": "lib_utils_ts",
-      "community": 0,
+      "community": 1,
       "norm_label": "utils.ts"
     },
     {
@@ -2268,7 +2421,7 @@
       "source_file": "lib/utils.ts",
       "source_location": "L4",
       "id": "lib_utils_cn",
-      "community": 0,
+      "community": 1,
       "norm_label": "cn()"
     },
     {
@@ -2277,53 +2430,143 @@
       "source_file": "lib/membership-access.ts",
       "source_location": "L1",
       "id": "lib_membership_access_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "membership-access.ts"
     },
     {
       "label": "getSupabaseConfig()",
       "file_type": "code",
       "source_file": "lib/membership-access.ts",
-      "source_location": "L13",
+      "source_location": "L16",
       "id": "lib_membership_access_getsupabaseconfig",
-      "community": 1,
+      "community": 0,
       "norm_label": "getsupabaseconfig()"
     },
     {
       "label": "requestSupabase()",
       "file_type": "code",
       "source_file": "lib/membership-access.ts",
-      "source_location": "L22",
+      "source_location": "L25",
       "id": "lib_membership_access_requestsupabase",
-      "community": 1,
+      "community": 0,
       "norm_label": "requestsupabase()"
     },
     {
       "label": "createMembershipAccess()",
       "file_type": "code",
       "source_file": "lib/membership-access.ts",
-      "source_location": "L40",
+      "source_location": "L43",
       "id": "lib_membership_access_createmembershipaccess",
-      "community": 1,
+      "community": 0,
       "norm_label": "createmembershipaccess()"
     },
     {
       "label": "markMembershipAccessPaid()",
       "file_type": "code",
       "source_file": "lib/membership-access.ts",
-      "source_location": "L62",
+      "source_location": "L68",
       "id": "lib_membership_access_markmembershipaccesspaid",
-      "community": 1,
+      "community": 0,
       "norm_label": "markmembershipaccesspaid()"
+    },
+    {
+      "label": "markMembershipUnpaidMessageSent()",
+      "file_type": "code",
+      "source_file": "lib/membership-access.ts",
+      "source_location": "L97",
+      "id": "lib_membership_access_markmembershipunpaidmessagesent",
+      "community": 0,
+      "norm_label": "markmembershipunpaidmessagesent()"
+    },
+    {
+      "label": "getMembershipAccess()",
+      "file_type": "code",
+      "source_file": "lib/membership-access.ts",
+      "source_location": "L116",
+      "id": "lib_membership_access_getmembershipaccess",
+      "community": 0,
+      "norm_label": "getmembershipaccess()"
     },
     {
       "label": "isMembershipReferencePaid()",
       "file_type": "code",
       "source_file": "lib/membership-access.ts",
-      "source_location": "L89",
+      "source_location": "L140",
       "id": "lib_membership_access_ismembershipreferencepaid",
-      "community": 1,
+      "community": 0,
       "norm_label": "ismembershipreferencepaid()"
+    },
+    {
+      "label": "getPaidMembershipAccessCount()",
+      "file_type": "code",
+      "source_file": "lib/membership-access.ts",
+      "source_location": "L164",
+      "id": "lib_membership_access_getpaidmembershipaccesscount",
+      "community": 0,
+      "norm_label": "getpaidmembershipaccesscount()"
+    },
+    {
+      "label": "roketchat.ts",
+      "file_type": "code",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L1",
+      "id": "lib_roketchat_ts",
+      "community": 4,
+      "norm_label": "roketchat.ts"
+    },
+    {
+      "label": "getMessagesBaseUrl()",
+      "file_type": "code",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L7",
+      "id": "lib_roketchat_getmessagesbaseurl",
+      "community": 4,
+      "norm_label": "getmessagesbaseurl()"
+    },
+    {
+      "label": "getRoketchatToken()",
+      "file_type": "code",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L14",
+      "id": "lib_roketchat_getroketchattoken",
+      "community": 4,
+      "norm_label": "getroketchattoken()"
+    },
+    {
+      "label": "normalizeWhatsappPhone()",
+      "file_type": "code",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L18",
+      "id": "lib_roketchat_normalizewhatsappphone",
+      "community": 0,
+      "norm_label": "normalizewhatsappphone()"
+    },
+    {
+      "label": "sendRoketchatText()",
+      "file_type": "code",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L27",
+      "id": "lib_roketchat_sendroketchattext",
+      "community": 4,
+      "norm_label": "sendroketchattext()"
+    },
+    {
+      "label": "sendCheckoutGreeting()",
+      "file_type": "code",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L55",
+      "id": "lib_roketchat_sendcheckoutgreeting",
+      "community": 0,
+      "norm_label": "sendcheckoutgreeting()"
+    },
+    {
+      "label": "sendPaidAccessMessage()",
+      "file_type": "code",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L72",
+      "id": "lib_roketchat_sendpaidaccessmessage",
+      "community": 4,
+      "norm_label": "sendpaidaccessmessage()"
     },
     {
       "label": "README.md",
@@ -2331,7 +2574,7 @@
       "source_file": "README.md",
       "source_location": "L1",
       "id": "readme_md",
-      "community": 24,
+      "community": 33,
       "norm_label": "readme.md"
     },
     {
@@ -2340,7 +2583,7 @@
       "source_file": "README.md",
       "source_location": "L1",
       "id": "autoflow_meta_readme_autoflow_meta",
-      "community": 24,
+      "community": 33,
       "norm_label": "autoflow-meta"
     },
     {
@@ -2349,7 +2592,7 @@
       "source_file": "DESIGN.md",
       "source_location": "L1",
       "id": "design_md",
-      "community": 23,
+      "community": 32,
       "norm_label": "design.md"
     },
     {
@@ -2358,7 +2601,7 @@
       "source_file": "DESIGN.md",
       "source_location": "L1",
       "id": "autoflow_meta_design_auto_flow_meta_ads",
-      "community": 23,
+      "community": 32,
       "norm_label": "auto flow meta ads"
     },
     {
@@ -2367,7 +2610,7 @@
       "source_file": "DESIGN.md",
       "source_location": "L23",
       "id": "autoflow_meta_design_belum_tersedia",
-      "community": 23,
+      "community": 32,
       "norm_label": "belum tersedia"
     }
   ],
@@ -2379,9 +2622,9 @@
       "source_file": "app/layout.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_layout_tsx",
-      "target": "components_whatsapp_bubble_tsx",
-      "confidence_score": 1.0
+      "target": "components_whatsapp_bubble_tsx"
     },
     {
       "relation": "contains",
@@ -2503,43 +2746,105 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_file": "app/api/roketchat/webhook/route.ts",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_api_singapay_webhook_route_ts",
-      "target": "lib_membership_access_ts"
+      "source": "app_api_roketchat_webhook_route_ts",
+      "target": "lib_roketchat_ts",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_file": "app/api/roketchat/webhook/route.ts",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_api_singapay_webhook_route_ts",
-      "target": "lib_membership_access_markmembershipaccesspaid"
+      "source": "app_api_roketchat_webhook_route_ts",
+      "target": "lib_roketchat_sendroketchattext",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_file": "app/api/roketchat/webhook/route.ts",
       "source_location": "L15",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_api_singapay_webhook_route_ts",
-      "target": "webhook_route_sortjson"
+      "source": "app_api_roketchat_webhook_route_ts",
+      "target": "webhook_route_safeequal",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "app_api_roketchat_webhook_route_ts",
+      "target": "webhook_route_verifysignature",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "app_api_roketchat_webhook_route_ts",
+      "target": "webhook_route_normalizephone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "app_api_roketchat_webhook_route_ts",
+      "target": "webhook_route_greetingmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "app_api_roketchat_webhook_route_ts",
+      "target": "webhook_route_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "app_api_roketchat_webhook_route_ts",
+      "target": "webhook_route_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "webhook_route_verifysignature",
+      "target": "webhook_route_safeequal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
       "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L29",
+      "source_location": "L108",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "app_api_singapay_webhook_route_ts",
-      "target": "webhook_route_safeequalhex"
+      "source": "webhook_route_post",
+      "target": "webhook_route_verifysignature"
     },
     {
       "relation": "contains",
@@ -2552,43 +2857,14 @@
       "target": "webhook_route_verifysignature"
     },
     {
-      "relation": "contains",
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L69",
+      "source_location": "L39",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "app_api_singapay_webhook_route_ts",
-      "target": "webhook_route_readstring"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L73",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_api_singapay_webhook_route_ts",
-      "target": "webhook_route_extractpaymentfields"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L99",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_api_singapay_webhook_route_ts",
-      "target": "webhook_route_post"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L146",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_api_singapay_webhook_route_ts",
+      "source": "webhook_route_verifysignature",
       "target": "webhook_route_get"
     },
     {
@@ -2617,34 +2893,44 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L39",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L64",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "webhook_route_verifysignature",
-      "target": "webhook_route_get"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L108",
-      "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "webhook_route_post",
-      "target": "webhook_route_verifysignature"
+      "target": "webhook_route_normalizephone",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "webhook_route_post",
+      "target": "webhook_route_greetingmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "webhook_route_post",
+      "target": "webhook_route_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "app/api/singapay/webhook/route.ts",
-      "source_location": "L82",
+      "source_location": "L99",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "webhook_route_extractpaymentfields",
-      "target": "webhook_route_readstring"
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "webhook_route_post"
     },
     {
       "relation": "calls",
@@ -2662,11 +2948,312 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
+      "source_file": "app/api/roketchat/webhook/route.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "webhook_route_post",
+      "target": "lib_roketchat_sendroketchattext"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L143",
+      "weight": 1.0,
+      "source": "webhook_route_post",
+      "target": "lib_membership_access_getmembershipaccess"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L148",
+      "weight": 1.0,
+      "source": "webhook_route_post",
+      "target": "lib_roketchat_sendpaidaccessmessage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "app/api/singapay/webhook/route.ts",
       "source_location": "L136",
       "weight": 1.0,
       "source": "webhook_route_post",
       "target": "lib_membership_access_markmembershipaccesspaid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L146",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "webhook_route_get"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "app_api_roketchat_resend_pending_route_ts",
+      "target": "lib_membership_access_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "app_api_roketchat_resend_pending_route_ts",
+      "target": "lib_membership_access_getmembershipaccess",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "app_api_roketchat_resend_pending_route_ts",
+      "target": "lib_membership_access_markmembershipunpaidmessagesent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_api_roketchat_resend_pending_route_ts",
+      "target": "lib_roketchat_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_api_roketchat_resend_pending_route_ts",
+      "target": "lib_roketchat_sendcheckoutgreeting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_api_roketchat_resend_pending_route_ts",
+      "target": "lib_singapay_payment_status_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_api_roketchat_resend_pending_route_ts",
+      "target": "lib_singapay_payment_status_getsingapaypaymentlinkreference",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "app_api_roketchat_resend_pending_route_ts",
+      "target": "resend_pending_route_isauthorized",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "app_api_roketchat_resend_pending_route_ts",
+      "target": "resend_pending_route_post",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "resend_pending_route_post",
+      "target": "resend_pending_route_isauthorized",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "resend_pending_route_post",
+      "target": "lib_singapay_payment_status_getsingapaypaymentlinkreference"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "resend_pending_route_post",
+      "target": "lib_membership_access_getmembershipaccess"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "resend_pending_route_post",
+      "target": "lib_roketchat_sendcheckoutgreeting"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/roketchat/resend-pending/route.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "resend_pending_route_post",
+      "target": "lib_membership_access_markmembershipunpaidmessagesent"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "lib_membership_access_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "lib_membership_access_getmembershipaccess",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "lib_membership_access_markmembershipaccesspaid"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "lib_roketchat_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "lib_roketchat_sendpaidaccessmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "webhook_route_sortjson"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "webhook_route_safeequalhex"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L69",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "webhook_route_readstring"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L73",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_api_singapay_webhook_route_ts",
+      "target": "webhook_route_extractpaymentfields"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/webhook/route.ts",
+      "source_location": "L82",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "webhook_route_extractpaymentfields",
+      "target": "webhook_route_readstring"
     },
     {
       "relation": "imports_from",
@@ -2689,6 +3276,50 @@
       "confidence_score": 1.0,
       "source": "app_api_singapay_checkout_route_ts",
       "target": "lib_membership_access_createmembershipaccess"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "app_api_singapay_checkout_route_ts",
+      "target": "lib_membership_access_markmembershipunpaidmessagesent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_api_singapay_checkout_route_ts",
+      "target": "lib_roketchat_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_api_singapay_checkout_route_ts",
+      "target": "lib_roketchat_normalizewhatsappphone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_api_singapay_checkout_route_ts",
+      "target": "lib_roketchat_sendcheckoutgreeting",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2719,6 +3350,16 @@
       "confidence_score": 1.0,
       "source": "app_api_singapay_checkout_route_ts",
       "target": "checkout_route_getbaseurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "app_api_singapay_checkout_route_ts",
+      "target": "checkout_route_getsiteurl",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2789,6 +3430,17 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L141",
+      "weight": 1.0,
+      "source": "checkout_route_post",
+      "target": "checkout_route_getsiteurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/singapay/checkout/route.ts",
       "source_location": "L90",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -2801,10 +3453,43 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "checkout_route_post",
+      "target": "lib_roketchat_normalizewhatsappphone"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/singapay/checkout/route.ts",
       "source_location": "L147",
       "weight": 1.0,
       "source": "checkout_route_post",
       "target": "lib_membership_access_createmembershipaccess"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L195",
+      "weight": 1.0,
+      "source": "checkout_route_post",
+      "target": "lib_roketchat_sendcheckoutgreeting"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/singapay/checkout/route.ts",
+      "source_location": "L196",
+      "weight": 1.0,
+      "source": "checkout_route_post",
+      "target": "lib_membership_access_markmembershipunpaidmessagesent"
     },
     {
       "relation": "imports_from",
@@ -2824,9 +3509,75 @@
       "source_file": "app/api/membership/verify/route.ts",
       "source_location": "L2",
       "weight": 1.0,
+      "source": "app_api_membership_verify_route_ts",
+      "target": "lib_membership_access_getmembershipaccess",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L2",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_api_membership_verify_route_ts",
       "target": "lib_membership_access_ismembershipreferencepaid"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "app_api_membership_verify_route_ts",
+      "target": "lib_membership_access_markmembershipaccesspaid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_api_membership_verify_route_ts",
+      "target": "lib_roketchat_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_api_membership_verify_route_ts",
+      "target": "lib_roketchat_sendpaidaccessmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_api_membership_verify_route_ts",
+      "target": "lib_singapay_payment_status_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_api_membership_verify_route_ts",
+      "target": "lib_singapay_payment_status_issingapaypaymentreferencepaid",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2890,6 +3641,93 @@
       "weight": 1.0,
       "source": "verify_route_post",
       "target": "lib_membership_access_ismembershipreferencepaid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "verify_route_post",
+      "target": "lib_singapay_payment_status_issingapaypaymentreferencepaid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "verify_route_post",
+      "target": "lib_membership_access_getmembershipaccess"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "verify_route_post",
+      "target": "lib_roketchat_sendpaidaccessmessage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/membership/verify/route.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "verify_route_post",
+      "target": "lib_membership_access_markmembershipaccesspaid"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/membership/stats/route.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "app_api_membership_stats_route_ts",
+      "target": "lib_membership_access_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/membership/stats/route.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "app_api_membership_stats_route_ts",
+      "target": "lib_membership_access_getpaidmembershipaccesscount",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/api/membership/stats/route.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "app_api_membership_stats_route_ts",
+      "target": "stats_route_get",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/api/membership/stats/route.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "stats_route_get",
+      "target": "lib_membership_access_getpaidmembershipaccesscount"
     },
     {
       "relation": "imports_from",
@@ -2958,9 +3796,9 @@
       "source_file": "components/whatsapp-bubble.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_whatsapp_bubble_tsx",
-      "target": "components_whatsapp_bubble_whatsappbubble",
-      "confidence_score": 1.0
+      "target": "components_whatsapp_bubble_whatsappbubble"
     },
     {
       "relation": "imports_from",
@@ -6269,6 +7107,154 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_ts",
+      "target": "lib_singapay_payment_status_requiredenv",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_ts",
+      "target": "lib_singapay_payment_status_getbaseurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_ts",
+      "target": "lib_singapay_payment_status_jakartadate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_ts",
+      "target": "lib_singapay_payment_status_requestaccesstoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_ts",
+      "target": "lib_singapay_payment_status_issingapaypaymentreferencepaid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_ts",
+      "target": "lib_singapay_payment_status_getsingapaypaymentlinkreference",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_requestaccesstoken",
+      "target": "lib_singapay_payment_status_requiredenv",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_issingapaypaymentreferencepaid",
+      "target": "lib_singapay_payment_status_requiredenv",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L144",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_getsingapaypaymentlinkreference",
+      "target": "lib_singapay_payment_status_requiredenv",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_issingapaypaymentreferencepaid",
+      "target": "lib_singapay_payment_status_getbaseurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L143",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_getsingapaypaymentlinkreference",
+      "target": "lib_singapay_payment_status_getbaseurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_requestaccesstoken",
+      "target": "lib_singapay_payment_status_jakartadate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_issingapaypaymentreferencepaid",
+      "target": "lib_singapay_payment_status_requestaccesstoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/singapay-payment-status.ts",
+      "source_location": "L146",
+      "weight": 1.0,
+      "source": "lib_singapay_payment_status_getsingapaypaymentlinkreference",
+      "target": "lib_singapay_payment_status_requestaccesstoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "lib/utils.ts",
       "source_location": "L4",
       "weight": 1.0,
@@ -6320,11 +7306,41 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/membership-access.ts",
+      "source_location": "L97",
+      "weight": 1.0,
+      "source": "lib_membership_access_ts",
+      "target": "lib_membership_access_markmembershipunpaidmessagesent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/membership-access.ts",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "lib_membership_access_ts",
+      "target": "lib_membership_access_getmembershipaccess",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/membership-access.ts",
       "source_location": "L89",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "lib_membership_access_ts",
       "target": "lib_membership_access_ismembershipreferencepaid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/membership-access.ts",
+      "source_location": "L164",
+      "weight": 1.0,
+      "source": "lib_membership_access_ts",
+      "target": "lib_membership_access_getpaidmembershipaccesscount",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -6364,11 +7380,148 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/membership-access.ts",
+      "source_location": "L98",
+      "weight": 1.0,
+      "source": "lib_membership_access_markmembershipunpaidmessagesent",
+      "target": "lib_membership_access_requestsupabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/membership-access.ts",
+      "source_location": "L117",
+      "weight": 1.0,
+      "source": "lib_membership_access_getmembershipaccess",
+      "target": "lib_membership_access_requestsupabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/membership-access.ts",
       "source_location": "L90",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "lib_membership_access_ismembershipreferencepaid",
       "target": "lib_membership_access_requestsupabase"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/membership-access.ts",
+      "source_location": "L165",
+      "weight": 1.0,
+      "source": "lib_membership_access_getpaidmembershipaccesscount",
+      "target": "lib_membership_access_requestsupabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "lib_roketchat_ts",
+      "target": "lib_roketchat_getmessagesbaseurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "lib_roketchat_ts",
+      "target": "lib_roketchat_getroketchattoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "lib_roketchat_ts",
+      "target": "lib_roketchat_normalizewhatsappphone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "lib_roketchat_ts",
+      "target": "lib_roketchat_sendroketchattext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "lib_roketchat_ts",
+      "target": "lib_roketchat_sendcheckoutgreeting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "lib_roketchat_ts",
+      "target": "lib_roketchat_sendpaidaccessmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "lib_roketchat_sendroketchattext",
+      "target": "lib_roketchat_getmessagesbaseurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "lib_roketchat_sendroketchattext",
+      "target": "lib_roketchat_getroketchattoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "lib_roketchat_sendcheckoutgreeting",
+      "target": "lib_roketchat_sendroketchattext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/roketchat.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "lib_roketchat_sendpaidaccessmessage",
+      "target": "lib_roketchat_sendroketchattext",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -6402,5 +7555,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "e0ffb220118de4841e3588a0e5bf15cb38961280"
+  "built_at_commit": "5ad0240db4188796f55a171f963ab6f5d223e143"
 }

@@ -39,6 +39,12 @@ before update on public.membership_access
 for each row
 execute function public.set_membership_access_updated_at();
 
+-- The API talks to PostgREST as service_role. When the table is created
+-- outside the standard Supabase flow the built-in grants are missing and
+-- every request fails with "permission denied for table membership_access".
+grant usage on schema public to service_role;
+grant all privileges on table public.membership_access to service_role;
+
 alter table public.membership_access enable row level security;
 
 drop policy if exists "membership_access_no_public_read" on public.membership_access;

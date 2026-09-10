@@ -4,7 +4,7 @@
     "hash": "e9d66e1263ec6f84f9c7f4b88b00e4f9"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/next-env.d.ts": {
-    "mtime": 1789010309.328188,
+    "mtime": 1789035006.2462304,
     "hash": "8195d2c60ce847a459ae9d308d6a5724"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/vite.config.ts": {
@@ -20,24 +20,36 @@
     "hash": "0dc8a017ca0bb46919dfbefb4f34ec07"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/page.tsx": {
-    "mtime": 1788972828.2508297,
-    "hash": "526a910f22784bf36d33df35a94ce1d7"
+    "mtime": 1789041538.8198934,
+    "hash": "f4579f3fd7a8f9156fdd04aea74d465f"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/thank-you/page.tsx": {
-    "mtime": 1789010205.5490074,
-    "hash": "f3cde6037a20bf4d66fba279e3a983d8"
+    "mtime": 1789035337.9836035,
+    "hash": "ec35ebc0ebccd8f7b562c245cd1e1dfc"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/roketchat/webhook/route.ts": {
+    "mtime": 1789037591.0151682,
+    "hash": "a4b29a88b79e9c965fa370f0f86669b5"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/roketchat/resend-pending/route.ts": {
+    "mtime": 1789042227.5164754,
+    "hash": "7132b7d2c8f6c0e312ee26875c77660d"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/singapay/webhook/route.ts": {
-    "mtime": 1789011313.87258,
-    "hash": "070710c510db5bd116b3b8df9d163957"
+    "mtime": 1789041514.4193757,
+    "hash": "7b8f791a515aeb7e7818154f91d96ca6"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/singapay/checkout/route.ts": {
-    "mtime": 1789010656.5246007,
-    "hash": "e10ec27d7f83f650044992d93e08df5b"
+    "mtime": 1789042227.2165275,
+    "hash": "2facf55d93e75fe9e71564f9f3806cfa"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/membership/verify/route.ts": {
-    "mtime": 1789010656.590938,
-    "hash": "5d2b934533f697fbc998e479b6ba0f63"
+    "mtime": 1789041523.6265044,
+    "hash": "1aee488ff6af4bc0024872f218ffc0ab"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/membership/stats/route.ts": {
+    "mtime": 1789034286.8172133,
+    "hash": "3cf867ba229271c94cfd6445450b2651"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/membership/page.tsx": {
     "mtime": 1789010205.8340514,
@@ -48,8 +60,8 @@
     "hash": "422ebf278635c598d0a829f42dbce5ce"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/supabase/membership_access.sql": {
-    "mtime": 1789010637.9112408,
-    "hash": "a0f6b75618effad124e1b3c1f90dd7f4"
+    "mtime": 1789042753.1999927,
+    "hash": "47ef713ed3c607b79c656df09820264b"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/components/whatsapp-bubble.tsx": {
     "mtime": 1789018709.7591999,
@@ -299,13 +311,21 @@
     "mtime": 1788947316.0788257,
     "hash": "7c1419f33159acd8124bb39a125961f6"
   },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/singapay-payment-status.ts": {
+    "mtime": 1789042226.8525589,
+    "hash": "c7a41e62add00ea5305012a6671e9630"
+  },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/utils.ts": {
     "mtime": 1788947316.0792174,
     "hash": "8595c2f874aa1ff8c7cc28df2999f354"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/membership-access.ts": {
-    "mtime": 1789010671.2487276,
-    "hash": "06ae42dfdf996b2c55e380eeb6a44a17"
+    "mtime": 1789042227.0405123,
+    "hash": "b64b3aec1b98cd8fa8cd047be478cf9b"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/roketchat.ts": {
+    "mtime": 1789041495.5578427,
+    "hash": "4f92a9bc247e9eb163db5f5c65051d30"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/README.md": {
     "mtime": 1788953487.137856,
@@ -374,6 +394,10 @@
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/public/images/backtest-order-dashboard.png": {
     "mtime": 1788951395.2415864,
     "hash": "9b5502a9e889fe6e4160ac971b5a9bbe"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/public/images/claude-mcp-ws.webp": {
+    "mtime": 1789032088.6333246,
+    "hash": "cb17a808a5e1860a62bf83b906952c09"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/public/images/scalev.webp": {
     "mtime": 1788953559.519251,
