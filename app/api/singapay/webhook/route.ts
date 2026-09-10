@@ -4,6 +4,7 @@ import {
   getMembershipAccess,
   markMembershipAccessPaid,
 } from '@/lib/membership-access';
+import { creditAndNotifyAffiliate } from '@/lib/affiliate';
 import { sendPaidAccessMessage } from '@/lib/roketchat';
 
 export const runtime = 'nodejs';
@@ -167,6 +168,8 @@ export async function POST(request: Request) {
       paid_message_sent_at: paidMessageSentAt,
       raw_payload: body,
     });
+
+    await creditAndNotifyAffiliate(reference);
   }
 
   return NextResponse.json({ ok: true });

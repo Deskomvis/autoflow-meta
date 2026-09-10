@@ -11,9 +11,16 @@ type MembershipAccessPayload = {
   singapay_transaction_id?: string;
   paid_at?: string;
   raw_payload?: unknown;
+  affiliate_code?: string;
+  affiliate_owner_reference?: string;
+  original_amount?: number;
+  discount_amount?: number;
+  commission_amount?: number;
+  commission_credited_at?: string;
+  affiliate_message_sent_at?: string;
 };
 
-function getSupabaseConfig() {
+export function getSupabaseConfig() {
   const url = process.env.SUPABASE_URL?.replace(/\/+$/, '');
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -22,7 +29,7 @@ function getSupabaseConfig() {
   return { url, key };
 }
 
-async function requestSupabase(path: string, init: RequestInit = {}) {
+export async function requestSupabase(path: string, init: RequestInit = {}) {
   const config = getSupabaseConfig();
 
   if (!config) return null;
@@ -54,6 +61,11 @@ export async function createMembershipAccess(payload: MembershipAccessPayload) {
       singapay_transaction_id: payload.singapay_transaction_id ?? null,
       paid_at: payload.paid_at ?? null,
       raw_payload: payload.raw_payload ?? null,
+      affiliate_code: payload.affiliate_code ?? null,
+      affiliate_owner_reference: payload.affiliate_owner_reference ?? null,
+      original_amount: payload.original_amount ?? null,
+      discount_amount: payload.discount_amount ?? null,
+      commission_amount: payload.commission_amount ?? null,
     }),
   });
 
@@ -115,7 +127,7 @@ export async function markMembershipUnpaidMessageSent(reference: string) {
 
 export async function getMembershipAccess(reference: string) {
   const response = await requestSupabase(
-    `membership_access?reference=eq.${encodeURIComponent(reference)}&select=reference,status,payment_url,whatsapp_phone,unpaid_message_sent_at,paid_message_sent_at&limit=1`,
+    `membership_access?reference=eq.${encodeURIComponent(reference)}&select=reference,status,payment_url,whatsapp_phone,unpaid_message_sent_at,paid_message_sent_at,affiliate_code,affiliate_owner_reference,commission_amount,commission_credited_at,affiliate_message_sent_at&limit=1`,
     {
       method: 'GET',
       headers: {

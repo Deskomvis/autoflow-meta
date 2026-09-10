@@ -1,9 +1,16 @@
 import { createHmac } from 'node:crypto';
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import {
   createMembershipAccess,
   markMembershipUnpaidMessageSent,
 } from '@/lib/membership-access';
+import { normalizeCode, resolveAffiliateByCode } from '@/lib/affiliate';
+import {
+  affiliateCommission,
+  applyAffiliateDiscount,
+  BASE_PRICE,
+} from '@/lib/pricing';
 import {
   normalizeWhatsappPhone,
   sendCheckoutGreeting,
@@ -11,7 +18,6 @@ import {
 
 export const runtime = 'nodejs';
 
-const amount = 497000;
 const productName = 'Auto Flow Meta Ads dengan Claude AI';
 
 type SingapayTokenResponse = {
@@ -28,6 +34,7 @@ type SingapayPaymentLinkResponse = {
 };
 type CheckoutRequest = {
   whatsappPhone?: string;
+  couponCode?: string;
 };
 
 function requiredEnv(name: string) {
@@ -122,6 +129,21 @@ export async function POST(request: Request) {
       );
     }
 
+    const jar = await cookies();
+    const rawCode = normalizeCode(
+      requestBody?.couponCode || jar.get('afm_aff')?.value || '',
+    );
+    let affiliate = rawCode ? await resolveAffiliateByCode(rawCode) : null;
+    // An affiliate can't earn a discount or commission on their own purchase.
+    if (affiliate && affiliate.whatsapp_phone === whatsappPhone) {
+      affiliate = null;
+    }
+
+    const pricing = applyAffiliateDiscount();
+    const amount = affiliate ? pricing.finalAmount : BASE_PRICE;
+    const commissionAmount = affiliate ? affiliateCommission() : 0;
+    const discountAmount = affiliate ? pricing.discountAmount : 0;
+
     const baseUrl = getBaseUrl();
     const apiKey = requiredEnv('SINGAPAY_API_KEY');
     const accountId = requiredEnv('SINGAPAY_ACCOUNT_ID');
@@ -161,6 +183,7 @@ export async function POST(request: Request) {
             product: 'autoflow-meta',
             source: 'landing-page',
             whatsapp_phone: whatsappPhone,
+            affiliate_code: affiliate?.affiliate_code ?? null,
           },
         }),
         cache: 'no-store',
@@ -189,6 +212,11 @@ export async function POST(request: Request) {
       amount,
       payment_url: paymentUrl,
       whatsapp_phone: whatsappPhone,
+      affiliate_code: affiliate?.affiliate_code,
+      affiliate_owner_reference: affiliate?.owner_reference,
+      original_amount: BASE_PRICE,
+      discount_amount: discountAmount,
+      commission_amount: commissionAmount,
     });
 
     try {
@@ -208,6 +236,7 @@ export async function POST(request: Request) {
       paymentUrl,
       reference,
       amount,
+      discountApplied: Boolean(affiliate),
     });
   } catch (error) {
     return NextResponse.json(

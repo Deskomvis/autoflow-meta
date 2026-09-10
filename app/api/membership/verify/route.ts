@@ -4,6 +4,7 @@ import {
   isMembershipReferencePaid,
   markMembershipAccessPaid,
 } from '@/lib/membership-access';
+import { creditAndNotifyAffiliate } from '@/lib/affiliate';
 import { sendPaidAccessMessage } from '@/lib/roketchat';
 import { isSingapayPaymentReferencePaid } from '@/lib/singapay-payment-status';
 
@@ -58,6 +59,7 @@ export async function POST(request: Request) {
       }
 
       await markMembershipAccessPaid({ reference, paid_message_sent_at: paidMessageSentAt });
+      await creditAndNotifyAffiliate(reference);
       paidAccess = true;
     }
   }

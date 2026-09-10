@@ -1,8 +1,14 @@
+import { getSiteUrl } from '@/lib/site-url';
+
 type RoketchatTextResponse = {
   success?: boolean;
   code?: number;
   error?: string;
 };
+
+function rp(amount: number) {
+  return `Rp${amount.toLocaleString('id-ID')}`;
+}
 
 function getMessagesBaseUrl() {
   return (
@@ -73,16 +79,63 @@ export async function sendPaidAccessMessage(input: {
   phone: string;
   reference: string;
 }) {
-  const membershipUrl =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') ??
-    process.env.SITE_URL?.replace(/\/+$/, '') ??
-    process.env.APP_URL?.replace(/\/+$/, '') ??
-    'https://autoflow.roketmedia.id';
   const message = [
     'Jhazakallah khair, matursuwun.',
-    `Aksess Video & Download modul disini ya: ${membershipUrl}/membership`,
+    `Aksess Video & Download modul disini ya: ${getSiteUrl()}/membership`,
     `trus masukin kode referalmu : ${input.reference}`,
   ].join('\n\n');
 
   return sendRoketchatText(input.phone, message);
+}
+
+export async function sendAffiliateSaleMessage(input: {
+  phone: string;
+  downlinePhone: string;
+  commission: number;
+  commissionTotal: number;
+}) {
+  const message = [
+    'Cuan masuk! 🎉',
+    'Ada yang beli Auto Flow Meta Ads lewat afiliasimu.',
+    `Nomor WA pembeli: ${input.downlinePhone}`,
+    `Komisi dari penjualan ini: *${rp(input.commission)}*`,
+    `Total komisi terkumpul: *${rp(input.commissionTotal)}*`,
+    'Cek menu Profil di dashboard membership buat ajukan pencairan.',
+  ].join('\n\n');
+
+  return sendRoketchatText(input.phone, message);
+}
+
+export async function sendWithdrawalRequestAdminMessage(input: {
+  adminPhone: string;
+  affiliatePhone: string;
+  affiliateCode: string;
+  amount: number;
+}) {
+  const message = [
+    'Permintaan pencairan komisi afiliasi.',
+    `Affiliator: ${input.affiliatePhone} (kode ${input.affiliateCode})`,
+    `Jumlah: *${rp(input.amount)}*`,
+    'Update status di tabel affiliate_withdrawal atau lewat endpoint admin.',
+  ].join('\n\n');
+
+  return sendRoketchatText(input.adminPhone, message);
+}
+
+export async function sendWithdrawalStatusMessage(input: {
+  phone: string;
+  amount: number;
+  status: 'processing' | 'done' | 'rejected';
+  note?: string;
+}) {
+  const headline =
+    input.status === 'done'
+      ? `Pencairan komisi *${rp(input.amount)}* sudah selesai ditransfer. 🙏`
+      : input.status === 'processing'
+        ? `Pencairan komisi *${rp(input.amount)}* sedang diproses.`
+        : `Pencairan komisi *${rp(input.amount)}* ditolak.`;
+  const lines = [headline];
+  if (input.note) lines.push(`Catatan admin: ${input.note}`);
+
+  return sendRoketchatText(input.phone, lines.join('\n\n'));
 }
