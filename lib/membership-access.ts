@@ -115,7 +115,7 @@ export async function markMembershipUnpaidMessageSent(reference: string) {
 
 export async function getMembershipAccess(reference: string) {
   const response = await requestSupabase(
-    `membership_access?reference=eq.${encodeURIComponent(reference)}&select=reference,status,whatsapp_phone,paid_message_sent_at&limit=1`,
+    `membership_access?reference=eq.${encodeURIComponent(reference)}&select=reference,status,payment_url,whatsapp_phone,unpaid_message_sent_at,paid_message_sent_at&limit=1`,
     {
       method: 'GET',
       headers: {

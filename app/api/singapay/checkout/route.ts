@@ -191,17 +191,18 @@ export async function POST(request: Request) {
       whatsapp_phone: whatsappPhone,
     });
 
-    sendCheckoutGreeting({ phone: whatsappPhone, paymentUrl })
-      .then(() => markMembershipUnpaidMessageSent(reference))
-      .catch((error) => {
-        console.warn(
-          'roketchat-unpaid-greeting-failed',
-          JSON.stringify({
-            reference,
-            message: error instanceof Error ? error.message : 'Unknown error',
-          }),
-        );
-      });
+    try {
+      await sendCheckoutGreeting({ phone: whatsappPhone, paymentUrl });
+      await markMembershipUnpaidMessageSent(reference);
+    } catch (error) {
+      console.warn(
+        'roketchat-unpaid-greeting-failed',
+        JSON.stringify({
+          reference,
+          message: error instanceof Error ? error.message : 'Unknown error',
+        }),
+      );
+    }
 
     return NextResponse.json({
       paymentUrl,

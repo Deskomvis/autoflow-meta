@@ -138,3 +138,45 @@ export async function isSingapayPaymentReferencePaid(reference: string) {
   const recentPaid = await listHistories({ status: 'paid' });
   return recentPaid.some(hasPaidReference);
 }
+
+export async function getSingapayPaymentLinkReference(transactionId: string) {
+  const baseUrl = getBaseUrl();
+  const apiKey = requiredEnv('SINGAPAY_API_KEY');
+  const accountId = requiredEnv('SINGAPAY_ACCOUNT_ID');
+  const accessToken = await requestAccessToken(baseUrl);
+
+  if (!accessToken) return null;
+
+  const url = new URL(`${baseUrl}/api/v1.0/payment-link-histories/${accountId}`);
+  url.searchParams.set('reff_no', transactionId);
+  url.searchParams.set('per_page', '5');
+  url.searchParams.set('sort_by', 'created_at');
+  url.searchParams.set('sort_order', 'desc');
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'X-PARTNER-ID': apiKey,
+    },
+    cache: 'no-store',
+  });
+
+  if (!response.ok) return null;
+
+  const body = (await response
+    .json()
+    .catch(() => null)) as PaymentHistoryResponse | null;
+  const histories = Array.isArray(body?.data) ? body.data : [];
+  const match = histories.find(
+    (history) => history.reff_no?.toUpperCase() === transactionId.toUpperCase(),
+  );
+
+  return (
+    match?.payment_link_reff_no ??
+    match?.payment_link?.reff_no ??
+    match?.reference ??
+    match?.merchant_reff_no ??
+    null
+  );
+}
