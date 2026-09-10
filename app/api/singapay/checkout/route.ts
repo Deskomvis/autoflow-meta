@@ -46,6 +46,17 @@ function getBaseUrl() {
   );
 }
 
+function getSiteUrl(request: Request) {
+  const configuredUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    process.env.SITE_URL ??
+    process.env.APP_URL;
+
+  if (configuredUrl) return configuredUrl.replace(/\/+$/, '');
+
+  return new URL(request.url).origin;
+}
+
 async function requestAccessToken(baseUrl: string) {
   const clientId = requiredEnv('SINGAPAY_CLIENT_ID');
   const clientSecret = requiredEnv('SINGAPAY_CLIENT_SECRET');
@@ -100,7 +111,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const origin = new URL(request.url).origin;
+    const origin = getSiteUrl(request);
     const reference = `AFM-${Date.now().toString(36).toUpperCase()}`;
     const response = await fetch(
       `${baseUrl}/api/v2.0/payment-link/${accountId}`,
