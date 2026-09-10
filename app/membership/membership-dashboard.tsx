@@ -34,10 +34,34 @@ export default function MembershipDashboard({
 
   useEffect(() => {
     const savedReference = sessionStorage.getItem('afm-membership-ref');
-    if (savedReference) {
-      setReference(savedReference);
-      setVerifiedReference(savedReference);
-    }
+    if (!savedReference) return;
+
+    setReference(savedReference);
+
+    // A saved code must be re-checked with the server before the course is
+    // shown again — sessionStorage on its own is not proof of access.
+    let cancelled = false;
+    fetch('/api/membership/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ reference: savedReference }),
+    })
+      .then(async response => {
+        const body = (await response.json().catch(() => null)) as {
+          reference?: string;
+        } | null;
+        if (cancelled) return;
+        if (response.ok && body?.reference) {
+          setVerifiedReference(body.reference);
+        } else {
+          sessionStorage.removeItem('afm-membership-ref');
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   async function verifyAccess(event: FormEvent<HTMLFormElement>) {
@@ -135,26 +159,6 @@ export default function MembershipDashboard({
               </p>
               <h2>{lessons[activeLesson].title}</h2>
             </div>
-
-            <div className="course-resources">
-              <h3>Modul dan support</h3>
-              <a className="cta" href={filesUrl} target="_blank" rel="noreferrer">
-                Download Modul (Google Drive)
-              </a>
-              <a
-                className="resource-link"
-                href={telegramUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Gabung grup support Telegram
-              </a>
-            </div>
-
-            <p className="fineprint">
-              Link ini khusus pembeli Auto Flow Meta Ads. Jangan bagikan akses
-              dashboard, modul, atau grup support ke orang lain.
-            </p>
           </div>
 
           <aside className="course-playlist">
@@ -188,6 +192,26 @@ export default function MembershipDashboard({
               </div>
             </div>
           </aside>
+
+          <div className="course-resources">
+            <h3>Modul dan support</h3>
+            <a className="cta" href={filesUrl} target="_blank" rel="noreferrer">
+              Download Modul (Google Drive)
+            </a>
+            <a
+              className="resource-link"
+              href={telegramUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Gabung grup support Telegram
+            </a>
+          </div>
+
+          <p className="fineprint course-fineprint">
+            Link ini khusus pembeli Auto Flow Meta Ads. Jangan bagikan akses
+            dashboard, modul, atau grup support ke orang lain.
+          </p>
         </section>
       ) : null}
     </main>

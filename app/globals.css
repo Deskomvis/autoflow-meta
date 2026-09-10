@@ -1172,8 +1172,17 @@ h2 span {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
   align-items: start;
-  gap: 32px;
+  gap: 32px 32px;
   padding-top: 38px;
+}
+.course-main,
+.course-resources,
+.course-fineprint {
+  grid-column: 1;
+}
+.course-playlist {
+  grid-column: 2;
+  grid-row: 1 / span 3;
 }
 .course-main {
   display: flex;
@@ -1711,11 +1720,8 @@ h2 span {
   .checkout-dialog {
     padding: 24px !important;
   }
-  .membership-hero,
-  .membership-content {
-    grid-template-columns: 1fr;
-  }
   .membership-hero {
+    grid-template-columns: 1fr;
     gap: 28px;
   }
   .membership-hero .brand {
@@ -1726,6 +1732,22 @@ h2 span {
   }
   .access-input-row input {
     min-height: 50px;
+  }
+  .membership-content {
+    display: flex;
+    flex-direction: column;
+  }
+  .course-main {
+    order: 1;
+  }
+  .course-playlist {
+    order: 2;
+  }
+  .course-resources {
+    order: 3;
+  }
+  .course-fineprint {
+    order: 4;
   }
   .course-playlist ol {
     max-height: 320px;
