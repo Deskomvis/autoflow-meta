@@ -56,8 +56,11 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
           </ol>
         </div>
 
-        <Link className="cta" href="/">
-          Kembali ke halaman utama
+        <Link
+          className="cta"
+          href={`/membership${reference ? `?ref=${encodeURIComponent(reference)}` : ''}`}
+        >
+          Buka Dashboard Membership
         </Link>
       </section>
     </main>
