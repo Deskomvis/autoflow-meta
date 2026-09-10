@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
-import { isMembershipReferencePaid } from '@/lib/membership-access';
+import {
+  isMembershipReferencePaid,
+  markMembershipAccessPaid,
+} from '@/lib/membership-access';
+import { isSingapayPaymentReferencePaid } from '@/lib/singapay-payment-status';
 
 export const runtime = 'nodejs';
 
@@ -22,7 +26,19 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as VerifyRequest | null;
   const reference = body?.reference?.trim().toUpperCase() ?? '';
   const codes = configuredCodes();
-  const paidAccess = reference ? await isMembershipReferencePaid(reference) : false;
+  let paidAccess = reference ? await isMembershipReferencePaid(reference) : false;
+
+  if (reference && paidAccess === false && looksLikePaymentReference(reference)) {
+    const singapayPaid = await isSingapayPaymentReferencePaid(reference).catch(
+      () => false,
+    );
+
+    if (singapayPaid) {
+      await markMembershipAccessPaid({ reference });
+      paidAccess = true;
+    }
+  }
+
   const isAllowed =
     paidAccess ?? (codes.length
       ? codes.includes(reference)
