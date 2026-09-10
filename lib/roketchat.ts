@@ -57,7 +57,7 @@ export async function sendCheckoutGreeting(input: {
   paymentUrl: string;
 }) {
   const message = [
-    'Halo gus!,',
+    'Halohai! 🔥🔥',
     'Thxyu udah checkout *Auto Flow Meta Ads - Methode Baru saya.*',
     'Monggo, tinggal transfer kesini:',
     input.paymentUrl,

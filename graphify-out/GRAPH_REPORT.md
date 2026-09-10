@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5ad0240d`
+- Built from commit: `260a9034`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -25,7 +25,7 @@
 - [[_COMMUNITY_Community 7|Community 7]]
 - [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_Community 18|Community 18]]
-- [[_COMMUNITY_Community 25|Community 25]]
+- [[_COMMUNITY_Community 29|Community 29]]
 - [[_COMMUNITY_Community 32|Community 32]]
 - [[_COMMUNITY_Community 33|Community 33]]
 
