@@ -3,11 +3,21 @@
 import { FormEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 
-const playlistUrl = 'https://www.youtube.com/playlist?list=PLQW0jrbG2HJ0';
-const playlistEmbedUrl =
-  'https://www.youtube-nocookie.com/embed/videoseries?list=PLQW0jrbG2HJ0';
 const filesUrl =
   'https://drive.google.com/drive/folders/1GlUFAsbVnToGVeD9cpcLAYxnd__S7eJr?usp=sharing';
+const telegramUrl = 'https://t.me/+v8NHYYcrq-9jMWM1';
+
+const lessons = [
+  { id: 'h69NhYHnvCM', title: 'Video 1' },
+  { id: 'm0Ee0wluBpE', title: 'Video 2' },
+  { id: 'iLj4hnRTcbk', title: 'Video 3' },
+  { id: 'Cgi8QuN2iW4', title: 'Video 4' },
+  { id: 'OjUu5oRyc2g', title: 'Video 5' },
+  { id: 'bNBMBu3IIYs', title: 'Video 6' },
+  { id: 'P4S2N_O3Uz4', title: 'Video 7' },
+  { id: 'vlsV_BDfJAo', title: 'Video 8' },
+  { id: 'sBS3uB2pE1M', title: 'Video 9' },
+];
 
 type MembershipDashboardProps = {
   initialReference: string;
@@ -20,6 +30,7 @@ export default function MembershipDashboard({
   const [verifiedReference, setVerifiedReference] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [activeLesson, setActiveLesson] = useState(0);
 
   useEffect(() => {
     const savedReference = sessionStorage.getItem('afm-membership-ref');
@@ -108,18 +119,64 @@ export default function MembershipDashboard({
 
       {verifiedReference ? (
         <section className="membership-content wrap" aria-live="polite">
-          <div className="course-player">
-            <iframe
-              src={playlistEmbedUrl}
-              title="Playlist Auto Flow Meta Ads dengan Claude AI"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+          <div className="course-main">
+            <div className="course-player">
+              <iframe
+                key={lessons[activeLesson].id}
+                src={`https://www.youtube-nocookie.com/embed/${lessons[activeLesson].id}?rel=0`}
+                title={`${lessons[activeLesson].title} — Auto Flow Meta Ads`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="course-now">
+              <p className="eyebrow">
+                Sedang diputar · Video {activeLesson + 1} dari {lessons.length}
+              </p>
+              <h2>{lessons[activeLesson].title}</h2>
+            </div>
+
+            <div className="course-resources">
+              <h3>Modul dan support</h3>
+              <a className="cta" href={filesUrl} target="_blank" rel="noreferrer">
+                Download Modul (Google Drive)
+              </a>
+              <a
+                className="resource-link"
+                href={telegramUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Gabung grup support Telegram
+              </a>
+            </div>
+
+            <p className="fineprint">
+              Link ini khusus pembeli Auto Flow Meta Ads. Jangan bagikan akses
+              dashboard, modul, atau grup support ke orang lain.
+            </p>
           </div>
 
-          <aside className="course-sidebar">
-            <p className="eyebrow">AKSES AKTIF</p>
-            <h2>Course dan file tambahan</h2>
+          <aside className="course-playlist">
+            <div className="course-playlist-head">
+              <p className="eyebrow">Playlist Video Kursus</p>
+              <span>{lessons.length} video</span>
+            </div>
+            <ol>
+              {lessons.map((lesson, index) => (
+                <li key={lesson.id}>
+                  <button
+                    type="button"
+                    className={index === activeLesson ? 'is-active' : undefined}
+                    aria-current={index === activeLesson ? 'true' : undefined}
+                    onClick={() => setActiveLesson(index)}
+                  >
+                    <span className="lesson-num">{index + 1}</span>
+                    <span className="lesson-title">{lesson.title}</span>
+                  </button>
+                </li>
+              ))}
+            </ol>
             <div className="thankyou-summary">
               <div>
                 <span>Status</span>
@@ -130,26 +187,6 @@ export default function MembershipDashboard({
                 <strong>{verifiedReference}</strong>
               </div>
             </div>
-            <a
-              className="cta"
-              href={filesUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Download semua file tambahan
-            </a>
-            <a
-              className="text-button"
-              href={playlistUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Buka playlist di YouTube
-            </a>
-            <p className="fineprint">
-              Link ini khusus pembeli Auto Flow Meta Ads. Jangan bagikan akses
-              dashboard atau folder materi ke orang lain.
-            </p>
           </aside>
         </section>
       ) : null}
