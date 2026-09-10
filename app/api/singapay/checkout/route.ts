@@ -4,7 +4,7 @@ import { createMembershipAccess } from '@/lib/membership-access';
 
 export const runtime = 'nodejs';
 
-const amount = 499000;
+const amount = 497000;
 const productName = 'Auto Flow Meta Ads dengan Claude AI';
 
 type SingapayTokenResponse = {

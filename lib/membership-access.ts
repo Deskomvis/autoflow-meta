@@ -109,3 +109,30 @@ export async function isMembershipReferencePaid(reference: string) {
   const data = (await response.json().catch(() => [])) as unknown[];
   return data.length > 0;
 }
+
+export async function getPaidMembershipAccessCount() {
+  const response = await requestSupabase(
+    'membership_access?status=eq.paid&select=reference',
+    {
+      method: 'HEAD',
+      headers: {
+        Prefer: 'count=exact',
+      },
+    },
+  );
+
+  if (!response) return null;
+  if (!response.ok) {
+    console.warn(
+      'membership-access-count-failed',
+      JSON.stringify({ status: response.status, body: await response.text() }),
+    );
+    return null;
+  }
+
+  const range = response.headers.get('content-range');
+  const total = range?.split('/').at(1);
+  const count = total ? Number(total) : NaN;
+
+  return Number.isFinite(count) ? count : null;
+}

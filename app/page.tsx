@@ -123,13 +123,15 @@ const toolNames: Record<string, string> = {
   scalev: 'Scalev',
   vistudio: 'Vistudio',
 };
+const earlybirdLimit = 30;
+const initialEarlybirdTaken = 12;
 const faqs = [
   [
     'Saya belum pernah pakai MCP. Bisa mengikuti?',
     'Mulai dari video pengantar dan Modul 0. Materinya membahas koneksi dan pengujian tools sebelum masuk ke riset, landing page, creative, dan campaign. Siapkan waktu untuk praktik, akun tools, serta akses akun iklan yang diperlukan.',
   ],
   [
-    'Apakah Rp499.000 sudah termasuk biaya tools dan iklan?',
+    'Apakah Rp497.000 sudah termasuk biaya tools dan iklan?',
     'Harga earlybird ini untuk materi video webinar dan ecourse, 8 file modul, grup support, serta bonus riset. Langganan Claude, tools pendukung, kredit pembuatan aset, dan budget Meta Ads berada di luar harga materi.',
   ],
   [
@@ -152,6 +154,11 @@ const faqs = [
 type CheckoutResponse = {
   paymentUrl?: string;
   message?: string;
+};
+type SlotStatsResponse = {
+  limit?: number;
+  taken?: number;
+  remaining?: number;
 };
 export default function Home() {
   useEffect(() => {
@@ -207,9 +214,41 @@ export default function Home() {
   const [checkout, setCheckout] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
+  const [slotStats, setSlotStats] = useState({
+    limit: earlybirdLimit,
+    taken: initialEarlybirdTaken,
+    remaining: earlybirdLimit - initialEarlybirdTaken,
+  });
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const [active, setActive] = useState(0);
+  useEffect(() => {
+    let activeRequest = true;
+
+    fetch('/api/membership/stats')
+      .then((response) =>
+        response.ok
+          ? (response.json() as Promise<SlotStatsResponse>)
+          : null,
+      )
+      .then((data) => {
+        if (!activeRequest || !data) return;
+
+        setSlotStats({
+          limit: Number(data.limit) || earlybirdLimit,
+          taken: Number(data.taken) || initialEarlybirdTaken,
+          remaining:
+            typeof data.remaining === 'number'
+              ? data.remaining
+              : earlybirdLimit - initialEarlybirdTaken,
+        });
+      })
+      .catch(() => {});
+
+    return () => {
+      activeRequest = false;
+    };
+  }, []);
   async function createCheckout() {
     setCheckoutLoading(true);
     setCheckoutError('');
@@ -236,7 +275,7 @@ export default function Home() {
   async function copyOrder() {
     try {
       await navigator.clipboard.writeText(
-        'Saya ingin membeli Auto Flow Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket earlybird Rp499.000: 9 video teknis, 8 file modul, grup support, dan bonus riset.',
+        'Saya ingin membeli Auto Flow Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket earlybird Rp497.000: 9 video teknis, 8 file modul, grup support, dan bonus riset.',
       );
       setCopied(true);
       setCopyError(false);
@@ -748,8 +787,10 @@ export default function Home() {
           <div className="offer-card">
             <span className="package-label">PAKET LENGKAP AUTO FLOW META ADS</span>
             <h3>Mesinmu dimulai di sini.</h3>
-            <p className="price">Rp499.000</p>
-            <p className="price-note">Harga earlybird untuk 30 pembeli pertama</p>
+            <p className="price">Rp497.000</p>
+            <p className="price-note">
+              Harga earlybird untuk {slotStats.limit} slot pertama
+            </p>
             <ul className="check-list">
               <li>9 video teknis webinar & ecourse</li>
               <li>8 file modul Autoflow</li>
@@ -803,7 +844,7 @@ export default function Home() {
       </footer>
       <div className="mobile-buy">
         <span>
-          Harga earlybird<strong>Rp499.000</strong>
+          Harga earlybird<strong>Rp497.000</strong>
         </span>
         <button className="cta" onClick={() => setCheckout(true)}>
           Lihat akses paket
@@ -865,11 +906,22 @@ export default function Home() {
             </div>
             <div className="seat-meter">
               <div className="seat-copy">
-                <strong>12/30 kursi earlybird terisi</strong>
-                <span>Tersisa 18 kursi di harga ini.</span>
+                <strong>
+                  {slotStats.taken}/{slotStats.limit} slot earlybird terisi
+                </strong>
+                <span>Tersisa {slotStats.remaining} slot di harga ini.</span>
               </div>
-              <div className="seat-track" aria-label="Progress pembeli earlybird">
-                <span />
+              <div className="seat-track" aria-label="Progress slot earlybird">
+                <span
+                  style={{
+                    width:
+                      slotStats.limit > 0
+                        ? `${Math.min(100, (slotStats.taken / slotStats.limit) * 100)}%`
+                        : `${Math.round(
+                            (initialEarlybirdTaken / earlybirdLimit) * 100,
+                          )}%`,
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -878,22 +930,22 @@ export default function Home() {
             <div className="price-row">
               <div>
                 <span className="price-label">Earlybird User</span>
-                <strong className="dialog-price">Rp499.000</strong>
+                <strong className="dialog-price">Rp497.000</strong>
               </div>
               <span className="earlybird-badge">Harga earlybird</span>
             </div>
             <div className="pricing-tiers" aria-label="Tier harga">
               <div className="active">
                 <span>Earlybird</span>
-                <strong>499.000</strong>
+                <strong>497.000</strong>
               </div>
               <div>
-                <span>Regular</span>
-                <strong>799.000</strong>
+                <span>Reguler</span>
+                <strong>697.000</strong>
               </div>
               <div>
-                <span>Workshop</span>
-                <strong>999.000</strong>
+                <span>Extended</span>
+                <strong>997.000</strong>
               </div>
             </div>
             <div className="checkout-notice">
