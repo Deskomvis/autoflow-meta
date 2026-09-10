@@ -1330,6 +1330,11 @@ h2 span {
   color: #c5d2e1;
   line-height: 1.8;
 }
+.thankyou-help {
+  margin: 16px 0 0;
+  color: #ffce93;
+  font-size: 14px;
+}
 .membership-page {
   min-height: 100dvh;
   padding: 34px 0 72px;

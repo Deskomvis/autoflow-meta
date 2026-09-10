@@ -50,10 +50,14 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
         <div className="thankyou-next">
           <h2>Langkah berikutnya</h2>
           <ol>
-            <li>Cek pesan atau email yang kamu gunakan saat pembayaran.</li>
-            <li>Simpan bukti pembayaran sampai akses paket aktif.</li>
-            <li>Masuk ke grup support saat undangan akses sudah diterima.</li>
+            <li>Simpan kode referensi untuk akses.</li>
+            <li>Masuk dashboard membership dan input kode akses.</li>
+            <li>Lihat video dan download modul.</li>
+            <li>Join grup Telegram.</li>
           </ol>
+          <p className="thankyou-help">
+            Jika kode akses gagal, info saya: Wa 085741813147
+          </p>
         </div>
 
         <Link
