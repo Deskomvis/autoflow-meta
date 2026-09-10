@@ -214,6 +214,7 @@ export default function Home() {
   const [checkout, setCheckout] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
+  const [checkoutPhone, setCheckoutPhone] = useState('');
   const [slotStats, setSlotStats] = useState({
     limit: earlybirdLimit,
     taken: initialEarlybirdTaken,
@@ -255,6 +256,12 @@ export default function Home() {
     try {
       const response = await fetch('/api/singapay/checkout', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          whatsappPhone: checkoutPhone,
+        }),
       });
       const body = (await response
         .json()
@@ -961,6 +968,17 @@ export default function Home() {
                 dashboard course.
               </p>
             </div>
+            <label className="checkout-phone">
+              <span>Nomor WhatsApp aktif</span>
+              <input
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder="Contoh: 085741813147"
+                value={checkoutPhone}
+                onChange={(event) => setCheckoutPhone(event.target.value)}
+                disabled={checkoutLoading}
+              />
+            </label>
             <button className="cta" onClick={createCheckout} disabled={checkoutLoading}>
               {checkoutLoading ? 'Menyiapkan pembayaran...' : 'Lanjut ke pembayaran'}
             </button>

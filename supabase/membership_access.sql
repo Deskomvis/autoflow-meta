@@ -4,12 +4,24 @@ create table if not exists public.membership_access (
   status text not null default 'pending' check (status in ('pending', 'paid')),
   amount integer,
   payment_url text,
+  whatsapp_phone text,
+  unpaid_message_sent_at timestamptz,
+  paid_message_sent_at timestamptz,
   singapay_transaction_id text,
   paid_at timestamptz,
   raw_payload jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.membership_access
+add column if not exists whatsapp_phone text;
+
+alter table public.membership_access
+add column if not exists unpaid_message_sent_at timestamptz;
+
+alter table public.membership_access
+add column if not exists paid_message_sent_at timestamptz;
 
 create or replace function public.set_membership_access_updated_at()
 returns trigger

@@ -5,6 +5,9 @@ type MembershipAccessPayload = {
   status: AccessStatus;
   amount?: number;
   payment_url?: string;
+  whatsapp_phone?: string;
+  unpaid_message_sent_at?: string;
+  paid_message_sent_at?: string;
   singapay_transaction_id?: string;
   paid_at?: string;
   raw_payload?: unknown;
@@ -45,6 +48,9 @@ export async function createMembershipAccess(payload: MembershipAccessPayload) {
       status: payload.status,
       amount: payload.amount ?? null,
       payment_url: payload.payment_url ?? null,
+      whatsapp_phone: payload.whatsapp_phone ?? null,
+      unpaid_message_sent_at: payload.unpaid_message_sent_at ?? null,
+      paid_message_sent_at: payload.paid_message_sent_at ?? null,
       singapay_transaction_id: payload.singapay_transaction_id ?? null,
       paid_at: payload.paid_at ?? null,
       raw_payload: payload.raw_payload ?? null,
@@ -62,6 +68,7 @@ export async function createMembershipAccess(payload: MembershipAccessPayload) {
 export async function markMembershipAccessPaid(payload: {
   reference: string;
   singapay_transaction_id?: string;
+  paid_message_sent_at?: string;
   raw_payload?: unknown;
 }) {
   const response = await requestSupabase('membership_access?on_conflict=reference', {
@@ -73,6 +80,7 @@ export async function markMembershipAccessPaid(payload: {
       reference: payload.reference,
       status: 'paid',
       paid_at: new Date().toISOString(),
+      paid_message_sent_at: payload.paid_message_sent_at ?? undefined,
       singapay_transaction_id: payload.singapay_transaction_id ?? null,
       raw_payload: payload.raw_payload ?? null,
     }),
@@ -84,6 +92,49 @@ export async function markMembershipAccessPaid(payload: {
     'membership-access-paid-failed',
     JSON.stringify({ status: response.status, body: await response.text() }),
   );
+}
+
+export async function markMembershipUnpaidMessageSent(reference: string) {
+  const response = await requestSupabase(
+    `membership_access?reference=eq.${encodeURIComponent(reference)}`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify({
+        unpaid_message_sent_at: new Date().toISOString(),
+      }),
+    },
+  );
+
+  if (!response || response.ok) return;
+
+  console.warn(
+    'membership-access-unpaid-message-failed',
+    JSON.stringify({ status: response.status, body: await response.text() }),
+  );
+}
+
+export async function getMembershipAccess(reference: string) {
+  const response = await requestSupabase(
+    `membership_access?reference=eq.${encodeURIComponent(reference)}&select=reference,status,whatsapp_phone,paid_message_sent_at&limit=1`,
+    {
+      method: 'GET',
+      headers: {
+        Prefer: '',
+      },
+    },
+  );
+
+  if (!response) return null;
+  if (!response.ok) {
+    console.warn(
+      'membership-access-get-failed',
+      JSON.stringify({ status: response.status, body: await response.text() }),
+    );
+    return null;
+  }
+
+  const data = (await response.json().catch(() => [])) as MembershipAccessPayload[];
+  return data[0] ?? null;
 }
 
 export async function isMembershipReferencePaid(reference: string) {

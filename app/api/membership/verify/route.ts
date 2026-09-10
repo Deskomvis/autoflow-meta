@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import {
+  getMembershipAccess,
   isMembershipReferencePaid,
   markMembershipAccessPaid,
 } from '@/lib/membership-access';
+import { sendPaidAccessMessage } from '@/lib/roketchat';
 import { isSingapayPaymentReferencePaid } from '@/lib/singapay-payment-status';
 
 export const runtime = 'nodejs';
@@ -34,7 +36,28 @@ export async function POST(request: Request) {
     );
 
     if (singapayPaid) {
-      await markMembershipAccessPaid({ reference });
+      const access = await getMembershipAccess(reference);
+      let paidMessageSentAt: string | undefined;
+
+      if (access?.whatsapp_phone && !access.paid_message_sent_at) {
+        try {
+          await sendPaidAccessMessage({
+            phone: access.whatsapp_phone,
+            reference,
+          });
+          paidMessageSentAt = new Date().toISOString();
+        } catch (error) {
+          console.warn(
+            'roketchat-paid-message-failed',
+            JSON.stringify({
+              reference,
+              message: error instanceof Error ? error.message : 'Unknown error',
+            }),
+          );
+        }
+      }
+
+      await markMembershipAccessPaid({ reference, paid_message_sent_at: paidMessageSentAt });
       paidAccess = true;
     }
   }

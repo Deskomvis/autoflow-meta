@@ -1,6 +1,10 @@
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { NextResponse } from 'next/server';
-import { markMembershipAccessPaid } from '@/lib/membership-access';
+import {
+  getMembershipAccess,
+  markMembershipAccessPaid,
+} from '@/lib/membership-access';
+import { sendPaidAccessMessage } from '@/lib/roketchat';
 
 export const runtime = 'nodejs';
 
@@ -135,9 +139,32 @@ export async function POST(request: Request) {
       payment.status.toLowerCase(),
     )
   ) {
+    const reference = payment.reference.toUpperCase();
+    const access = await getMembershipAccess(reference);
+    let paidMessageSentAt: string | undefined;
+
+    if (access?.whatsapp_phone && !access.paid_message_sent_at) {
+      try {
+        await sendPaidAccessMessage({
+          phone: access.whatsapp_phone,
+          reference,
+        });
+        paidMessageSentAt = new Date().toISOString();
+      } catch (error) {
+        console.warn(
+          'roketchat-paid-message-failed',
+          JSON.stringify({
+            reference,
+            message: error instanceof Error ? error.message : 'Unknown error',
+          }),
+        );
+      }
+    }
+
     await markMembershipAccessPaid({
-      reference: payment.reference.toUpperCase(),
+      reference,
       singapay_transaction_id: payment.transactionId,
+      paid_message_sent_at: paidMessageSentAt,
       raw_payload: body,
     });
   }

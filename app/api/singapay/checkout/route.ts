@@ -1,6 +1,13 @@
 import { createHmac } from 'node:crypto';
 import { NextResponse } from 'next/server';
-import { createMembershipAccess } from '@/lib/membership-access';
+import {
+  createMembershipAccess,
+  markMembershipUnpaidMessageSent,
+} from '@/lib/membership-access';
+import {
+  normalizeWhatsappPhone,
+  sendCheckoutGreeting,
+} from '@/lib/roketchat';
 
 export const runtime = 'nodejs';
 
@@ -18,6 +25,9 @@ type SingapayPaymentLinkResponse = {
   data?: {
     payment_url?: string;
   };
+};
+type CheckoutRequest = {
+  whatsappPhone?: string;
 };
 
 function requiredEnv(name: string) {
@@ -95,6 +105,23 @@ async function requestAccessToken(baseUrl: string) {
 
 export async function POST(request: Request) {
   try {
+    const requestBody = (await request.json().catch(() => null)) as
+      | CheckoutRequest
+      | null;
+    const whatsappPhone = normalizeWhatsappPhone(
+      requestBody?.whatsappPhone ?? '',
+    );
+
+    if (!/^62\d{8,14}$/.test(whatsappPhone)) {
+      return NextResponse.json(
+        {
+          error: 'INVALID_WHATSAPP_PHONE',
+          message: 'Masukkan nomor WhatsApp aktif, contoh 085741813147.',
+        },
+        { status: 400 },
+      );
+    }
+
     const baseUrl = getBaseUrl();
     const apiKey = requiredEnv('SINGAPAY_API_KEY');
     const accountId = requiredEnv('SINGAPAY_ACCOUNT_ID');
@@ -133,6 +160,7 @@ export async function POST(request: Request) {
           optional_metadata: {
             product: 'autoflow-meta',
             source: 'landing-page',
+            whatsapp_phone: whatsappPhone,
           },
         }),
         cache: 'no-store',
@@ -160,7 +188,20 @@ export async function POST(request: Request) {
       status: 'pending',
       amount,
       payment_url: paymentUrl,
+      whatsapp_phone: whatsappPhone,
     });
+
+    sendCheckoutGreeting({ phone: whatsappPhone, paymentUrl })
+      .then(() => markMembershipUnpaidMessageSent(reference))
+      .catch((error) => {
+        console.warn(
+          'roketchat-unpaid-greeting-failed',
+          JSON.stringify({
+            reference,
+            message: error instanceof Error ? error.message : 'Unknown error',
+          }),
+        );
+      });
 
     return NextResponse.json({
       paymentUrl,

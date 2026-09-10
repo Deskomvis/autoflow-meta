@@ -15,6 +15,15 @@ export function getRoketchatToken() {
   return process.env.ROKETCHAT_API_KEY ?? process.env.ROKETCHAT_TOKEN ?? '';
 }
 
+export function normalizeWhatsappPhone(phone: string) {
+  const digits = phone.replace(/\D/g, '');
+
+  if (digits.startsWith('0')) return `62${digits.slice(1)}`;
+  if (digits.startsWith('8')) return `62${digits}`;
+
+  return digits;
+}
+
 export async function sendRoketchatText(phone: string, body: string) {
   const token = getRoketchatToken();
 
@@ -41,4 +50,39 @@ export async function sendRoketchatText(phone: string, body: string) {
   }
 
   return payload;
+}
+
+export async function sendCheckoutGreeting(input: {
+  phone: string;
+  paymentUrl: string;
+}) {
+  const message = [
+    'Halo gus!,',
+    'Thxyu udah checkout *Auto Flow Meta Ads - Methode Baru saya.*',
+    'Monggo, tinggal transfer kesini:',
+    input.paymentUrl,
+    'ntar dapet kode referal untuk akses halaman membership.',
+    'Tinggal klak klik > Nonton video panduan > Set n forget iklanmu > Delegasikan = Auto senyum kemudian 🥳',
+    'Toss! 🙏',
+  ].join('\n\n');
+
+  return sendRoketchatText(input.phone, message);
+}
+
+export async function sendPaidAccessMessage(input: {
+  phone: string;
+  reference: string;
+}) {
+  const membershipUrl =
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, '') ??
+    process.env.SITE_URL?.replace(/\/+$/, '') ??
+    process.env.APP_URL?.replace(/\/+$/, '') ??
+    'https://autoflow.roketmedia.id';
+  const message = [
+    'Jhazakallah khair, matursuwun.',
+    `Aksess Video & Download modul disini ya: ${membershipUrl}/membership`,
+    `trus masukin kode referalmu : ${input.reference}`,
+  ].join('\n\n');
+
+  return sendRoketchatText(input.phone, message);
 }
