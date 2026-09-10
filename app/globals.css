@@ -1559,6 +1559,141 @@ h2 span {
 .course-playlist .thankyou-summary {
   margin-bottom: 0;
 }
+
+/* Membership tabs: reuses the playlist button pattern, the one nav
+   affordance this area already has. */
+.membership-tabs {
+  display: flex;
+  gap: 8px;
+  padding-top: 28px;
+}
+.membership-tabs button {
+  padding: 11px 18px;
+  border: 1px solid #2d4057;
+  border-radius: 6px;
+  background: #0b1524;
+  color: #c2d1e4;
+  font-size: 14px;
+  font-weight: 600;
+  transition: border-color 200ms, background 200ms, color 200ms;
+}
+.membership-tabs button:hover {
+  background: #14243a;
+  color: #f7fbff;
+}
+.membership-tabs button.is-active {
+  border-color: var(--blue);
+  background: #14243a;
+  color: #f7fbff;
+}
+
+/* Profile / affiliate panel: a utility stack, not the 2-col course grid. */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 720px;
+  padding-top: 26px;
+}
+.profile-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  border: 1px solid #2d4057;
+  border-radius: 8px;
+  padding: 22px;
+  background: #0f1b2c;
+}
+.profile-block h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0;
+}
+.profile-block .eyebrow {
+  margin: 0;
+}
+.profile-block .thankyou-summary,
+.profile-block .cta,
+.profile-block .access-input-row {
+  width: 100%;
+}
+.profile-block .cta {
+  text-align: center;
+}
+.profile-block.access-panel label {
+  margin-top: 4px;
+}
+.affiliate-link-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  width: 100%;
+}
+.affiliate-link-row input {
+  min-width: 0;
+  border: 1px solid #3a506b;
+  border-radius: 6px;
+  padding: 0 14px;
+  min-height: 44px;
+  background: #091321;
+  color: #f7fbff;
+  font: inherit;
+}
+.affiliate-link-row input:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+.profile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.profile-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 12px 14px;
+  border: 1px solid #23374f;
+  border-radius: 6px;
+  background: #0b1524;
+  font-size: 14px;
+  color: #c2d1e4;
+}
+.profile-list li strong {
+  margin-left: auto;
+  color: #f7fbff;
+}
+.withdrawal-note {
+  flex-basis: 100%;
+  font-size: 13px;
+  color: #9fb3ca;
+}
+.withdrawal-badge {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid currentColor;
+}
+.withdrawal-badge.is-pending {
+  color: #ffce93;
+}
+.withdrawal-badge.is-processing {
+  color: var(--blue);
+}
+.withdrawal-badge.is-done {
+  color: #7fdca0;
+}
+.withdrawal-badge.is-rejected {
+  color: #f0a3a3;
+}
+
 [data-slot='dialog-overlay'] {
   background: #000b !important;
 }
@@ -2023,6 +2158,12 @@ h2 span {
     border-radius: 0;
     border-left: 0;
     border-right: 0;
+  }
+  .affiliate-link-row {
+    grid-template-columns: 1fr;
+  }
+  .affiliate-link-row .resource-link {
+    justify-content: center;
   }
 }
 @media (prefers-reduced-motion: reduce) {

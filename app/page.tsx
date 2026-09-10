@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { BASE_PRICE, formatIDR } from '@/lib/pricing';
 import {
   Accordion,
   AccordionItem,
@@ -158,6 +159,13 @@ const faqs = [
 type CheckoutResponse = {
   paymentUrl?: string;
   message?: string;
+  discountApplied?: boolean;
+};
+type AffiliateContextResponse = {
+  active?: boolean;
+  code?: string | null;
+  discountedPrice?: number;
+  discountAmount?: number;
 };
 type SlotStatsResponse = {
   limit?: number;
@@ -219,6 +227,12 @@ export default function Home() {
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
   const [checkoutPhone, setCheckoutPhone] = useState('');
+  const [couponCode, setCouponCode] = useState('');
+  const [affiliate, setAffiliate] = useState<{
+    active: boolean;
+    price: number;
+    discount: number;
+  }>({ active: false, price: BASE_PRICE, discount: 0 });
   const [slotStats, setSlotStats] = useState({
     limit: earlybirdLimit,
     taken: initialEarlybirdTaken,
@@ -254,6 +268,31 @@ export default function Home() {
       activeRequest = false;
     };
   }, []);
+  useEffect(() => {
+    let live = true;
+
+    fetch('/api/affiliate/context')
+      .then((response) =>
+        response.ok
+          ? (response.json() as Promise<AffiliateContextResponse>)
+          : null,
+      )
+      .then((data) => {
+        if (!live || !data?.active) return;
+
+        setAffiliate({
+          active: true,
+          price: Number(data.discountedPrice) || BASE_PRICE,
+          discount: Number(data.discountAmount) || 0,
+        });
+        if (data.code) setCouponCode(data.code);
+      })
+      .catch(() => {});
+
+    return () => {
+      live = false;
+    };
+  }, []);
   async function createCheckout() {
     setCheckoutLoading(true);
     setCheckoutError('');
@@ -265,6 +304,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           whatsappPhone: checkoutPhone,
+          couponCode: couponCode.trim() || undefined,
         }),
       });
       const body = (await response
@@ -272,6 +312,9 @@ export default function Home() {
         .catch(() => null)) as CheckoutResponse | null;
       if (!response.ok || !body?.paymentUrl) {
         throw new Error(body?.message || 'Link pembayaran belum bisa dibuat.');
+      }
+      if (couponCode.trim() && body.discountApplied === false) {
+        setAffiliate((current) => ({ ...current, active: false }));
       }
       window.location.assign(body.paymentUrl);
     } catch (error) {
@@ -942,10 +985,18 @@ export default function Home() {
             <div className="price-row">
               <div>
                 <span className="price-label">Earlybird User</span>
-                <strong className="dialog-price">Rp497.000</strong>
+                <strong className="dialog-price">
+                  {formatIDR(affiliate.active ? affiliate.price : BASE_PRICE)}
+                </strong>
               </div>
               <span className="earlybird-badge">Harga earlybird</span>
             </div>
+            {affiliate.active ? (
+              <p className="fineprint">
+                Potongan afiliasi 15% ({formatIDR(affiliate.discount)}) sudah
+                dihitung dari {formatIDR(BASE_PRICE)}.
+              </p>
+            ) : null}
             <div className="pricing-tiers" aria-label="Tier harga">
               <div className="active">
                 <span>Earlybird</span>
@@ -980,6 +1031,24 @@ export default function Home() {
                 placeholder="Contoh: 085741813147"
                 value={checkoutPhone}
                 onChange={(event) => setCheckoutPhone(event.target.value)}
+                disabled={checkoutLoading}
+              />
+            </label>
+            <label className="checkout-phone">
+              <span>Kode kupon afiliasi (opsional)</span>
+              <input
+                autoComplete="off"
+                spellCheck={false}
+                placeholder="Isi kalau punya kode dari teman"
+                value={couponCode}
+                onChange={(event) =>
+                  setCouponCode(
+                    event.target.value
+                      .toUpperCase()
+                      .replace(/[^A-Z0-9]/g, '')
+                      .slice(0, 16),
+                  )
+                }
                 disabled={checkoutLoading}
               />
             </label>

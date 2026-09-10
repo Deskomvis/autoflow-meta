@@ -2,6 +2,7 @@
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import ProfileSection from './profile-section';
 
 const filesUrl =
   'https://drive.google.com/drive/folders/1GlUFAsbVnToGVeD9cpcLAYxnd__S7eJr?usp=sharing';
@@ -63,7 +64,7 @@ const lessons = [
     title: 'Generate Ad Creative menggunakan Vistudio.id MCP di Claude',
     notes: [
       'Generate static ad creative (gambar) menggunakan Vistudio MCP dan minta upload ke Cloudinary.',
-      '*Coba lebih kreatif memberi instruksi prompt — contoh di video hanya contoh. Kamu juga bisa membuat video pakai model yang tersedia di Vistudio, cukup ketik perintah dan prompt-nya.',
+      '*Coba lebih kreatif memberi instruksi prompt. Contoh di video hanya contoh. Kamu juga bisa membuat video pakai model yang tersedia di Vistudio, cukup ketik perintah dan prompt-nya.',
     ],
   },
   {
@@ -288,6 +289,7 @@ export default function MembershipDashboard({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [activeLesson, setActiveLesson] = useState(0);
+  const [activeTab, setActiveTab] = useState<'course' | 'profile'>('course');
 
   const goToNextLesson = useCallback(() => {
     setActiveLesson(current =>
@@ -302,7 +304,7 @@ export default function MembershipDashboard({
     setReference(savedReference);
 
     // A saved code must be re-checked with the server before the course is
-    // shown again — sessionStorage on its own is not proof of access.
+    // shown again. sessionStorage on its own is not proof of access.
     let cancelled = false;
     fetch('/api/membership/verify', {
       method: 'POST',
@@ -405,14 +407,37 @@ export default function MembershipDashboard({
       </section>
 
       {verifiedReference ? (
-        <section className="membership-content wrap" aria-live="polite">
-          <div className="course-main">
-            <CoursePlayer
-              videoId={lessons[activeLesson].id}
-              title={`${lessons[activeLesson].title} — Auto Flow Meta Ads`}
-              hasNext={activeLesson < lessons.length - 1}
-              onRequestNext={goToNextLesson}
-            />
+        <>
+          <nav className="membership-tabs wrap" aria-label="Menu membership">
+            <button
+              type="button"
+              className={activeTab === 'course' ? 'is-active' : undefined}
+              aria-current={activeTab === 'course' ? 'page' : undefined}
+              onClick={() => setActiveTab('course')}
+            >
+              Course
+            </button>
+            <button
+              type="button"
+              className={activeTab === 'profile' ? 'is-active' : undefined}
+              aria-current={activeTab === 'profile' ? 'page' : undefined}
+              onClick={() => setActiveTab('profile')}
+            >
+              Profil &amp; Affiliate
+            </button>
+          </nav>
+
+          {activeTab === 'profile' ? (
+            <ProfileSection reference={verifiedReference} />
+          ) : (
+            <section className="membership-content wrap" aria-live="polite">
+              <div className="course-main">
+                <CoursePlayer
+                  videoId={lessons[activeLesson].id}
+                  title={`${lessons[activeLesson].title} · Auto Flow Meta Ads`}
+                  hasNext={activeLesson < lessons.length - 1}
+                  onRequestNext={goToNextLesson}
+                />
             <div className="course-now">
               <p className="eyebrow">
                 Sedang diputar · Video {activeLesson + 1} dari {lessons.length}
@@ -469,11 +494,13 @@ export default function MembershipDashboard({
             </a>
           </div>
 
-          <p className="fineprint course-fineprint">
-            Link ini khusus pembeli Auto Flow Meta Ads. Jangan bagikan akses
-            dashboard, modul, atau grup support ke orang lain.
-          </p>
-        </section>
+              <p className="fineprint course-fineprint">
+                Link ini khusus pembeli Auto Flow Meta Ads. Jangan bagikan akses
+                dashboard, modul, atau grup support ke orang lain.
+              </p>
+            </section>
+          )}
+        </>
       ) : null}
     </main>
   );

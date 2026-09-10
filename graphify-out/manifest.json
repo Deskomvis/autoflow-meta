@@ -4,8 +4,12 @@
     "hash": "e9d66e1263ec6f84f9c7f4b88b00e4f9"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/next-env.d.ts": {
-    "mtime": 1789035006.2462304,
-    "hash": "8195d2c60ce847a459ae9d308d6a5724"
+    "mtime": 1789052785.1861072,
+    "hash": "aa94238a90e7d04b7a47ecc3145ba6a0"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/proxy.ts": {
+    "mtime": 1789052680.1145518,
+    "hash": "e7a930e7b9ae399ff2b8c88c9e966c18"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/vite.config.ts": {
     "mtime": 1788947316.0628529,
@@ -20,8 +24,8 @@
     "hash": "0dc8a017ca0bb46919dfbefb4f34ec07"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/page.tsx": {
-    "mtime": 1789047903.630993,
-    "hash": "f9cdb140cce0e13de7e0b3c4032031a0"
+    "mtime": 1789052629.036432,
+    "hash": "5900506197e8f28a37804b6e8ec80c00"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/thank-you/page.tsx": {
     "mtime": 1789035337.9836035,
@@ -36,28 +40,56 @@
     "hash": "7132b7d2c8f6c0e312ee26875c77660d"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/singapay/webhook/route.ts": {
-    "mtime": 1789041514.4193757,
-    "hash": "7b8f791a515aeb7e7818154f91d96ca6"
+    "mtime": 1789052535.1088536,
+    "hash": "1456b8e50b1bd87ac6f74d2f172bd810"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/singapay/checkout/route.ts": {
-    "mtime": 1789042227.2165275,
-    "hash": "2facf55d93e75fe9e71564f9f3806cfa"
+    "mtime": 1789052519.8624754,
+    "hash": "38ccf94f340a61a665a5fbe16fcb8983"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/affiliate/context/route.ts": {
+    "mtime": 1789052680.1382291,
+    "hash": "f3dbac345536dc9b5ba57199dfa3ac4f"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/affiliate/withdrawals/route.ts": {
+    "mtime": 1789052680.1435397,
+    "hash": "0f436489805ec1b3b80286dc48e7ea6b"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/membership/verify/route.ts": {
-    "mtime": 1789041523.6265044,
-    "hash": "1aee488ff6af4bc0024872f218ffc0ab"
+    "mtime": 1789052547.436107,
+    "hash": "c2c81bc69526f0b6fd7b2fc6af699fa9"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/membership/profile/route.ts": {
+    "mtime": 1789052680.1244907,
+    "hash": "f27c2a60e97aa0b531fc8fce34641cbd"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/membership/profile/activate/route.ts": {
+    "mtime": 1789052680.1292624,
+    "hash": "5e45bb53ff7bf8b5cefdbc4751d9b9fc"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/membership/profile/withdraw/route.ts": {
+    "mtime": 1789052680.1337633,
+    "hash": "c1853e632129b73823ffa413dedcdd9f"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/api/membership/stats/route.ts": {
     "mtime": 1789034286.8172133,
     "hash": "3cf867ba229271c94cfd6445450b2651"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/membership/profile-section.tsx": {
+    "mtime": 1789052680.119816,
+    "hash": "bb5d182032d13ea236a500e34d7adc1f"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/membership/page.tsx": {
     "mtime": 1789010205.8340514,
     "hash": "42fd189a464a0ca8f6c59d54e82f5eb3"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/membership/membership-dashboard.tsx": {
-    "mtime": 1789047534.2440937,
-    "hash": "601a68ba6bc48c452930b368c3673593"
+    "mtime": 1789052742.216883,
+    "hash": "4a6bf4006fcf28a460daddd4d5f584ca"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/supabase/affiliate.sql": {
+    "mtime": 1789051565.2541735,
+    "hash": "40551cfe9977c84c16f61a95eead188b"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/supabase/membership_access.sql": {
     "mtime": 1789042753.1999927,
@@ -315,17 +347,29 @@
     "mtime": 1789042226.8525589,
     "hash": "c7a41e62add00ea5305012a6671e9630"
   },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/affiliate.ts": {
+    "mtime": 1789052680.0993803,
+    "hash": "950dbf4badaf7f1e089724f8e6ef9a7b"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/pricing.ts": {
+    "mtime": 1789052680.1048906,
+    "hash": "4d331736da3b8c872a8a10b6bb9498ad"
+  },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/utils.ts": {
     "mtime": 1788947316.0792174,
     "hash": "8595c2f874aa1ff8c7cc28df2999f354"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/membership-access.ts": {
-    "mtime": 1789042227.0405123,
-    "hash": "b64b3aec1b98cd8fa8cd047be478cf9b"
+    "mtime": 1789052452.8907957,
+    "hash": "15f3feeecf4295fb31251ef5dbbcdf21"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/roketchat.ts": {
-    "mtime": 1789045821.19674,
-    "hash": "2f18586056540e82aca61771ba4aa6de"
+    "mtime": 1789052477.9496377,
+    "hash": "1b6948a788f6634382ce607183eae740"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/lib/site-url.ts": {
+    "mtime": 1789052680.1098537,
+    "hash": "1ebd92083bd53d8c058d668e5852dd3b"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/README.md": {
     "mtime": 1788953487.137856,
