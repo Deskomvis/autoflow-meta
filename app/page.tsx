@@ -127,6 +127,10 @@ const earlybirdLimit = 30;
 const initialEarlybirdTaken = 12;
 const faqs = [
   [
+    'Apa itu MCP?',
+    'MCP (Model Context Protocol) adalah standar terbuka yang menghubungkan Claude ke aplikasi luar seperti Meta Ads, Scalev, Vistudio, dan Cloudinary. Lewat koneksi ini Claude bisa membaca data dan menjalankan aksi di tools tersebut langsung dari satu percakapan, tanpa kamu pindah-pindah dashboard. Di course ini kamu belajar memasang dan memakai koneksi MCP untuk riset, landing page, creative, dan campaign.',
+  ],
+  [
     'Saya belum pernah pakai MCP. Bisa mengikuti?',
     'Mulai dari video pengantar dan Modul 0. Materinya membahas koneksi dan pengujian tools sebelum masuk ke riset, landing page, creative, dan campaign. Siapkan waktu untuk praktik, akun tools, serta akses akun iklan yang diperlukan.',
   ],
