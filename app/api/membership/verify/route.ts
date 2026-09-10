@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { isMembershipReferencePaid } from '@/lib/membership-access';
 
 export const runtime = 'nodejs';
 
@@ -21,9 +22,11 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as VerifyRequest | null;
   const reference = body?.reference?.trim().toUpperCase() ?? '';
   const codes = configuredCodes();
-  const isAllowed = codes.length
-    ? codes.includes(reference)
-    : looksLikePaymentReference(reference);
+  const paidAccess = reference ? await isMembershipReferencePaid(reference) : false;
+  const isAllowed =
+    paidAccess ?? (codes.length
+      ? codes.includes(reference)
+      : looksLikePaymentReference(reference));
 
   if (!reference || !isAllowed) {
     return NextResponse.json(

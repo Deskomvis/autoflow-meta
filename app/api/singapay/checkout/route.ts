@@ -1,5 +1,6 @@
 import { createHmac } from 'node:crypto';
 import { NextResponse } from 'next/server';
+import { createMembershipAccess } from '@/lib/membership-access';
 
 export const runtime = 'nodejs';
 
@@ -142,6 +143,13 @@ export async function POST(request: Request) {
         { status: 502 },
       );
     }
+
+    await createMembershipAccess({
+      reference,
+      status: 'pending',
+      amount,
+      payment_url: paymentUrl,
+    });
 
     return NextResponse.json({
       paymentUrl,

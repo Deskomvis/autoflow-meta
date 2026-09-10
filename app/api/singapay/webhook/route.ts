@@ -1,5 +1,6 @@
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { NextResponse } from 'next/server';
+import { markMembershipAccessPaid } from '@/lib/membership-access';
 
 export const runtime = 'nodejs';
 
@@ -61,6 +62,36 @@ function verifySignature(request: Request, body: JsonValue) {
   return safeEqualHex(expected, signature) ? 'valid' : 'invalid';
 }
 
+function readString(value: unknown) {
+  return typeof value === 'string' ? value : undefined;
+}
+
+function extractPaymentFields(body: JsonValue) {
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return {};
+  }
+
+  const data = body.data;
+  const dataObject =
+    data && typeof data === 'object' && !Array.isArray(data) ? data : {};
+  const reference =
+    readString(body.reff_no) ||
+    readString(body.merchant_reff_no) ||
+    readString(body.reference) ||
+    readString(dataObject.reff_no) ||
+    readString(dataObject.merchant_reff_no) ||
+    readString(dataObject.reference);
+  const status =
+    readString(body.status) ||
+    readString(body.transaction_status) ||
+    readString(dataObject.status) ||
+    readString(dataObject.transaction_status);
+  const transactionId =
+    readString(body.transaction_id) || readString(dataObject.transaction_id);
+
+  return { reference, status, transactionId };
+}
+
 export async function POST(request: Request) {
   let body: JsonValue = null;
 
@@ -88,6 +119,21 @@ export async function POST(request: Request) {
 
   if (signature === 'invalid') {
     return NextResponse.json({ ok: false }, { status: 401 });
+  }
+
+  const payment = extractPaymentFields(body);
+  if (
+    payment.reference &&
+    payment.status &&
+    ['paid', 'success', 'completed', 'settled'].includes(
+      payment.status.toLowerCase(),
+    )
+  ) {
+    await markMembershipAccessPaid({
+      reference: payment.reference.toUpperCase(),
+      singapay_transaction_id: payment.transactionId,
+      raw_payload: body,
+    });
   }
 
   return NextResponse.json({ ok: true });
