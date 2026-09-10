@@ -1101,7 +1101,7 @@ h2 span {
 }
 .pricing-tiers {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
 .pricing-tiers div {
@@ -1126,6 +1126,14 @@ h2 span {
   color: #f7fbff;
   font-size: 15px;
   line-height: 1;
+}
+.pricing-tiers small {
+  display: block;
+  margin-top: 6px;
+  color: #ffce93;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.25;
 }
 .checkout-notice {
   border: 1px solid #3e5674;
@@ -1896,7 +1904,7 @@ h2 span {
     text-align: left;
   }
   .pricing-tiers {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
   .pricing-tiers div {
     padding: 8px;

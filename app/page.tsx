@@ -798,6 +798,7 @@ export default function Home() {
               <li>Contoh alur riset sampai iklan tayang</li>
               <li>Bonus 100+ data riset iklan produk digital</li>
               <li>Scoresheet, prompt library & checklist</li>
+              <li>Opsi Private Online/Offline 1on1 + Vibe Coding for SaaS</li>
             </ul>
             <button className="cta" onClick={() => setCheckout(true)}>
               Saya mau akses paket lengkap <span aria-hidden="true">↗</span>
@@ -946,6 +947,11 @@ export default function Home() {
               <div>
                 <span>Extended</span>
                 <strong>997.000</strong>
+              </div>
+              <div>
+                <span>Private 1on1</span>
+                <strong>2.999.000</strong>
+                <small>+ Vibe Coding for SaaS</small>
               </div>
             </div>
             <div className="checkout-notice">
