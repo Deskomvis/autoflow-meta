@@ -221,14 +221,14 @@ export default function Home() {
         .json()
         .catch(() => null)) as CheckoutResponse | null;
       if (!response.ok || !body?.paymentUrl) {
-        throw new Error(body?.message || 'Payment link sandbox belum bisa dibuat.');
+        throw new Error(body?.message || 'Link pembayaran belum bisa dibuat.');
       }
       window.location.assign(body.paymentUrl);
     } catch (error) {
       setCheckoutError(
         error instanceof Error
           ? error.message
-          : 'Payment link sandbox belum bisa dibuat.',
+          : 'Link pembayaran belum bisa dibuat.',
       );
       setCheckoutLoading(false);
     }
@@ -854,23 +854,36 @@ export default function Home() {
             9 video, 8 file modul, grup support, dan bonus riset. Oleh Gus Rezha
             Cozy.
           </DialogDescription>
-          <strong className="dialog-price">Rp497.000</strong>
+          <div className="checkout-preview">
+            <Image
+              unoptimized
+              src="/images/claude-mcp-ws.webp"
+              alt="Auto Flow Meta Ads, cara setting Claude AI MCP"
+              width="720"
+              height="720"
+            />
+          </div>
+          <div className="price-row">
+            <strong className="dialog-price">Rp497.000</strong>
+            <span className="earlybird-badge">Harga earlybird</span>
+          </div>
           <div className="checkout-notice">
-            <strong>Checkout sandbox Singapay.</strong>
+            <strong>Checkout aman via Singapay.</strong>
             <p>
-              Tombol ini membuat payment link sandbox. Tidak ada pembayaran live
-              sampai credential production dipakai.
+              Setelah pembayaran selesai, kamu akan diarahkan ke halaman akses
+              dan kode referensimu akan dipakai untuk membuka dashboard
+              membership.
             </p>
           </div>
           <button className="cta" onClick={createCheckout} disabled={checkoutLoading}>
-            {checkoutLoading ? 'Membuat link sandbox...' : 'Lanjut ke pembayaran sandbox'}
+            {checkoutLoading ? 'Menyiapkan pembayaran...' : 'Lanjut ke pembayaran'}
           </button>
           {checkoutError ? (
             <output className="checkout-error">{checkoutError}</output>
           ) : (
             <output className="fineprint">
               Kamu akan diarahkan ke halaman pembayaran Singapay setelah link
-              sandbox berhasil dibuat.
+              pembayaran berhasil dibuat.
             </output>
           )}
           <button className="text-button" onClick={copyOrder}>

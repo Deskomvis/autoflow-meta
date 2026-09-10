@@ -1003,9 +1003,50 @@ h2 span {
 .checkout-dialog .eyebrow {
   margin: 0;
 }
+.checkout-preview {
+  overflow: hidden;
+  border: 1px solid #385371;
+  border-radius: 8px;
+  aspect-ratio: 16 / 10;
+  background: #08111d;
+}
+.checkout-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.price-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
 .dialog-price {
   font-size: 40px;
   letter-spacing: -1px;
+}
+.earlybird-badge {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #ffd49a;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: #301807;
+  color: #ffe3bd;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  animation: earlybird-pulse 1800ms ease-in-out infinite;
+}
+.earlybird-badge:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 0%, #ffffff55 48%, transparent 70%);
+  transform: translateX(-120%);
+  animation: earlybird-shine 2600ms ease-in-out infinite;
 }
 .checkout-notice {
   border: 1px solid #3e5674;
@@ -1042,6 +1083,27 @@ h2 span {
 }
 .text-button:hover {
   color: var(--blue);
+}
+@keyframes earlybird-pulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 0 0 0 #ffae6644;
+  }
+  50% {
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 5px #ffae6600;
+  }
+}
+@keyframes earlybird-shine {
+  0%,
+  42% {
+    transform: translateX(-120%);
+  }
+  70%,
+  100% {
+    transform: translateX(120%);
+  }
 }
 .thankyou-page {
   min-height: 100dvh;

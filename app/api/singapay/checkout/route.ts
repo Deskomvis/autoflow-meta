@@ -93,7 +93,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: 'SINGAPAY_TOKEN_FAILED',
-          message: 'Belum bisa membuat token sandbox Singapay.',
+          message: 'Belum bisa menyiapkan pembayaran Singapay.',
           detail: tokenResult.body,
         },
         { status: 502 },
@@ -137,7 +137,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: 'SINGAPAY_PAYMENT_LINK_FAILED',
-          message: 'Belum bisa membuat payment link sandbox Singapay.',
+          message: 'Belum bisa membuat link pembayaran Singapay.',
           detail: body,
         },
         { status: 502 },
