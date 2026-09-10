@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 const filesUrl =
@@ -18,6 +18,111 @@ const lessons = [
   { id: 'vlsV_BDfJAo', title: 'Video 8' },
   { id: 'sBS3uB2pE1M', title: 'Video 9' },
 ];
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+declare global {
+  interface Window {
+    YT?: any;
+    onYouTubeIframeAPIReady?: () => void;
+  }
+}
+
+function loadYouTubeApi(): Promise<any> {
+  if (window.YT?.Player) return Promise.resolve(window.YT);
+
+  return new Promise(resolve => {
+    const previous = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      previous?.();
+      resolve(window.YT);
+    };
+    if (!document.querySelector('script[data-yt-api]')) {
+      const script = document.createElement('script');
+      script.src = 'https://www.youtube.com/iframe_api';
+      script.async = true;
+      script.dataset.ytApi = 'true';
+      document.head.appendChild(script);
+    }
+  });
+}
+
+function forceHd(player: any) {
+  try {
+    player.setPlaybackQualityRange?.('hd1080', 'hd1080');
+    player.setPlaybackQuality?.('hd1080');
+  } catch {
+    // YouTube may ignore the hint; nothing else we can do from the embed.
+  }
+}
+
+type CoursePlayerProps = {
+  videoId: string;
+  title: string;
+};
+
+function CoursePlayer({ videoId, title }: CoursePlayerProps) {
+  const mountRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<any>(null);
+  const videoIdRef = useRef(videoId);
+  videoIdRef.current = videoId;
+
+  useEffect(() => {
+    let disposed = false;
+
+    loadYouTubeApi().then(YT => {
+      if (disposed || !mountRef.current || playerRef.current) return;
+
+      playerRef.current = new YT.Player(mountRef.current, {
+        width: '100%',
+        height: '100%',
+        videoId: videoIdRef.current,
+        playerVars: {
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1,
+          iv_load_policy: 3,
+          vq: 'hd1080',
+        },
+        events: {
+          onReady: (event: any) => forceHd(event.target),
+          onPlaybackQualityChange: (event: any) => {
+            if (event.data !== 'hd1080' && event.data !== 'highres') {
+              forceHd(event.target);
+            }
+          },
+        },
+      });
+    });
+
+    return () => {
+      disposed = true;
+      try {
+        playerRef.current?.destroy?.();
+      } catch {
+        // player already torn down
+      }
+      playerRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    const player = playerRef.current;
+    if (player?.loadVideoById) {
+      player.loadVideoById(videoId);
+      forceHd(player);
+    }
+  }, [videoId]);
+
+  return (
+    <div
+      className="course-player"
+      onContextMenu={event => event.preventDefault()}
+    >
+      <div ref={mountRef} title={title} />
+      <span className="course-player-guard" aria-hidden="true" />
+    </div>
+  );
+}
 
 type MembershipDashboardProps = {
   initialReference: string;
@@ -144,15 +249,10 @@ export default function MembershipDashboard({
       {verifiedReference ? (
         <section className="membership-content wrap" aria-live="polite">
           <div className="course-main">
-            <div className="course-player">
-              <iframe
-                key={lessons[activeLesson].id}
-                src={`https://www.youtube-nocookie.com/embed/${lessons[activeLesson].id}?rel=0`}
-                title={`${lessons[activeLesson].title} — Auto Flow Meta Ads`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
+            <CoursePlayer
+              videoId={lessons[activeLesson].id}
+              title={`${lessons[activeLesson].title} — Auto Flow Meta Ads`}
+            />
             <div className="course-now">
               <p className="eyebrow">
                 Sedang diputar · Video {activeLesson + 1} dari {lessons.length}

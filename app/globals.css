@@ -1190,16 +1190,30 @@ h2 span {
   gap: 20px;
 }
 .course-player {
+  position: relative;
   overflow: hidden;
   border: 1px solid #2d4057;
   border-radius: 8px;
   background: #000;
   aspect-ratio: 16 / 9;
 }
+.course-player > div,
 .course-player iframe {
   width: 100%;
   height: 100%;
   border: 0;
+}
+/* Covers the embed's top bar (video title + "Watch on YouTube" link).
+   Center and controls stay clickable. */
+.course-player-guard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 15%;
+  min-height: 36px;
+  max-height: 64px;
+  z-index: 2;
 }
 .course-now h2 {
   margin: 6px 0 0;
