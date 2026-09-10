@@ -41,8 +41,12 @@ function verifySignature(request: Request, body: JsonValue) {
   const authorization = request.headers.get('authorization') || '';
   const callbackToken = authorization.replace(/^Bearer\s+/i, '');
 
-  if (!secret || !signature || !timestamp || !callbackToken) {
+  if (!secret) {
     return 'skipped';
+  }
+
+  if (!signature || !timestamp || !callbackToken) {
+    return 'invalid';
   }
 
   const endpoint = new URL(request.url).pathname;
