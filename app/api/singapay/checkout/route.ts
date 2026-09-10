@@ -8,6 +8,9 @@ const productName = 'Auto Flow Meta Ads dengan Claude AI';
 
 type SingapayTokenResponse = {
   access_token?: string;
+  data?: {
+    access_token?: string;
+  };
 };
 
 type SingapayPaymentLinkResponse = {
@@ -66,7 +69,8 @@ async function requestAccessToken(baseUrl: string) {
   const body = (await response
     .json()
     .catch(() => null)) as SingapayTokenResponse | null;
-  if (!response.ok || !body?.access_token) {
+  const accessToken = body?.access_token ?? body?.data?.access_token;
+  if (!response.ok || !accessToken) {
     return {
       error: true as const,
       status: response.status,
@@ -74,7 +78,7 @@ async function requestAccessToken(baseUrl: string) {
     };
   }
 
-  return { error: false as const, accessToken: body.access_token as string };
+  return { error: false as const, accessToken };
 }
 
 export async function POST(request: Request) {
