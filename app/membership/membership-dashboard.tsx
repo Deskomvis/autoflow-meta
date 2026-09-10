@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 const filesUrl =
@@ -8,16 +8,29 @@ const filesUrl =
 const telegramUrl = 'https://t.me/+v8NHYYcrq-9jMWM1';
 
 const lessons = [
-  { id: 'h69NhYHnvCM', title: 'Video 1' },
-  { id: 'm0Ee0wluBpE', title: 'Video 2' },
-  { id: 'iLj4hnRTcbk', title: 'Video 3' },
-  { id: 'Cgi8QuN2iW4', title: 'Video 4' },
-  { id: 'OjUu5oRyc2g', title: 'Video 5' },
-  { id: 'bNBMBu3IIYs', title: 'Video 6' },
-  { id: 'P4S2N_O3Uz4', title: 'Video 7' },
-  { id: 'vlsV_BDfJAo', title: 'Video 8' },
-  { id: 'sBS3uB2pE1M', title: 'Video 9' },
+  { id: 'h69NhYHnvCM', title: 'Intro Claude MCP' },
+  { id: 'm0Ee0wluBpE', title: 'Menghubungkan Meta Ads MCP di Claude Connector' },
+  { id: 'iLj4hnRTcbk', title: 'Menghubungkan Scalev MCP di Claude Connector' },
+  { id: 'Cgi8QuN2iW4', title: 'Menghubungkan Vistudio MCP di Claude Connector' },
+  {
+    id: 'OjUu5oRyc2g',
+    title: 'Menghubungkan Cloudinary MCP ke Claude Connector',
+  },
+  { id: 'bNBMBu3IIYs', title: 'Install Skill dan Schema LP Scalev Builder' },
+  {
+    id: 'P4S2N_O3Uz4',
+    title: 'Generate Ad Creative menggunakan Vistudio.id MCP di Claude',
+  },
+  {
+    id: 'vlsV_BDfJAo',
+    title: 'Create Campaign Menggunakan Meta Ads MCP di Claude',
+  },
+  { id: 'sBS3uB2pE1M', title: 'Cara Riset Menggunakan META MCP di Claude' },
 ];
+
+// Jump to the next video just before the current one ends so YouTube's
+// end-screen (branding + recommended videos) never gets a chance to render.
+const END_SKIP_SECONDS = 0.4;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {
@@ -58,16 +71,56 @@ function forceHd(player: any) {
 type CoursePlayerProps = {
   videoId: string;
   title: string;
+  hasNext: boolean;
+  onRequestNext: () => void;
 };
 
-function CoursePlayer({ videoId, title }: CoursePlayerProps) {
+function CoursePlayer({
+  videoId,
+  title,
+  hasNext,
+  onRequestNext,
+}: CoursePlayerProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<any>(null);
+  const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const advancedRef = useRef(false);
   const videoIdRef = useRef(videoId);
   videoIdRef.current = videoId;
+  const hasNextRef = useRef(hasNext);
+  hasNextRef.current = hasNext;
+  const onRequestNextRef = useRef(onRequestNext);
+  onRequestNextRef.current = onRequestNext;
 
   useEffect(() => {
     let disposed = false;
+
+    const stopTick = () => {
+      if (tickRef.current) {
+        clearInterval(tickRef.current);
+        tickRef.current = null;
+      }
+    };
+
+    const advance = () => {
+      if (advancedRef.current || !hasNextRef.current) return;
+      advancedRef.current = true;
+      stopTick();
+      onRequestNextRef.current();
+    };
+
+    const startTick = () => {
+      stopTick();
+      tickRef.current = setInterval(() => {
+        const player = playerRef.current;
+        if (!player?.getDuration) return;
+        const duration = player.getDuration();
+        const current = player.getCurrentTime();
+        if (duration > 0 && duration - current <= END_SKIP_SECONDS) {
+          advance();
+        }
+      }, 200);
+    };
 
     loadYouTubeApi().then(YT => {
       if (disposed || !mountRef.current || playerRef.current) return;
@@ -90,12 +143,23 @@ function CoursePlayer({ videoId, title }: CoursePlayerProps) {
               forceHd(event.target);
             }
           },
+          onStateChange: (event: any) => {
+            if (event.data === YT.PlayerState.PLAYING) {
+              startTick();
+            } else {
+              stopTick();
+            }
+            if (event.data === YT.PlayerState.ENDED) {
+              advance();
+            }
+          },
         },
       });
     });
 
     return () => {
       disposed = true;
+      stopTick();
       try {
         playerRef.current?.destroy?.();
       } catch {
@@ -106,6 +170,7 @@ function CoursePlayer({ videoId, title }: CoursePlayerProps) {
   }, []);
 
   useEffect(() => {
+    advancedRef.current = false;
     const player = playerRef.current;
     if (player?.loadVideoById) {
       player.loadVideoById(videoId);
@@ -136,6 +201,12 @@ export default function MembershipDashboard({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [activeLesson, setActiveLesson] = useState(0);
+
+  const goToNextLesson = useCallback(() => {
+    setActiveLesson(current =>
+      current < lessons.length - 1 ? current + 1 : current,
+    );
+  }, []);
 
   useEffect(() => {
     const savedReference = sessionStorage.getItem('afm-membership-ref');
@@ -252,6 +323,8 @@ export default function MembershipDashboard({
             <CoursePlayer
               videoId={lessons[activeLesson].id}
               title={`${lessons[activeLesson].title} — Auto Flow Meta Ads`}
+              hasNext={activeLesson < lessons.length - 1}
+              onRequestNext={goToNextLesson}
             />
             <div className="course-now">
               <p className="eyebrow">
