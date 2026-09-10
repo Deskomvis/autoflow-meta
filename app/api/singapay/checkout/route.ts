@@ -116,7 +116,7 @@ export async function POST(request: Request) {
           payment_link_type: 'total',
           total_amount: amount,
           max_usage: 1,
-          success_redirect_url: `${origin}/?payment=success#akses`,
+          success_redirect_url: `${origin}/thank-you?ref=${reference}`,
           expired_redirect_url: `${origin}/?payment=expired#akses`,
           optional_metadata: {
             product: 'autoflow-meta',

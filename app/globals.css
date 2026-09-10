@@ -1043,6 +1043,71 @@ h2 span {
 .text-button:hover {
   color: var(--blue);
 }
+.thankyou-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding-block: 56px;
+  background:
+    linear-gradient(135deg, #07111f 0%, #0e2135 48%, #141722 100%);
+}
+.thankyou-panel {
+  max-width: 760px;
+  border: 1px solid #2d4057;
+  border-radius: 8px;
+  padding: clamp(28px, 5vw, 56px);
+  background: #0c1726;
+}
+.thankyou-panel h1 {
+  margin-bottom: 22px;
+  font-size: clamp(2.4rem, 6vw, 4.9rem);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+.thankyou-lead {
+  max-width: 620px;
+  color: #c3d2e5;
+  font-size: 18px;
+  margin-bottom: 34px;
+}
+.thankyou-summary {
+  display: grid;
+  gap: 1px;
+  margin-bottom: 34px;
+  overflow: hidden;
+  border: 1px solid #2b3d53;
+  border-radius: 8px;
+  background: #2b3d53;
+}
+.thankyou-summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 18px;
+  background: #111f31;
+}
+.thankyou-summary span {
+  color: #9fb3ca;
+  font-size: 13px;
+}
+.thankyou-summary strong {
+  text-align: right;
+  color: #f7fbff;
+}
+.thankyou-next {
+  margin-bottom: 32px;
+}
+.thankyou-next h2 {
+  margin-bottom: 14px;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+.thankyou-next ol {
+  margin: 0;
+  padding-left: 22px;
+  color: #c5d2e1;
+  line-height: 1.8;
+}
 [data-slot='dialog-overlay'] {
   background: #000b !important;
 }
