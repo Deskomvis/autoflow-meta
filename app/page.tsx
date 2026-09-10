@@ -129,8 +129,8 @@ const faqs = [
     'Mulai dari video pengantar dan Modul 0. Materinya membahas koneksi dan pengujian tools sebelum masuk ke riset, landing page, creative, dan campaign. Siapkan waktu untuk praktik, akun tools, serta akses akun iklan yang diperlukan.',
   ],
   [
-    'Apakah Rp497.000 sudah termasuk biaya tools dan iklan?',
-    'Harga ini untuk materi video webinar dan ecourse, 8 file modul, grup support, serta bonus riset. Langganan Claude, tools pendukung, kredit pembuatan aset, dan budget Meta Ads berada di luar harga materi.',
+    'Apakah Rp499.000 sudah termasuk biaya tools dan iklan?',
+    'Harga earlybird ini untuk materi video webinar dan ecourse, 8 file modul, grup support, serta bonus riset. Langganan Claude, tools pendukung, kredit pembuatan aset, dan budget Meta Ads berada di luar harga materi.',
   ],
   [
     'Apa maksudnya mesin cuan semi-auto pilot?',
@@ -236,7 +236,7 @@ export default function Home() {
   async function copyOrder() {
     try {
       await navigator.clipboard.writeText(
-        'Saya ingin membeli Auto Flow Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket harga launch Rp497.000: 9 video teknis, 8 file modul, grup support, dan bonus riset.',
+        'Saya ingin membeli Auto Flow Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket earlybird Rp499.000: 9 video teknis, 8 file modul, grup support, dan bonus riset.',
       );
       setCopied(true);
       setCopyError(false);
@@ -748,8 +748,8 @@ export default function Home() {
           <div className="offer-card">
             <span className="package-label">PAKET LENGKAP AUTO FLOW META ADS</span>
             <h3>Mesinmu dimulai di sini.</h3>
-            <p className="price">Rp497.000</p>
-            <p className="price-note">Harga launch untuk satu paket materi & bonus</p>
+            <p className="price">Rp499.000</p>
+            <p className="price-note">Harga earlybird untuk 30 pembeli pertama</p>
             <ul className="check-list">
               <li>9 video teknis webinar & ecourse</li>
               <li>8 file modul Autoflow</li>
@@ -803,7 +803,7 @@ export default function Home() {
       </footer>
       <div className="mobile-buy">
         <span>
-          Harga launch<strong>Rp497.000</strong>
+          Harga earlybird<strong>Rp499.000</strong>
         </span>
         <button className="cta" onClick={() => setCheckout(true)}>
           Lihat akses paket
@@ -848,54 +848,82 @@ export default function Home() {
       </Dialog>
       <Dialog open={checkout} onOpenChange={setCheckout}>
         <DialogContent className="checkout-dialog">
-          <p className="eyebrow">RINGKASAN PAKET</p>
-          <DialogTitle>Auto Flow Meta Ads</DialogTitle>
-          <DialogDescription>
-            9 video, 8 file modul, grup support, dan bonus riset. Oleh Gus Rezha
-            Cozy.
-          </DialogDescription>
-          <div className="checkout-preview">
-            <Image
-              unoptimized
-              src="/images/claude-mcp-ws.webp"
-              alt="Auto Flow Meta Ads, cara setting Claude AI MCP"
-              width="720"
-              height="720"
-            />
+          <div className="checkout-left">
+            <p className="eyebrow">RINGKASAN PAKET</p>
+            <DialogTitle>Auto Flow Meta Ads</DialogTitle>
+            <DialogDescription>
+              9 video, 8 file modul, grup support, dan bonus riset.
+            </DialogDescription>
+            <div className="checkout-preview">
+              <Image
+                unoptimized
+                src="/images/claude-mcp-ws.webp"
+                alt="Auto Flow Meta Ads, cara setting Claude AI MCP"
+                width="720"
+                height="720"
+              />
+            </div>
+            <div className="seat-meter">
+              <div className="seat-copy">
+                <strong>12/30 kursi earlybird terisi</strong>
+                <span>Tersisa 18 kursi di harga ini.</span>
+              </div>
+              <div className="seat-track" aria-label="Progress pembeli earlybird">
+                <span />
+              </div>
+            </div>
           </div>
-          <div className="price-row">
-            <strong className="dialog-price">Rp497.000</strong>
-            <span className="earlybird-badge">Harga earlybird</span>
-          </div>
-          <div className="checkout-notice">
-            <strong>Checkout aman via Singapay.</strong>
-            <p>
-              Setelah pembayaran selesai, kamu akan diarahkan ke halaman akses
-              dan kode referensimu akan dipakai untuk membuka dashboard
-              membership.
-            </p>
-          </div>
-          <button className="cta" onClick={createCheckout} disabled={checkoutLoading}>
-            {checkoutLoading ? 'Menyiapkan pembayaran...' : 'Lanjut ke pembayaran'}
-          </button>
-          {checkoutError ? (
-            <output className="checkout-error">{checkoutError}</output>
-          ) : (
+
+          <div className="checkout-right">
+            <div className="price-row">
+              <div>
+                <span className="price-label">Earlybird User</span>
+                <strong className="dialog-price">Rp499.000</strong>
+              </div>
+              <span className="earlybird-badge">Harga earlybird</span>
+            </div>
+            <div className="pricing-tiers" aria-label="Tier harga">
+              <div className="active">
+                <span>Earlybird</span>
+                <strong>499.000</strong>
+              </div>
+              <div>
+                <span>Regular</span>
+                <strong>799.000</strong>
+              </div>
+              <div>
+                <span>Workshop</span>
+                <strong>999.000</strong>
+              </div>
+            </div>
+            <div className="checkout-notice">
+              <strong>Akses membership otomatis.</strong>
+              <p>
+                Selesaikan pembayaran, lalu gunakan kode referensi untuk membuka
+                dashboard course.
+              </p>
+            </div>
+            <button className="cta" onClick={createCheckout} disabled={checkoutLoading}>
+              {checkoutLoading ? 'Menyiapkan pembayaran...' : 'Lanjut ke pembayaran'}
+            </button>
+            {checkoutError ? (
+              <output className="checkout-error">{checkoutError}</output>
+            ) : (
+              <output className="fineprint">
+                Pembayaran diproses aman via Singapay.
+              </output>
+            )}
+            <button className="text-button" onClick={copyOrder}>
+              {copied ? 'Ringkasan tersalin' : 'Salin ringkasan paket'}
+            </button>
             <output className="fineprint">
-              Kamu akan diarahkan ke halaman pembayaran Singapay setelah link
-              pembayaran berhasil dibuat.
+              {copyError
+                ? 'Penyalinan tidak tersedia. Kamu bisa menyalin nama paket dan harga yang tampil di atas.'
+                : copied
+                  ? 'Ringkasan paket sudah disalin ke clipboard.'
+                  : ''}
             </output>
-          )}
-          <button className="text-button" onClick={copyOrder}>
-            {copied ? 'Ringkasan tersalin' : 'Salin ringkasan paket'}
-          </button>
-          <output className="fineprint">
-            {copyError
-              ? 'Penyalinan tidak tersedia. Kamu bisa menyalin nama paket dan harga yang tampil di atas.'
-              : copied
-                ? 'Ringkasan paket sudah disalin ke clipboard.'
-                : ''}
-          </output>
+          </div>
         </DialogContent>
       </Dialog>
     </>
