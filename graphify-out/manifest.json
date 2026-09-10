@@ -16,8 +16,8 @@
     "hash": "5011f1e198d13b7dd69d21fd3b43eb1b"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/layout.tsx": {
-    "mtime": 1788969721.3526902,
-    "hash": "87cc2dce7e8a31e25aa9bac8a9e06cf1"
+    "mtime": 1789018718.5949051,
+    "hash": "0dc8a017ca0bb46919dfbefb4f34ec07"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/page.tsx": {
     "mtime": 1788972828.2508297,
@@ -50,6 +50,10 @@
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/supabase/membership_access.sql": {
     "mtime": 1789010637.9112408,
     "hash": "a0f6b75618effad124e1b3c1f90dd7f4"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/components/whatsapp-bubble.tsx": {
+    "mtime": 1789018709.7591999,
+    "hash": "49cadbecb3e04e8e4405a6fb062bc09a"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/components/ui/aspect-ratio.tsx": {
     "mtime": 1788947316.0647733,

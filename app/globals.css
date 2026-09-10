@@ -1818,3 +1818,86 @@ h2 span {
  .thumb:after { display: none; }
  .tool-orb { animation: none; }
 }
+
+/* Floating WhatsApp contact bubble (all pages) */
+.wa-bubble {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.wa-bubble-figure {
+  position: relative;
+  flex: none;
+  display: block;
+}
+.wa-bubble-avatar {
+  display: block;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #0f1b2c;
+  border: 2px solid #25d366;
+  box-shadow: 0 8px 24px #0008;
+}
+.wa-bubble-icon {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+  border-radius: 50%;
+  fill: #fff;
+  background: #25d366;
+  box-shadow: 0 0 0 2px #070c15;
+}
+.wa-bubble-label {
+  order: -1;
+  display: grid;
+  gap: 1px;
+  padding: 9px 15px;
+  border-radius: 999px;
+  background: #0f1b2c;
+  border: 1px solid #2d4057;
+  box-shadow: 0 8px 24px #0007;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+.wa-bubble-label strong {
+  font-size: 13px;
+  color: #f7fbff;
+}
+.wa-bubble-label span {
+  font-size: 11px;
+  color: #9fb3ca;
+}
+.wa-bubble:hover .wa-bubble-label,
+.wa-bubble:focus-visible .wa-bubble-label {
+  opacity: 1;
+  transform: none;
+}
+.wa-bubble:hover .wa-bubble-avatar {
+  border-color: #4ce07f;
+}
+.wa-bubble:focus-visible .wa-bubble-avatar {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .wa-bubble {
+    right: 14px;
+    bottom: 14px;
+  }
+  .wa-bubble-label {
+    display: none;
+  }
+}
