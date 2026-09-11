@@ -179,6 +179,33 @@ export default function Home() {
   }
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const elements = Array.from(document.querySelectorAll<HTMLElement>('.proof-visuals figure, .proof-metrics > div, .machine .video-card, #materi .video-card, .modules-inner > div'));
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('scroll-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    function setup() {
+      observer.disconnect();
+      elements.forEach((element, index) => {
+        element.style.setProperty('--reveal-delay', `${element.classList.contains('video-card') ? (index % 3) * 80 : 0}ms`);
+        element.classList.toggle('scroll-reveal', !preference.matches);
+        if (!preference.matches) observer.observe(element);
+      });
+    }
+    setup();
+    preference.addEventListener('change', setup);
+    return () => {
+      observer.disconnect();
+      preference.removeEventListener('change', setup);
+      elements.forEach(element => element.classList.remove('scroll-reveal', 'scroll-visible'));
+    };
+  }, []);
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
     const desktop = window.matchMedia('(min-width: 901px)');
     const stage = document.querySelector<HTMLElement>('.duo-stage');
     const track = document.querySelector<HTMLElement>('.hero-scroll-track');
@@ -771,7 +798,7 @@ export default function Home() {
                 <strong>1,98</strong>
                 <span>purchase ROAS</span>
               </div>
-              <div>
+              <div className="profit-highlight">
                 <strong>Rp2,34 jt</strong>
                 <span>profit bersih</span>
               </div>
