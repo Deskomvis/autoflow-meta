@@ -1,7 +1,6 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Hls from 'hls.js';
 import { BASE_PRICE, formatIDR } from '@/lib/pricing';
 import {
   Accordion,
@@ -173,96 +172,23 @@ type SlotStatsResponse = {
   taken?: number;
   remaining?: number;
 };
-type TeaserSourceResponse = {
-  playlistUrl?: string;
-  posterUrl?: string;
-  error?: string;
-};
-function BunnyTeaserPlayer({ onEnded }: { onEnded: () => void }) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
-  const [message, setMessage] = useState('Memuat video...');
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    let mounted = true;
-    let hls: Hls | null = null;
-
-    fetch('/api/video/teaser')
-      .then((response) => response.json() as Promise<TeaserSourceResponse>)
-      .then((source) => {
-        if (!mounted || !source.playlistUrl) {
-          throw new Error(source.error || 'Video belum siap.');
-        }
-
-        if (source.posterUrl) video.poster = source.posterUrl;
-
-        if (video.canPlayType('application/vnd.apple.mpegurl')) {
-          video.src = source.playlistUrl;
-          setStatus('ready');
-          video.play().catch(() => {});
-          return;
-        }
-
-        if (!Hls.isSupported()) {
-          throw new Error('Browser ini belum mendukung pemutar HLS.');
-        }
-
-        hls = new Hls({
-          startLevel: -1,
-          capLevelToPlayerSize: true,
-          enableWorker: true,
-        });
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          if (!hls) return;
-          const highest = hls.levels.length - 1;
-          if (highest >= 0) hls.nextAutoLevel = highest;
-          setStatus('ready');
-          video.play().catch(() => {});
-        });
-        hls.on(Hls.Events.ERROR, (_event, data) => {
-          if (data.fatal) {
-            setStatus('error');
-            setMessage('Video belum bisa diputar. Cek konfigurasi Bunny Stream.');
-          }
-        });
-        hls.loadSource(source.playlistUrl);
-        hls.attachMedia(video);
-      })
-      .catch((error: Error) => {
-        if (!mounted) return;
-        setStatus('error');
-        setMessage(error.message || 'Video belum bisa diputar.');
-      });
-
-    return () => {
-      mounted = false;
-      hls?.destroy();
-      video.pause();
-      video.removeAttribute('src');
-      video.load();
-    };
-  }, []);
-
+function TeaserVideoPlayer({ onEnded }: { onEnded: () => void }) {
   return (
     <div className="bunny-player">
       <video
-        ref={videoRef}
         controls
         playsInline
         autoPlay
         preload="auto"
+        poster="/images/autoflow-teaser-cover.webp"
         onEnded={onEnded}
         controlsList="nodownload noplaybackrate"
         aria-label="Teaser Auto Flow Meta Ads"
-      />
-      {status !== 'ready' && (
-        <div className="bunny-player-status" role={status === 'error' ? 'alert' : 'status'}>
-          {message}
-        </div>
-      )}
+      >
+        <source src="https://cdn.vistudio.id/Teaser%20autoflow.mp4" type="video/mp4" />
+        <source src="https://Vistudio.b-cdn.net/Teaser%20autoflow.mp4" type="video/mp4" />
+        Browser ini belum bisa memutar video.
+      </video>
     </div>
   );
 }
@@ -1053,7 +979,7 @@ export default function Home() {
         <DialogContent className="teaser-dialog">
           <DialogTitle className="sr-only">Teaser Auto Flow Meta Ads</DialogTitle>
           <DialogDescription className="sr-only">Video teaser. Tekan Escape untuk kembali ke halaman.</DialogDescription>
-          {heroPlaying && <BunnyTeaserPlayer onEnded={() => setHeroPlaying(false)} />}
+          {heroPlaying && <TeaserVideoPlayer onEnded={() => setHeroPlaying(false)} />}
         </DialogContent>
       </Dialog>
       <Dialog open={checkout} onOpenChange={setCheckout}>
