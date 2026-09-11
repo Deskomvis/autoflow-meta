@@ -4,7 +4,7 @@
     "hash": "e9d66e1263ec6f84f9c7f4b88b00e4f9"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/next-env.d.ts": {
-    "mtime": 1789099951.9796154,
+    "mtime": 1789128184.3775887,
     "hash": "8195d2c60ce847a459ae9d308d6a5724"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/proxy.ts": {
@@ -24,8 +24,8 @@
     "hash": "0dc8a017ca0bb46919dfbefb4f34ec07"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/page.tsx": {
-    "mtime": 1789052629.036432,
-    "hash": "5900506197e8f28a37804b6e8ec80c00"
+    "mtime": 1789128108.5221286,
+    "hash": "7ce6eeddaba899fc8b5f5b36b58e27be"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/thank-you/page.tsx": {
     "mtime": 1789035337.9836035,
@@ -376,8 +376,16 @@
     "hash": "f4119e525894df9f66aa1f2d4bceb550"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/DESIGN.md": {
-    "mtime": 1788969721.5059607,
-    "hash": "3e433f54ac586f0b6055a793be9d44bb"
+    "mtime": 1789120257.000281,
+    "hash": "0975c6f81da1efd0c9588896c6fd2028"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/icon.jpg": {
+    "mtime": 1789128164.1718235,
+    "hash": "72db561252b8f365158fdc7f05fb1bb5"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/app/apple-icon.jpg": {
+    "mtime": 1789128164.2108583,
+    "hash": "db6d0b067e3072dd51a995cfee8a3762"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/public/favicon.svg": {
     "mtime": 1788947316.0612903,
@@ -470,6 +478,10 @@
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/public/images/video-6.webp": {
     "mtime": 1788947416.4325988,
     "hash": "7a9c95f16cc04af9a8ccabbde163190e"
+  },
+  "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/public/images/update-materi-autoflow.webp": {
+    "mtime": 1789124027.301164,
+    "hash": "83f9ded3fbeade7977337d34e79561b1"
   },
   "/Users/rezhaadinugroho/Documents/Antigravity/autoflow-meta/public/images/gus-rezha-cozy.jpg": {
     "mtime": 1788951395.238193,
