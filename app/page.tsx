@@ -202,8 +202,6 @@ export default function Home() {
       stage!.style.setProperty('--device-scale', `${1 - progress * 0.16}`);
       stage!.style.setProperty('--screen-opacity', `${1 - clamp(progress / 0.04)}`);
       stage!.classList.toggle('duo-ready', progress < 0.04);
-      // Unmount the player when folding so hidden video cannot keep playing audio.
-      if (progress >= 0.04) setHeroPlaying(false);
       scenes.forEach(scene => {
         const rect = scene.getBoundingClientRect();
         const reveal = preference.matches ? 1 : clamp((window.innerHeight - rect.top) / (window.innerHeight * 0.72));
@@ -428,27 +426,7 @@ export default function Home() {
                   <div className="duo-half duo-left"><div className="duo-back" /><div className="duo-edge" /><div className="duo-face"><div className="duo-display" /></div></div>
                   <div className="duo-half duo-right"><div className="duo-back" /><div className="duo-edge" /><div className="duo-face"><div className="duo-display" /></div><div className="duo-side-button" /></div>
                 </div>
-            <div className={`hero-art duo-content ${heroPlaying ? 'hero-video-playing' : ''}`}>
-              {heroPlaying ? (
-                <>
-                  <iframe
-                    id="hero-youtube-player"
-                    src="https://www.youtube-nocookie.com/embed/c3oPWww8Y2w?autoplay=1&mute=0&controls=1&enablejsapi=1&modestbranding=1&playsinline=1&rel=0"
-                    title="Teaser Auto Flow Meta Ads"
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                    onLoad={event => {
-                      const player = event.currentTarget.contentWindow;
-                      const target = 'https://www.youtube-nocookie.com';
-                      player?.postMessage(JSON.stringify({ event: 'listening', id: 'hero-youtube-player' }), target);
-                      player?.postMessage(JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }), target);
-                    }}
-                  />
-                  <button className="hero-video-close" onClick={() => setHeroPlaying(false)}>
-                    Tutup video
-                  </button>
-                </>
-              ) : (
+            <div className="hero-art duo-content">
                 <button
                   className="hero-cover"
                   onClick={playHero}
@@ -465,7 +443,6 @@ export default function Home() {
                   <span className="hero-cover-shade" aria-hidden="true" />
                   <span className="hero-cover-play" aria-hidden="true">▶</span>
                 </button>
-              )}
             </div>
               </div>
             </div>
@@ -964,6 +941,27 @@ export default function Home() {
                 Lihat paket lengkap
               </button>
             </>
+          )}
+        </DialogContent>
+      </Dialog>
+      <Dialog open={heroPlaying} onOpenChange={setHeroPlaying}>
+        <DialogContent className="teaser-dialog">
+          <DialogTitle className="sr-only">Teaser Auto Flow Meta Ads</DialogTitle>
+          <DialogDescription className="sr-only">Video teaser. Tekan Escape untuk kembali ke halaman.</DialogDescription>
+          {heroPlaying && (
+                  <iframe
+                    id="hero-youtube-player"
+                    src="https://www.youtube-nocookie.com/embed/c3oPWww8Y2w?autoplay=1&mute=0&controls=1&enablejsapi=1&playsinline=1&rel=0"
+                    title="Teaser Auto Flow Meta Ads"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    onLoad={event => {
+                      const player = event.currentTarget.contentWindow;
+                      const target = 'https://www.youtube-nocookie.com';
+                      player?.postMessage(JSON.stringify({ event: 'listening', id: 'hero-youtube-player' }), target);
+                      player?.postMessage(JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }), target);
+                    }}
+                  />
           )}
         </DialogContent>
       </Dialog>

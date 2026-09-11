@@ -317,18 +317,37 @@ h2 span {
   border: 0;
   background: #06101a;
 }
-.hero-video-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  border: 1px solid #b8d3ed88;
-  border-radius: 5px;
-  background: #07111fe8;
-  color: #fff;
-  padding: 8px 10px;
-  font-size: 12px;
+.teaser-dialog[data-slot='dialog-content'] {
+  width: min(1120px, calc(100vw - 32px), calc((100dvh - 112px) * 16 / 9));
+  max-width: none;
+  padding: 0;
+  gap: 0;
+  border: 0;
+  background: #000;
+  border-radius: 12px;
+  box-shadow: 0 24px 100px #000b;
+  animation-duration: 450ms;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
 }
-.hero-video-close:hover { background: #173453; }
+.teaser-dialog iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: inherit;
+}
+.teaser-dialog [data-slot='dialog-close'] {
+  top: -48px;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #17212c;
+  color: white;
+}
+@media (prefers-reduced-motion: reduce) {
+  .teaser-dialog[data-slot='dialog-content'] { animation: none; }
+}
 .art-caption {
   display: flex;
   align-items: center;
