@@ -653,9 +653,8 @@ export default function Home() {
                 />
                 <span className="bonus-update-badge">Bonus Update Video</span>
               </div>
-              <div className="video-meta"><span>10 / Bonus update berkala</span><span>Materi mendatang</span></div>
+              <div className="video-meta"><span>10 / Bonus update</span><span aria-hidden="true">↗</span></div>
               <h3>Bonus Update Video</h3>
-              <p>Update berkala untuk trik, tips, dan pembaruan terbaru dari metode ini.</p>
             </article>
           </div>
         </section>

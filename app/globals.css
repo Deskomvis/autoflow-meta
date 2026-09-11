@@ -2486,12 +2486,6 @@ h2 span {
   padding: 8px 11px;
   text-transform: uppercase;
 }
-.bonus-update-card > p {
-  color: #aabed3;
-  font-size: 14px;
-  line-height: 1.55;
-  margin: 8px 0 0;
-}
 .duo-sound-status { font-size: 12px; color: #a8b9cf; }
 @media (max-width: 900px) {
   .duo-caption button span { display: inline; }
