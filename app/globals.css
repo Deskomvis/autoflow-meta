@@ -2496,10 +2496,10 @@ h2 span {
 @media (max-width: 900px) {
   .duo-caption button span { display: inline; }
   .duo-caption button { font-size: 12px; padding: 8px 10px; }
-  .video-grid .bonus-update-card {
+  .video-grid .video-card.bonus-update-card {
     grid-column: auto;
   }
-  .video-grid .bonus-update-card h3 {
+  .video-grid .video-card.bonus-update-card h3 {
     font-size: 14px;
   }
   .bonus-update-badge {
