@@ -642,17 +642,20 @@ export default function Home() {
                 <h3>{v[0]}</h3>
               </button>
             ))}
-            <article className="video-card bonus-update-card">
-              <div className="thumb bonus-update-thumb">
-                <span className="bonus-update-label">BONUS VIDEO 10</span>
-                <span className="bonus-update-title">Metodenya berkembang.<br /><strong>Kamu ikut selangkah maju.</strong></span>
-                <span className="bonus-update-topics">Update metode <i /> Trik praktik <i /> Tips terbaru</span>
-                <span className="bonus-update-number" aria-hidden="true">10</span>
+            <article className="video-card bonus-update-card" aria-label="Bonus Update Video">
+              <div className="thumb">
+                <Image unoptimized
+                  src="/images/update-materi-autoflow.webp"
+                  alt="Thumbnail Bonus Update Video Auto Flow Meta Ads"
+                  width="1400"
+                  height="788"
+                  loading="lazy"
+                />
+                <span className="bonus-update-badge">Bonus Update Video</span>
               </div>
               <div className="video-meta"><span>10 / Bonus update berkala</span><span>Materi mendatang</span></div>
-              <h3>Bonus video tambahan</h3>
-              <p>Bonus video tambahan yang akan diupdate berkala setiap ada update, trik, dan tips terbaru dari metode ini.</p>
-              <p className="bonus-update-note">9 video utama untuk mulai praktik. Bonus ini menjadi ruang untuk pembaruan berikutnya.</p>
+              <h3>Bonus Update Video</h3>
+              <p>Update berkala untuk trik, tips, dan pembaruan terbaru dari metode ini.</p>
             </article>
           </div>
         </section>
