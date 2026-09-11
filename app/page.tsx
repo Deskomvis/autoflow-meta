@@ -1,6 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Hls from 'hls.js';
 import { BASE_PRICE, formatIDR } from '@/lib/pricing';
 import {
   Accordion,
@@ -172,6 +173,99 @@ type SlotStatsResponse = {
   taken?: number;
   remaining?: number;
 };
+type TeaserSourceResponse = {
+  playlistUrl?: string;
+  posterUrl?: string;
+  error?: string;
+};
+function BunnyTeaserPlayer({ onEnded }: { onEnded: () => void }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [message, setMessage] = useState('Memuat video...');
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let mounted = true;
+    let hls: Hls | null = null;
+
+    fetch('/api/video/teaser')
+      .then((response) => response.json() as Promise<TeaserSourceResponse>)
+      .then((source) => {
+        if (!mounted || !source.playlistUrl) {
+          throw new Error(source.error || 'Video belum siap.');
+        }
+
+        if (source.posterUrl) video.poster = source.posterUrl;
+
+        if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = source.playlistUrl;
+          setStatus('ready');
+          video.play().catch(() => {});
+          return;
+        }
+
+        if (!Hls.isSupported()) {
+          throw new Error('Browser ini belum mendukung pemutar HLS.');
+        }
+
+        hls = new Hls({
+          startLevel: -1,
+          capLevelToPlayerSize: true,
+          enableWorker: true,
+        });
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          if (!hls) return;
+          const highest = hls.levels.length - 1;
+          if (highest >= 0) hls.nextAutoLevel = highest;
+          setStatus('ready');
+          video.play().catch(() => {});
+        });
+        hls.on(Hls.Events.ERROR, (_event, data) => {
+          if (data.fatal) {
+            setStatus('error');
+            setMessage('Video belum bisa diputar. Cek konfigurasi Bunny Stream.');
+          }
+        });
+        hls.loadSource(source.playlistUrl);
+        hls.attachMedia(video);
+      })
+      .catch((error: Error) => {
+        if (!mounted) return;
+        setStatus('error');
+        setMessage(error.message || 'Video belum bisa diputar.');
+      });
+
+    return () => {
+      mounted = false;
+      hls?.destroy();
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
+    };
+  }, []);
+
+  return (
+    <div className="bunny-player">
+      <video
+        ref={videoRef}
+        controls
+        playsInline
+        autoPlay
+        preload="auto"
+        onEnded={onEnded}
+        controlsList="nodownload noplaybackrate"
+        aria-label="Teaser Auto Flow Meta Ads"
+      />
+      {status !== 'ready' && (
+        <div className="bunny-player-status" role={status === 'error' ? 'alert' : 'status'}>
+          {message}
+        </div>
+      )}
+    </div>
+  );
+}
 export default function Home() {
   const [heroPlaying, setHeroPlaying] = useState(false);
   function playHero() {
@@ -251,22 +345,6 @@ export default function Home() {
       preference.removeEventListener('change', schedule);
     };
   }, []);
-  useEffect(() => {
-    if (!heroPlaying) return;
-    function handlePlayerMessage(event: MessageEvent) {
-      if (event.origin !== 'https://www.youtube-nocookie.com') return;
-      try {
-        const message = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
-        if (message?.event === 'onStateChange' && message.info === 0) {
-          setHeroPlaying(false);
-        }
-      } catch {
-        // Ignore messages from the embedded player that are not JSON events.
-      }
-    }
-    window.addEventListener('message', handlePlayerMessage);
-    return () => window.removeEventListener('message', handlePlayerMessage);
-  }, [heroPlaying]);
   const [selected, setSelected] = useState<number | null>(null);
   const [checkout, setCheckout] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
@@ -457,7 +535,7 @@ export default function Home() {
                 <button
                   className="hero-cover"
                   onClick={playHero}
-                  aria-label="Putar teaser Auto Flow Meta Ads di YouTube"
+                  aria-label="Putar teaser Auto Flow Meta Ads"
                 >
                   <Image
                     unoptimized
@@ -975,21 +1053,7 @@ export default function Home() {
         <DialogContent className="teaser-dialog">
           <DialogTitle className="sr-only">Teaser Auto Flow Meta Ads</DialogTitle>
           <DialogDescription className="sr-only">Video teaser. Tekan Escape untuk kembali ke halaman.</DialogDescription>
-          {heroPlaying && (
-                  <iframe
-                    id="hero-youtube-player"
-                    src="https://www.youtube-nocookie.com/embed/c3oPWww8Y2w?autoplay=1&mute=0&controls=1&enablejsapi=1&playsinline=1&rel=0"
-                    title="Teaser Auto Flow Meta Ads"
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                    onLoad={event => {
-                      const player = event.currentTarget.contentWindow;
-                      const target = 'https://www.youtube-nocookie.com';
-                      player?.postMessage(JSON.stringify({ event: 'listening', id: 'hero-youtube-player' }), target);
-                      player?.postMessage(JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }), target);
-                    }}
-                  />
-          )}
+          {heroPlaying && <BunnyTeaserPlayer onEnded={() => setHeroPlaying(false)} />}
         </DialogContent>
       </Dialog>
       <Dialog open={checkout} onOpenChange={setCheckout}>

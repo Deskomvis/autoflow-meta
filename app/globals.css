@@ -336,6 +336,32 @@ h2 span {
   border: 0;
   border-radius: inherit;
 }
+.bunny-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: inherit;
+  background: #000;
+}
+.bunny-player video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  object-fit: contain;
+}
+.bunny-player-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #03070c, #07101c);
+  color: #dbeafe;
+  font-size: 15px;
+  text-align: center;
+}
 .teaser-dialog [data-slot='dialog-close'] {
   top: -48px;
   right: 0;
