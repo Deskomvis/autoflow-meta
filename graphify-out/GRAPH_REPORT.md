@@ -1,16 +1,16 @@
-# Graph Report - autoflow-meta  (2026-09-10)
+# Graph Report - autoflow-meta  (2026-09-11)
 
 ## Corpus Check
-- 95 files · ~90,013 words
+- 95 files · ~101,105 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 343 nodes · 633 edges · 39 communities (30 shown, 9 thin omitted)
+- 343 nodes · 633 edges · 38 communities (29 shown, 9 thin omitted)
 - Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 61 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `afa3f9d4`
+- Built from commit: `16e032cb`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -26,10 +26,10 @@
 - [[_COMMUNITY_Community 8|Community 8]]
 - [[_COMMUNITY_Community 9|Community 9]]
 - [[_COMMUNITY_Community 12|Community 12]]
-- [[_COMMUNITY_Community 14|Community 14]]
+- [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 29|Community 29]]
-- [[_COMMUNITY_Community 30|Community 30]]
-- [[_COMMUNITY_Community 32|Community 32]]
+- [[_COMMUNITY_Community 31|Community 31]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `cn()` - 59 edges
@@ -55,7 +55,7 @@
 - `POST()` --calls--> `creditAndNotifyAffiliate()`  [INFERRED]
   app/api/singapay/webhook/route.ts → lib/affiliate.ts
 
-## Communities (39 total, 9 thin omitted)
+## Communities (38 total, 9 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.12
@@ -89,7 +89,7 @@ Nodes (10): markMembershipUnpaidMessageSent(), sendCheckoutGreeting(), getBaseUr
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `Community 2` to `Community 1`, `Community 3`, `Community 4`, `Community 5`, `Community 7`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 17`, `Community 19`, `Community 20`, `Community 21`, `Community 22`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 28`, `Community 29`?**
+- **Why does `cn()` connect `Community 2` to `Community 1`, `Community 3`, `Community 4`, `Community 5`, `Community 7`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 25`, `Community 26`, `Community 27`, `Community 28`?**
   _High betweenness centrality (0.321) - this node is a cross-community bridge._
 - **Why does `sendCheckoutGreeting()` connect `Community 9` to `Community 0`, `Community 3`?**
   _High betweenness centrality (0.011) - this node is a cross-community bridge._

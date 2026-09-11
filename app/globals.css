@@ -1694,6 +1694,87 @@ h2 span {
   color: #f0a3a3;
 }
 
+/* E-Course series roadmap, bottom of /membership. Locked thumbnails are
+   desaturated so the one unlocked course reads as the clear focal point. */
+.course-series {
+  padding: 56px 0 40px;
+  border-top: 1px solid #26364c;
+}
+.course-series h2 {
+  margin-bottom: 24px;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.series-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #2d4057;
+  border-radius: 8px;
+  padding: 14px;
+  background: #0f1b2c;
+}
+.series-card h3 {
+  margin: 0;
+  font-size: 15px;
+  color: #f7fbff;
+}
+.series-card p {
+  margin: 0;
+  font-size: 13px;
+  color: #9fb3ca;
+  line-height: 1.5;
+}
+.series-thumb {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  aspect-ratio: 1 / 1;
+  background: #091321;
+}
+.series-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.85) brightness(0.55);
+}
+.series-card.is-unlocked .series-thumb img {
+  filter: none;
+}
+.series-status {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #04101ce6;
+  border: 1px solid #3a506b;
+  color: #c2d1e4;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.series-status svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.series-card.is-unlocked .series-status {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
 [data-slot='dialog-overlay'] {
   background: #000b !important;
 }
@@ -1737,6 +1818,9 @@ h2 span {
   }
   .included span {
     font-size: 12px;
+  }
+  .series-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .problem,
   .modules-inner,
@@ -2298,5 +2382,8 @@ h2 span {
   }
   .wa-bubble-label {
     display: none;
+  }
+  .series-grid {
+    grid-template-columns: 1fr;
   }
 }

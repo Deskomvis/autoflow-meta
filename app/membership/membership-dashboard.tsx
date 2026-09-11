@@ -8,6 +8,33 @@ const filesUrl =
   'https://drive.google.com/drive/folders/1GlUFAsbVnToGVeD9cpcLAYxnd__S7eJr?usp=sharing';
 const telegramUrl = 'https://t.me/+v8NHYYcrq-9jMWM1';
 
+const seriesCourses = [
+  {
+    image: '/images/claude-mcp-ws.webp',
+    title: 'Auto Flow Meta Ads',
+    subtitle: 'Flow Orchestration Claude AI MCP · Scalev, Meta Ads, Vistudio, Cloudinary',
+    unlocked: true,
+  },
+  {
+    image: '/images/vibecoding-monetize.webp',
+    title: 'Vibe Coding Monetize Plan',
+    subtitle: 'Membangun pabrik digital ala vibe coding jalanan',
+    unlocked: false,
+  },
+  {
+    image: '/images/aichat-ctwa.webp',
+    title: '24/7 AI Chat for CTWA',
+    subtitle: 'CRM auto flow untuk iklan CTWA yang bekerja non stop',
+    unlocked: false,
+  },
+  {
+    image: '/images/hermes-agent-flow.webp',
+    title: 'Hermes Agent Flow for Business',
+    subtitle: 'Agent auto flow 24 jam untuk daily task bisnis',
+    unlocked: false,
+  },
+];
+
 // A note line that starts with "*" renders as an italic hint instead of a bullet.
 const lessons = [
   {
@@ -500,6 +527,43 @@ export default function MembershipDashboard({
               </p>
             </section>
           )}
+
+          <section className="course-series wrap">
+            <p className="eyebrow">E-Course Series Lanjutan</p>
+            <h2>Roadmap course berikutnya</h2>
+            <div className="series-grid">
+              {seriesCourses.map(course => (
+                <div
+                  className={`series-card${course.unlocked ? ' is-unlocked' : ''}`}
+                  key={course.title}
+                >
+                  <div className="series-thumb">
+                    <img src={course.image} alt={course.title} loading="lazy" />
+                    <span className="series-status">
+                      {course.unlocked ? (
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M7 10V7a5 5 0 0 1 9.9-1" />
+                          <rect x="5" y="10" width="14" height="10" rx="2" />
+                        </svg>
+                      ) : (
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M7 10V7a5 5 0 0 1 10 0v3" />
+                          <rect x="5" y="10" width="14" height="10" rx="2" />
+                        </svg>
+                      )}
+                      {course.unlocked ? 'Dimiliki' : 'Coming soon'}
+                    </span>
+                  </div>
+                  <h3>{course.title}</h3>
+                  <p>{course.subtitle}</p>
+                </div>
+              ))}
+            </div>
+            <p className="fineprint">
+              Course baru akan otomatis muncul di dashboard membership begitu
+              rilis. Tidak perlu kode referensi tambahan.
+            </p>
+          </section>
         </>
       ) : null}
     </main>
