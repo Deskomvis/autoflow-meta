@@ -32,3 +32,8 @@ Link pembayaran belum diberikan. Tombol paket membuka ringkasan dengan pemberita
 - The thumbnail remains visible during unfolding. Once the screen is fully open and at least 60% of the stage is visible, the YouTube teaser autoplays muted once per page visit. An explicit sound control enables audio; manual play remains available. Closing the player does not retrigger autoplay.
 
 - Bonus item 10 is a typographic preview for future method updates, tricks and tips, below the nine existing lessons. It is marked as upcoming rather than presented as a currently playable tenth lesson. The offer includes the recurring bonus updates.
+
+## Hero revision
+
+- The device starts fully open; downward scrolling closes it, upward scrolling reopens it. The opening autoplay was removed. Clicking the thumbnail plays the teaser with sound enabled. Folding unmounts the player to stop hidden audio.
+- The media column now contains only the device and the Claude / Scalev / Vistudio / Meta Ads connection. The media heading, scroll hint, caption, extra play/sound controls and closing statement were removed.

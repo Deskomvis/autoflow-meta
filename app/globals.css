@@ -2392,7 +2392,7 @@ h2 span {
 /* Scroll progress drives the hinge; each half has front, back and edge planes. */
 .hero-scroll-track { position: relative; min-height: 220svh; }
 .hero-scroll-track .hero { position: sticky; top: 0; min-height: 100svh; padding-top: 48px; padding-bottom: 48px; }
-.duo-stage { --fold-angle: 76deg; --device-tilt: 12deg; --device-turn: -16deg; --device-scale: .84; --screen-opacity: 0; padding: 34px 6px 0; perspective: 1600px; }
+.duo-stage { --fold-angle: 0deg; --device-tilt: 0deg; --device-turn: 0deg; --device-scale: 1; --screen-opacity: 1; padding: 34px 6px 0; perspective: 1600px; }
 .duo-device { position: relative; width: 100%; aspect-ratio: 1.4; transform-style: preserve-3d; transform: rotateX(var(--device-tilt)) rotateY(var(--device-turn)) scale(var(--device-scale)); }
 .duo-panels { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; }
 .duo-half { position: absolute; top: 0; bottom: 0; width: 50%; transform-style: preserve-3d; }
@@ -2415,13 +2415,11 @@ h2 span {
 .duo-hinge { position: absolute; left: calc(50% - 6px); width: 12px; top: 7px; bottom: 7px; transform: translateZ(-5px); border-radius: 6px; background: linear-gradient(90deg, #1c222a, #b5bfc9 40%, #454d57 65%, #0a0e13); }
 .duo-side-button { position: absolute; width: 4px; height: 15%; right: -4px; top: 24%; border-radius: 3px; background: linear-gradient(90deg, #161c23, #a5b0bb, #323b46); transform: translateZ(-1px); }
 .duo-content.hero-art { position: absolute; inset: 11px; width: auto; border: 0; border-radius: 20px; box-shadow: none; transform: translateZ(6px); background: #05090f; opacity: var(--screen-opacity); visibility: hidden; }
-.duo-ready .duo-content, .duo-playing .duo-content { visibility: visible; }
+.duo-ready .duo-content { visibility: visible; }
 .duo-content .hero-cover { height: 100%; background: #05090f; }
 .duo-content.hero-art img { width: 100%; height: 100%; object-fit: contain; }
 .duo-content .hero-cover-shade { background: linear-gradient(180deg, transparent 60%, #0002); }
 .duo-content.hero-art iframe { height: 100%; aspect-ratio: auto; }
-.duo-playing { --fold-angle: 0deg !important; --device-tilt: 0deg !important; --device-turn: 0deg !important; --device-scale: 1 !important; --screen-opacity: 1 !important; }
-.duo-playing .duo-device, .duo-playing .duo-half { transition: transform 900ms cubic-bezier(.22,.61,.36,1); }
 .duo-scroll-hint { margin: 22px 0 0; color: #98adbf; font-size: 12px; text-align: center; }
 .duo-scroll-hint span { margin-left: 8px; }
 .duo-ready .duo-scroll-hint, .duo-playing .duo-scroll-hint { opacity: 0; }

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { BASE_PRICE, formatIDR } from '@/lib/pricing';
 import {
@@ -174,17 +174,8 @@ type SlotStatsResponse = {
 };
 export default function Home() {
   const [heroPlaying, setHeroPlaying] = useState(false);
-  const [heroMuted, setHeroMuted] = useState(true);
-  const heroStarted = useRef(false);
   function playHero() {
-    heroStarted.current = true;
-    setHeroMuted(true);
     setHeroPlaying(true);
-  }
-  function enableHeroSound() {
-    const player = document.getElementById('hero-youtube-player') as HTMLIFrameElement | null;
-    player?.contentWindow?.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: [] }), 'https://www.youtube-nocookie.com');
-    setHeroMuted(false);
   }
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -202,22 +193,17 @@ export default function Home() {
       const elapsed = Math.min(time - previous || 16, 64);
       previous = time;
       const bounds = (desktop.matches ? track! : media!).getBoundingClientRect();
-      const target = preference.matches ? 1 : clamp(-bounds.top / Math.max(1, bounds.height - window.innerHeight));
+      const target = preference.matches ? 0 : clamp((-bounds.top / Math.max(1, bounds.height - window.innerHeight) - 0.12) / 0.88);
       current += (target - current) * (1 - Math.exp(-elapsed / 260));
-      const progress = preference.matches ? 1 : current;
-      stage!.style.setProperty('--fold-angle', `${(1 - progress) * 76}deg`);
-      stage!.style.setProperty('--device-tilt', `${(1 - progress) * 12}deg`);
-      stage!.style.setProperty('--device-turn', `${(1 - progress) * -16}deg`);
-      stage!.style.setProperty('--device-scale', `${0.84 + progress * 0.16}`);
-      stage!.style.setProperty('--screen-opacity', `${clamp((progress - 0.88) / 0.12)}`);
-      stage!.classList.toggle('duo-ready', progress > 0.97 || preference.matches);
-      const screen = stage!.getBoundingClientRect();
-      const visibleHeight = Math.min(screen.bottom, window.innerHeight) - Math.max(screen.top, 0);
-      if (progress >= 0.995 && visibleHeight > screen.height * 0.6 && !heroStarted.current) {
-        heroStarted.current = true;
-        setHeroMuted(true);
-        setHeroPlaying(true);
-      }
+      const progress = preference.matches ? 0 : current;
+      stage!.style.setProperty('--fold-angle', `${progress * 76}deg`);
+      stage!.style.setProperty('--device-tilt', `${progress * 12}deg`);
+      stage!.style.setProperty('--device-turn', `${progress * -16}deg`);
+      stage!.style.setProperty('--device-scale', `${1 - progress * 0.16}`);
+      stage!.style.setProperty('--screen-opacity', `${1 - clamp(progress / 0.04)}`);
+      stage!.classList.toggle('duo-ready', progress < 0.04);
+      // Unmount the player when folding so hidden video cannot keep playing audio.
+      if (progress >= 0.04) setHeroPlaying(false);
       scenes.forEach(scene => {
         const rect = scene.getBoundingClientRect();
         const reveal = preference.matches ? 1 : clamp((window.innerHeight - rect.top) / (window.innerHeight * 0.72));
@@ -435,11 +421,7 @@ export default function Home() {
           </div>
           <div className="hero-media">
           <div className="hero-media-sticky">
-            <div className="media-heading">
-              <span>RUANG KENDALI BARUMU</span>
-              <span>01 / 09</span>
-            </div>
-            <div className={`duo-stage ${heroPlaying ? 'duo-playing' : ''}`}>
+            <div className="duo-stage duo-ready">
               <div className="duo-device">
                 <div className="duo-panels" aria-hidden="true">
                   <div className="duo-hinge" />
@@ -451,7 +433,7 @@ export default function Home() {
                 <>
                   <iframe
                     id="hero-youtube-player"
-                    src="https://www.youtube-nocookie.com/embed/c3oPWww8Y2w?autoplay=1&mute=1&controls=1&enablejsapi=1&modestbranding=1&playsinline=1&rel=0"
+                    src="https://www.youtube-nocookie.com/embed/c3oPWww8Y2w?autoplay=1&mute=0&controls=1&enablejsapi=1&modestbranding=1&playsinline=1&rel=0"
                     title="Teaser Auto Flow Meta Ads"
                     allow="autoplay; encrypted-media; picture-in-picture"
                     allowFullScreen
@@ -486,13 +468,6 @@ export default function Home() {
               )}
             </div>
               </div>
-              <p className="duo-scroll-hint">Scroll perlahan. Layar terbuka, video dimulai. <span aria-hidden="true">↓</span></p>
-              <div className="duo-caption">
-                <span>Tonton teaser Auto Flow Meta Ads<small>Lihat alur dan hasil back test</small></span>
-                {heroPlaying ? (
-                  heroMuted ? <button type="button" onClick={enableHeroSound}>♪ <span>Aktifkan suara</span></button> : <span className="duo-sound-status">Suara aktif</span>
-                ) : <button type="button" onClick={playHero} aria-label="Buka layar dan putar teaser">▶ <span>Putar video</span></button>}
-              </div>
             </div>
             <div className="connection">
               <span>Claude</span>
@@ -502,18 +477,6 @@ export default function Home() {
               <span>Vistudio</span>
               <i aria-hidden="true" />
               <span>Meta Ads</span>
-            </div>
-            <div className="hero-statement">
-              <span>
-                9 video.
-                <br />
-                Satu rangkaian mesin.
-              </span>
-              <p>
-                Dari “mau jualan apa?”
-                <br />
-                ke “siap diuji di pasar.”
-              </p>
             </div>
           </div>
           </div>
