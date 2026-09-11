@@ -22,3 +22,13 @@ ENERGY 3 / RHYTHM 3 / MOTION 1.
 
 ## Belum tersedia
 Link pembayaran belum diberikan. Tombol paket membuka ringkasan dengan pemberitahuan pembayaran belum dibuka. Ganti checkoutUrl hanya dengan tujuan resmi pemilik sebelum membuka penjualan publik.
+
+## Scroll motion — September 11 update
+
+- User direction: slow scroll-linked opening inspired by the supplied Apple iPhone Duo page. Hero holds its position through a 220svh desktop track; mobile uses a separate 190svh media track after the introductory copy.
+- The frame uses CSS 3D front, back, side and hinge planes with metal shading. It is procedural browser geometry, not a Blender-rendered asset or a border photograph.
+- Passive scroll events schedule animation frames only while input changes or the hinge settles. Progress is damped over 260ms, with opening spread across the track instead of a timed entrance.
+- Supporting sections use restrained scroll-linked translation and scale through the price section. Reduced-motion removes the sticky travel and reveals the unfolded player immediately.
+- The thumbnail remains visible during unfolding. Once the screen is fully open and at least 60% of the stage is visible, the YouTube teaser autoplays muted once per page visit. An explicit sound control enables audio; manual play remains available. Closing the player does not retrigger autoplay.
+
+- Bonus item 10 is a typographic preview for future method updates, tricks and tips, below the nine existing lessons. It is marked as upcoming rather than presented as a currently playable tenth lesson. The offer includes the recurring bonus updates.

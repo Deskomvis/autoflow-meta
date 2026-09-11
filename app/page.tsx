@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { BASE_PRICE, formatIDR } from '@/lib/pricing';
 import {
@@ -173,39 +173,73 @@ type SlotStatsResponse = {
   remaining?: number;
 };
 export default function Home() {
+  const [heroPlaying, setHeroPlaying] = useState(false);
+  const [heroMuted, setHeroMuted] = useState(true);
+  const heroStarted = useRef(false);
+  function playHero() {
+    heroStarted.current = true;
+    setHeroMuted(true);
+    setHeroPlaying(true);
+  }
+  function enableHeroSound() {
+    const player = document.getElementById('hero-youtube-player') as HTMLIFrameElement | null;
+    player?.contentWindow?.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: [] }), 'https://www.youtube-nocookie.com');
+    setHeroMuted(false);
+  }
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (!('IntersectionObserver' in window)) return;
-    const elements = document.querySelectorAll('.section-heading, .problem > div, .video-card, .modules-inner > *, .bonus > *, .mentor, .proof > *, .offer > *, .faq > *');
-    let observer: IntersectionObserver | undefined;
-    function configure() {
-      observer?.disconnect();
-      elements.forEach(element => element.classList.remove('reveal-ready', 'revealed'));
-      if (preference.matches) return;
-      observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer?.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08 });
-      elements.forEach(element => {
-        if (element.getBoundingClientRect().top > window.innerHeight) {
-          element.classList.add('reveal-ready');
-          observer?.observe(element);
-        }
+    const desktop = window.matchMedia('(min-width: 901px)');
+    const stage = document.querySelector<HTMLElement>('.duo-stage');
+    const track = document.querySelector<HTMLElement>('.hero-scroll-track');
+    const media = document.querySelector<HTMLElement>('.hero-media');
+    const scenes = Array.from(document.querySelectorAll<HTMLElement>('.problem, .machine, #materi, .modules, .bonus, .mentor, .proof, .offer'));
+    if (!stage || !track || !media) return;
+    let frame = 0;
+    let current = 0;
+    let previous = 0;
+    const clamp = (value: number) => Math.max(0, Math.min(1, value));
+    function render(time: number) {
+      const elapsed = Math.min(time - previous || 16, 64);
+      previous = time;
+      const bounds = (desktop.matches ? track! : media!).getBoundingClientRect();
+      const target = preference.matches ? 1 : clamp(-bounds.top / Math.max(1, bounds.height - window.innerHeight));
+      current += (target - current) * (1 - Math.exp(-elapsed / 260));
+      const progress = preference.matches ? 1 : current;
+      stage!.style.setProperty('--fold-angle', `${(1 - progress) * 76}deg`);
+      stage!.style.setProperty('--device-tilt', `${(1 - progress) * 12}deg`);
+      stage!.style.setProperty('--device-turn', `${(1 - progress) * -16}deg`);
+      stage!.style.setProperty('--device-scale', `${0.84 + progress * 0.16}`);
+      stage!.style.setProperty('--screen-opacity', `${clamp((progress - 0.88) / 0.12)}`);
+      stage!.classList.toggle('duo-ready', progress > 0.97 || preference.matches);
+      const screen = stage!.getBoundingClientRect();
+      const visibleHeight = Math.min(screen.bottom, window.innerHeight) - Math.max(screen.top, 0);
+      if (progress >= 0.995 && visibleHeight > screen.height * 0.6 && !heroStarted.current) {
+        heroStarted.current = true;
+        setHeroMuted(true);
+        setHeroPlaying(true);
+      }
+      scenes.forEach(scene => {
+        const rect = scene.getBoundingClientRect();
+        const reveal = preference.matches ? 1 : clamp((window.innerHeight - rect.top) / (window.innerHeight * 0.72));
+        scene.style.setProperty('--scene-y', `${(1 - reveal) * 65}px`);
+        scene.style.setProperty('--scene-opacity', `${0.3 + reveal * 0.7}`);
+        scene.style.setProperty('--scene-scale', `${0.95 + reveal * 0.05}`);
+        scene.style.setProperty('--parallax-y', `${preference.matches ? 0 : Math.max(-35, Math.min(35, (rect.top - window.innerHeight * 0.2) * 0.08))}px`);
       });
+      frame = Math.abs(target - current) > 0.0001 ? requestAnimationFrame(render) : 0;
     }
-    configure();
-    preference.addEventListener('change', configure);
+    function schedule() { if (!frame) { previous = 0; frame = requestAnimationFrame(render); } }
+    schedule();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    preference.addEventListener('change', schedule);
     return () => {
-      observer?.disconnect();
-      preference.removeEventListener('change', configure);
-      elements.forEach(element => element.classList.remove('reveal-ready', 'revealed'));
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      preference.removeEventListener('change', schedule);
     };
   }, []);
-  const [heroPlaying, setHeroPlaying] = useState(false);
   useEffect(() => {
     if (!heroPlaying) return;
     function handlePlayerMessage(event: MessageEvent) {
@@ -361,6 +395,7 @@ export default function Home() {
         </a>
       </header>
       <main id="main">
+        <div className="hero-scroll-track">
         <section className="hero wrap">
           <div className="hero-copy">
             <p className="eyebrow">
@@ -399,16 +434,24 @@ export default function Home() {
             </p>
           </div>
           <div className="hero-media">
+          <div className="hero-media-sticky">
             <div className="media-heading">
               <span>RUANG KENDALI BARUMU</span>
               <span>01 / 09</span>
             </div>
-            <div className={`hero-art ${heroPlaying ? 'hero-video-playing' : ''}`}>
+            <div className={`duo-stage ${heroPlaying ? 'duo-playing' : ''}`}>
+              <div className="duo-device">
+                <div className="duo-panels" aria-hidden="true">
+                  <div className="duo-hinge" />
+                  <div className="duo-half duo-left"><div className="duo-back" /><div className="duo-edge" /><div className="duo-face"><div className="duo-display" /></div></div>
+                  <div className="duo-half duo-right"><div className="duo-back" /><div className="duo-edge" /><div className="duo-face"><div className="duo-display" /></div><div className="duo-side-button" /></div>
+                </div>
+            <div className={`hero-art duo-content ${heroPlaying ? 'hero-video-playing' : ''}`}>
               {heroPlaying ? (
                 <>
                   <iframe
                     id="hero-youtube-player"
-                    src="https://www.youtube-nocookie.com/embed/c3oPWww8Y2w?autoplay=1&controls=1&enablejsapi=1&modestbranding=1&playsinline=1&rel=0"
+                    src="https://www.youtube-nocookie.com/embed/c3oPWww8Y2w?autoplay=1&mute=1&controls=1&enablejsapi=1&modestbranding=1&playsinline=1&rel=0"
                     title="Teaser Auto Flow Meta Ads"
                     allow="autoplay; encrypted-media; picture-in-picture"
                     allowFullScreen
@@ -426,7 +469,7 @@ export default function Home() {
               ) : (
                 <button
                   className="hero-cover"
-                  onClick={() => setHeroPlaying(true)}
+                  onClick={playHero}
                   aria-label="Putar teaser Auto Flow Meta Ads di YouTube"
                 >
                   <Image
@@ -439,15 +482,17 @@ export default function Home() {
                   />
                   <span className="hero-cover-shade" aria-hidden="true" />
                   <span className="hero-cover-play" aria-hidden="true">▶</span>
-                  <span className="art-caption">
-                    <span>
-                      Tonton teaser Auto Flow Meta Ads
-                      <small>Putar video untuk melihat alur dan hasil back test</small>
-                    </span>
-                    <span aria-hidden="true">↗</span>
-                  </span>
                 </button>
               )}
+            </div>
+              </div>
+              <p className="duo-scroll-hint">Scroll perlahan. Layar terbuka, video dimulai. <span aria-hidden="true">↓</span></p>
+              <div className="duo-caption">
+                <span>Tonton teaser Auto Flow Meta Ads<small>Lihat alur dan hasil back test</small></span>
+                {heroPlaying ? (
+                  heroMuted ? <button type="button" onClick={enableHeroSound}>♪ <span>Aktifkan suara</span></button> : <span className="duo-sound-status">Suara aktif</span>
+                ) : <button type="button" onClick={playHero} aria-label="Buka layar dan putar teaser">▶ <span>Putar video</span></button>}
+              </div>
             </div>
             <div className="connection">
               <span>Claude</span>
@@ -471,7 +516,9 @@ export default function Home() {
               </p>
             </div>
           </div>
+          </div>
         </section>
+        </div>
         <div className="included wrap">
           <div>
             <strong>09</strong>
@@ -632,6 +679,18 @@ export default function Home() {
                 <h3>{v[0]}</h3>
               </button>
             ))}
+            <article className="video-card bonus-update-card">
+              <div className="thumb bonus-update-thumb">
+                <span className="bonus-update-label">BONUS VIDEO 10</span>
+                <span className="bonus-update-title">Metodenya berkembang.<br /><strong>Kamu ikut selangkah maju.</strong></span>
+                <span className="bonus-update-topics">Update metode <i /> Trik praktik <i /> Tips terbaru</span>
+                <span className="bonus-update-number" aria-hidden="true">10</span>
+              </div>
+              <div className="video-meta"><span>10 / Bonus update berkala</span><span>Materi mendatang</span></div>
+              <h3>Bonus video tambahan</h3>
+              <p>Bonus video tambahan yang akan diupdate berkala setiap ada update, trik, dan tips terbaru dari metode ini.</p>
+              <p className="bonus-update-note">9 video utama untuk mulai praktik. Bonus ini menjadi ruang untuk pembaruan berikutnya.</p>
+            </article>
           </div>
         </section>
         <section className="modules section">
@@ -847,6 +906,7 @@ export default function Home() {
             </p>
             <ul className="check-list">
               <li>9 video teknis webinar & ecourse</li>
+              <li>Bonus video tambahan: update, trik, dan tips terbaru</li>
               <li>8 file modul Autoflow</li>
               <li>Grup support</li>
               <li>Contoh alur riset sampai iklan tayang</li>
