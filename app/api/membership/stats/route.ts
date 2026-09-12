@@ -1,19 +1,21 @@
 import { NextResponse } from 'next/server';
 import { getPaidMembershipAccessCount } from '@/lib/membership-access';
+import { getCurrentPricingTier } from '@/lib/pricing';
 
 export const runtime = 'nodejs';
 
-const initialEarlybirdTaken = 12;
-const earlybirdLimit = 30;
-
 export async function GET() {
   const paidCount = await getPaidMembershipAccessCount();
-  const taken = Math.min(earlybirdLimit, initialEarlybirdTaken + (paidCount ?? 0));
-  const remaining = Math.max(0, earlybirdLimit - taken);
+  const tier = getCurrentPricingTier(paidCount ?? 0);
 
   return NextResponse.json({
-    limit: earlybirdLimit,
-    taken,
-    remaining,
+    tier: tier.id,
+    label: tier.label,
+    badge: tier.badge,
+    price: tier.price,
+    limit: tier.limit,
+    taken: tier.taken,
+    remaining: tier.remaining,
+    totalTaken: tier.totalTaken,
   });
 }

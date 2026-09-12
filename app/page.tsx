@@ -1,7 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { BASE_PRICE, formatIDR } from '@/lib/pricing';
+import {
+  BASE_PRICE,
+  INITIAL_PAID_SLOTS,
+  PRICING_TIERS,
+  formatIDR,
+} from '@/lib/pricing';
 import {
   Accordion,
   AccordionItem,
@@ -124,8 +129,6 @@ const toolNames: Record<string, string> = {
   scalev: 'Scalev',
   vistudio: 'Vistudio',
 };
-const earlybirdLimit = 30;
-const initialEarlybirdTaken = 12;
 const faqs = [
   [
     'Apa itu MCP?',
@@ -164,13 +167,29 @@ type CheckoutResponse = {
 type AffiliateContextResponse = {
   active?: boolean;
   code?: string | null;
+  basePrice?: number;
   discountedPrice?: number;
   discountAmount?: number;
 };
 type SlotStatsResponse = {
-  limit?: number;
+  tier?: string;
+  label?: string;
+  badge?: string;
+  price?: number;
+  limit?: number | null;
   taken?: number;
-  remaining?: number;
+  remaining?: number | null;
+  totalTaken?: number;
+};
+type SlotStats = {
+  tier: string;
+  label: string;
+  badge: string;
+  price: number;
+  limit: number | null;
+  taken: number;
+  remaining: number | null;
+  totalTaken: number;
 };
 const teaserVideoSources = [
   'https://cdn.vistudio.id/Teaser%20autoflow.mp4',
@@ -295,14 +314,20 @@ export default function Home() {
     price: number;
     discount: number;
   }>({ active: false, price: BASE_PRICE, discount: 0 });
-  const [slotStats, setSlotStats] = useState({
-    limit: earlybirdLimit,
-    taken: initialEarlybirdTaken,
-    remaining: earlybirdLimit - initialEarlybirdTaken,
+  const [slotStats, setSlotStats] = useState<SlotStats>({
+    tier: PRICING_TIERS[0].id,
+    label: PRICING_TIERS[0].label,
+    badge: PRICING_TIERS[0].badge,
+    price: PRICING_TIERS[0].price,
+    limit: PRICING_TIERS[0].limit,
+    taken: INITIAL_PAID_SLOTS,
+    remaining: PRICING_TIERS[0].limit - INITIAL_PAID_SLOTS,
+    totalTaken: INITIAL_PAID_SLOTS,
   });
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const [active, setActive] = useState(0);
+  const currentPrice = affiliate.active ? affiliate.price : slotStats.price;
   useEffect(() => {
     let activeRequest = true;
 
@@ -316,12 +341,20 @@ export default function Home() {
         if (!activeRequest || !data) return;
 
         setSlotStats({
-          limit: Number(data.limit) || earlybirdLimit,
-          taken: Number(data.taken) || initialEarlybirdTaken,
+          tier: data.tier || PRICING_TIERS[0].id,
+          label: data.label || PRICING_TIERS[0].label,
+          badge: data.badge || PRICING_TIERS[0].badge,
+          price: Number(data.price) || PRICING_TIERS[0].price,
+          limit:
+            typeof data.limit === 'number' || data.limit === null
+              ? data.limit
+              : PRICING_TIERS[0].limit,
+          taken: Number(data.taken) || INITIAL_PAID_SLOTS,
           remaining:
-            typeof data.remaining === 'number'
+            typeof data.remaining === 'number' || data.remaining === null
               ? data.remaining
-              : earlybirdLimit - initialEarlybirdTaken,
+              : PRICING_TIERS[0].limit - INITIAL_PAID_SLOTS,
+          totalTaken: Number(data.totalTaken) || INITIAL_PAID_SLOTS,
         });
       })
       .catch(() => {});
@@ -344,7 +377,7 @@ export default function Home() {
 
         setAffiliate({
           active: true,
-          price: Number(data.discountedPrice) || BASE_PRICE,
+          price: Number(data.discountedPrice) || slotStats.price,
           discount: Number(data.discountAmount) || 0,
         });
         if (data.code) setCouponCode(data.code);
@@ -888,10 +921,12 @@ export default function Home() {
             <h3>Dari ide produk.<br /><span>Sampai iklan tayang.</span></h3>
             <p className="offer-intro">Pelajari alurnya. Pakai modulnya. Mulai praktik dengan produkmu.</p>
             <div className="offer-price-stage">
-            <span className="offer-price-label">AKSES PAKET EARLYBIRD</span>
-            <p className="price"><span>Rp</span>497.000</p>
+            <span className="offer-price-label">AKSES PAKET {slotStats.label.toUpperCase()}</span>
+            <p className="price"><span>Rp</span>{slotStats.price.toLocaleString('id-ID').replace(/^Rp/, '')}</p>
             <p className="price-note">
-              Harga earlybird untuk {slotStats.limit} slot pertama
+              {slotStats.limit
+                ? `Harga ${slotStats.label.toLowerCase()} untuk ${slotStats.limit} slot`
+                : 'Harga extended setelah kuota reguler habis'}
             </p>
             </div>
             <div className="offer-includes" aria-label="Isi utama paket"><div><strong>09</strong><span>Video teknis</span></div><div><strong>08</strong><span>File modul</span></div><div><strong>100+</strong><span>Data riset iklan</span></div></div>
@@ -948,7 +983,7 @@ export default function Home() {
       </footer>
       <div className="mobile-buy">
         <span>
-          Harga earlybird<strong>Rp497.000</strong>
+          Harga {slotStats.label.toLowerCase()}<strong>{formatIDR(currentPrice)}</strong>
         </span>
         <button className="cta" onClick={() => setCheckout(true)}>
           Lihat akses paket
@@ -1018,19 +1053,23 @@ export default function Home() {
             <div className="seat-meter">
               <div className="seat-copy">
                 <strong>
-                  {slotStats.taken}/{slotStats.limit} slot earlybird terisi
+                  {slotStats.limit
+                    ? `${slotStats.taken}/${slotStats.limit} slot ${slotStats.label.toLowerCase()} terisi`
+                    : `${slotStats.totalTaken} total pembeli`}
                 </strong>
-                <span>Tersisa {slotStats.remaining} slot di harga ini.</span>
+                <span>
+                  {slotStats.remaining === null
+                    ? 'Harga extended sedang aktif.'
+                    : `Tersisa ${slotStats.remaining} slot di harga ini.`}
+                </span>
               </div>
-              <div className="seat-track" aria-label="Progress slot earlybird">
+              <div className="seat-track" aria-label={`Progress slot ${slotStats.label.toLowerCase()}`}>
                 <span
                   style={{
                     width:
-                      slotStats.limit > 0
+                      typeof slotStats.limit === 'number' && slotStats.limit > 0
                         ? `${Math.min(100, (slotStats.taken / slotStats.limit) * 100)}%`
-                        : `${Math.round(
-                            (initialEarlybirdTaken / earlybirdLimit) * 100,
-                          )}%`,
+                        : '100%',
                   }}
                 />
               </div>
@@ -1040,32 +1079,30 @@ export default function Home() {
           <div className="checkout-right">
             <div className="price-row">
               <div>
-                <span className="price-label">Earlybird User</span>
+                <span className="price-label">{slotStats.label} User</span>
                 <strong className="dialog-price">
-                  {formatIDR(affiliate.active ? affiliate.price : BASE_PRICE)}
+                  {formatIDR(currentPrice)}
                 </strong>
               </div>
-              <span className="earlybird-badge">Harga earlybird</span>
+              <span className="earlybird-badge">{slotStats.badge}</span>
             </div>
             {affiliate.active ? (
               <p className="fineprint">
                 Potongan afiliasi 15% ({formatIDR(affiliate.discount)}) sudah
-                dihitung dari {formatIDR(BASE_PRICE)}.
+                dihitung dari {formatIDR(slotStats.price)}.
               </p>
             ) : null}
             <div className="pricing-tiers" aria-label="Tier harga">
-              <div className="active">
-                <span>Earlybird</span>
-                <strong>497.000</strong>
-              </div>
-              <div>
-                <span>Reguler</span>
-                <strong>697.000</strong>
-              </div>
-              <div>
-                <span>Extended</span>
-                <strong>997.000</strong>
-              </div>
+              {PRICING_TIERS.map((tier) => (
+                <div
+                  key={tier.id}
+                  className={slotStats.tier === tier.id ? 'active' : undefined}
+                >
+                  <span>{tier.label}</span>
+                  <strong>{tier.price.toLocaleString('id-ID')}</strong>
+                  {tier.limit ? <small>{tier.limit} slot</small> : null}
+                </div>
+              ))}
               <div>
                 <span>Private 1on1</span>
                 <strong>2.999.000</strong>

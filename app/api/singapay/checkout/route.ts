@@ -3,13 +3,14 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import {
   createMembershipAccess,
+  getPaidMembershipAccessCount,
   markMembershipUnpaidMessageSent,
 } from '@/lib/membership-access';
 import { normalizeCode, resolveAffiliateByCode } from '@/lib/affiliate';
 import {
   affiliateCommission,
   applyAffiliateDiscount,
-  BASE_PRICE,
+  getCurrentPricingTier,
 } from '@/lib/pricing';
 import {
   normalizeWhatsappPhone,
@@ -139,9 +140,11 @@ export async function POST(request: Request) {
       affiliate = null;
     }
 
-    const pricing = applyAffiliateDiscount();
-    const amount = affiliate ? pricing.finalAmount : BASE_PRICE;
-    const commissionAmount = affiliate ? affiliateCommission() : 0;
+    const paidCount = await getPaidMembershipAccessCount();
+    const activeTier = getCurrentPricingTier(paidCount ?? 0);
+    const pricing = applyAffiliateDiscount(activeTier.price);
+    const amount = affiliate ? pricing.finalAmount : activeTier.price;
+    const commissionAmount = affiliate ? affiliateCommission(activeTier.price) : 0;
     const discountAmount = affiliate ? pricing.discountAmount : 0;
 
     const baseUrl = getBaseUrl();
@@ -182,6 +185,7 @@ export async function POST(request: Request) {
           optional_metadata: {
             product: 'autoflow-meta',
             source: 'landing-page',
+            pricing_tier: activeTier.id,
             whatsapp_phone: whatsappPhone,
             affiliate_code: affiliate?.affiliate_code ?? null,
           },
@@ -214,7 +218,7 @@ export async function POST(request: Request) {
       whatsapp_phone: whatsappPhone,
       affiliate_code: affiliate?.affiliate_code,
       affiliate_owner_reference: affiliate?.owner_reference,
-      original_amount: BASE_PRICE,
+      original_amount: activeTier.price,
       discount_amount: discountAmount,
       commission_amount: commissionAmount,
     });
