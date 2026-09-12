@@ -719,10 +719,10 @@ export default function Home() {
         <section className="bonus section wrap" id="bonus">
           <div className="bonus-visual">
             <Image unoptimized
-              src="/images/video-9.webp"
-              alt="Bonus tutorial riset iklan produk digital dan scoresheet Meta Ad Library"
-              width="1400"
-              height="788"
+              src="/images/flow-riset-adlibrary.webp"
+              alt="Flow riset Meta Ad Library dengan Claude AI"
+              width="700"
+              height="357"
               loading="lazy"
             />
             <div className="research-stats">
