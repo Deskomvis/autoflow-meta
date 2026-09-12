@@ -172,7 +172,13 @@ type SlotStatsResponse = {
   taken?: number;
   remaining?: number;
 };
+const teaserVideoSources = [
+  'https://cdn.vistudio.id/Teaser%20autoflow.mp4',
+  'https://vistudio.b-cdn.net/Teaser%20autoflow.mp4',
+];
 function TeaserVideoPlayer({ onEnded }: { onEnded: () => void }) {
+  const [failed, setFailed] = useState(false);
+
   return (
     <div className="bunny-player">
       <video
@@ -182,13 +188,20 @@ function TeaserVideoPlayer({ onEnded }: { onEnded: () => void }) {
         preload="auto"
         poster="/images/autoflow-teaser-cover.webp"
         onEnded={onEnded}
+        onError={() => setFailed(true)}
         controlsList="nodownload noplaybackrate"
         aria-label="Teaser Auto Flow Meta Ads"
       >
-        <source src="https://cdn.vistudio.id/Teaser%20autoflow.mp4" type="video/mp4" />
-        <source src="https://Vistudio.b-cdn.net/Teaser%20autoflow.mp4" type="video/mp4" />
+        {teaserVideoSources.map((src) => (
+          <source key={src} src={src} type="video/mp4" />
+        ))}
         Browser ini belum bisa memutar video.
       </video>
+      {failed && (
+        <div className="bunny-player-status" role="alert">
+          Video belum bisa dimuat. Coba refresh halaman, lalu putar lagi.
+        </div>
+      )}
     </div>
   );
 }
