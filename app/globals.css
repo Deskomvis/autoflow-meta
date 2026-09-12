@@ -2559,8 +2559,18 @@ h2 span {
 .bonus-update-card {
   cursor: default;
 }
+.bonus-update-card .thumb {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
+  filter: drop-shadow(0 18px 34px rgba(23, 117, 179, 0.2));
+}
 .bonus-update-card:hover img {
   transform: scale(1.025);
+}
+.bonus-update-card .thumb::after {
+  display: none;
 }
 .bonus-update-badge {
   position: absolute;
