@@ -2594,3 +2594,55 @@ h2 span {
     padding: 7px 9px;
   }
 }
+
+/* Focused offer with a raised price surface and a clear checkout action. */
+.offer-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #68cce275;
+  border-radius: 26px;
+  background: radial-gradient(ellipse at 100% 0%, #147d9140, transparent 55%), linear-gradient(145deg, #142a3d, #0b1626 65%);
+  box-shadow: 0 2px 0 #d4f6ff24 inset, 0 28px 70px #0007, 0 0 65px #32bfd018;
+}
+.offer-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 15% auto;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #91edff, transparent);
+}
+.offer-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.offer-badge { border: 1px solid #74d7df45; border-radius: 30px; padding: 6px 9px; color: #a4eff4; font-size: 9px; letter-spacing: .07em; white-space: nowrap; }
+.offer-card h3 { font-size: clamp(27px, 3vw, 38px); line-height: 1.15; letter-spacing: -1.2px; margin: 26px 0 12px; }
+.offer-card h3 span { color: #89e7ef; }
+.offer-intro { color: #bdcddd; font-size: 14px; line-height: 1.65; margin: 0 0 24px; }
+.offer-price-stage { position: relative; padding: 23px 24px; border: 1px solid #86d8eb38; border-radius: 17px; background: linear-gradient(120deg, #23445e, #13293e); box-shadow: 0 5px 0 #07111e, 0 16px 24px #0003, 0 1px 0 #c5f5ff26 inset; }
+.offer-price-label { color: #9fd5e5; font-size: 10px; letter-spacing: .13em; }
+.offer-price-stage .price { font-size: clamp(42px, 5vw, 60px); margin-top: 8px; letter-spacing: -2px; }
+.offer-price-stage .price > span { font-size: .45em; letter-spacing: -.5px; margin-right: 5px; vertical-align: top; display: inline-block; padding-top: 9px; color: #c9e7ed; }
+.offer-price-stage .price-note { margin: 8px 0 0; }
+.offer-includes { display: grid; grid-template-columns: repeat(3, 1fr); margin: 27px 0 8px; }
+.offer-includes > div { display: flex; flex-direction: column; gap: 3px; padding: 0 10px; text-align: center; }
+.offer-includes > div + div { border-left: 1px solid #46627766; }
+.offer-includes strong { color: #dcf9ff; font-size: 25px; line-height: 1.2; }
+.offer-includes span { color: #adc2d2; font-size: 11px; }
+.offer-card .check-list { border-top: 0; border-bottom: 0; padding: 14px 0; margin-bottom: 6px; }
+.offer-card .check-list li { font-size: 13px; }
+.offer-card .cta { min-height: 62px; border-radius: 12px; background: linear-gradient(110deg, #ffbd74, #ff9f4c); color: #211407; box-shadow: 0 5px 0 #9b582a, 0 12px 30px #ffad4630; transition: translate 220ms ease, box-shadow 220ms ease; }
+.offer-card .cta:hover { translate: 0 -3px; box-shadow: 0 8px 0 #9b582a, 0 17px 38px #ffad4645; }
+.offer-card .cta:active { translate: 0 2px; }
+.offer-card .cta:focus-visible { outline: 3px solid #b7f4ff; outline-offset: 6px; }
+.offer-next-step { text-align: center; color: #adc2d2; font-size: 11px; line-height: 1.6; margin: 17px 0 22px; }
+.offer-private { padding-top: 17px; border-top: 1px solid #385167; color: #bfd1e0; font-size: 12px; line-height: 1.7; }
+.offer-card .fineprint { font-size: 11px; }
+@media (prefers-reduced-motion: no-preference) {
+  .offer-price-stage { animation: offer-depth 7s ease-in-out infinite; }
+  @keyframes offer-depth { 0%, 100% { transform: perspective(900px) rotateX(0deg) translateY(0); } 50% { transform: perspective(900px) rotateX(3deg) translateY(-4px); } }
+}
+@media (max-width: 480px) {
+  .offer-card { padding: 23px 20px; border-radius: 21px; }
+  .offer-topline .package-label { font-size: 10px; }
+  .offer-price-stage { padding: 20px; }
+  .offer-includes > div { padding: 0 5px; }
+}

@@ -871,25 +871,28 @@ export default function Home() {
             </div>
           </div>
           <div className="offer-card">
-            <span className="package-label">PAKET LENGKAP AUTO FLOW META ADS</span>
-            <h3>Mesinmu dimulai di sini.</h3>
-            <p className="price">Rp497.000</p>
+            <div className="offer-topline"><span className="package-label">AUTO FLOW META ADS</span><span className="offer-badge">PAKET LENGKAP</span></div>
+            <h3>Dari ide produk.<br /><span>Sampai iklan tayang.</span></h3>
+            <p className="offer-intro">Pelajari alurnya. Pakai modulnya. Mulai praktik dengan produkmu.</p>
+            <div className="offer-price-stage">
+            <span className="offer-price-label">AKSES PAKET EARLYBIRD</span>
+            <p className="price"><span>Rp</span>497.000</p>
             <p className="price-note">
               Harga earlybird untuk {slotStats.limit} slot pertama
             </p>
+            </div>
+            <div className="offer-includes" aria-label="Isi utama paket"><div><strong>09</strong><span>Video teknis</span></div><div><strong>08</strong><span>File modul</span></div><div><strong>100+</strong><span>Data riset iklan</span></div></div>
             <ul className="check-list">
-              <li>9 video teknis webinar & ecourse</li>
-              <li>Bonus video tambahan: update, trik, dan tips terbaru</li>
-              <li>8 file modul Autoflow</li>
-              <li>Grup support</li>
-              <li>Contoh alur riset sampai iklan tayang</li>
-              <li>Bonus 100+ data riset iklan produk digital</li>
-              <li>Scoresheet, prompt library & checklist</li>
-              <li>Opsi Private Online/Offline 1on1 + Setup Hermes Agent</li>
+              <li>Alur praktik dari riset sampai iklan tayang</li>
+              <li>Scoresheet, prompt library & checklist siap pakai</li>
+              <li>Grup support untuk diskusi saat praktik</li>
+              <li>Bonus update video, tips & trik terbaru</li>
             </ul>
             <button className="cta" onClick={() => setCheckout(true)}>
-              Saya mau akses paket lengkap <span aria-hidden="true">↗</span>
+              Saya mau mulai sekarang <span aria-hidden="true">↗</span>
             </button>
+            <p className="offer-next-step">Pilih paket & lihat detail pembayaran di langkah berikutnya.</p>
+            <p className="offer-private">Butuh pendampingan? Tersedia pilihan Private 1on1 + Setup Hermes Agent.</p>
             <p className="fineprint">
               Biaya tools, kredit aset, dan budget iklan terpisah. Hasil
               bergantung pada produk, penawaran, dan eksekusimu.
