@@ -438,8 +438,7 @@ export default function Home() {
         Langsung ke isi
       </a>
       <div className="announcement">
-        DARI IDE JADI EKSEKUSI <span>•</span> Video Webinar + Ecourse oleh Gus
-        Rezha Cozy
+        Auto Flow - Video + Konfigurasi Modul System Meta Ads Modern
       </div>
       <header className="header wrap">
         <a className="brand" href="#main" aria-label="Auto Flow Meta Ads, beranda">
