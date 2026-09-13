@@ -16,11 +16,12 @@ export async function GET() {
   const affiliate = code ? await resolveAffiliateByCode(code) : null;
   const paidCount = await getPaidMembershipAccessCount();
   const activeTier = getCurrentPricingTier(paidCount ?? 0);
+  const affiliateUnlocked = activeTier.id === 'regular';
   const pricing = applyAffiliateDiscount(activeTier.price);
 
   return NextResponse.json({
-    active: Boolean(affiliate),
-    code: affiliate?.affiliate_code ?? null,
+    active: Boolean(affiliate && affiliateUnlocked),
+    code: affiliateUnlocked ? affiliate?.affiliate_code ?? null : null,
     basePrice: activeTier.price,
     discountedPrice: pricing.finalAmount,
     discountAmount: pricing.discountAmount,

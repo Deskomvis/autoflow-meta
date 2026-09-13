@@ -435,7 +435,8 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const [active, setActive] = useState(0);
-  const currentPrice = affiliate.active ? affiliate.price : slotStats.price;
+  const affiliateUnlocked = slotStats.tier === 'regular';
+  const currentPrice = affiliate.active && affiliateUnlocked ? affiliate.price : slotStats.price;
   useEffect(() => {
     let activeRequest = true;
 
@@ -507,7 +508,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           whatsappPhone: checkoutPhone,
-          couponCode: couponCode.trim() || undefined,
+          couponCode: affiliateUnlocked ? couponCode.trim() || undefined : undefined,
         }),
       });
       const body = (await response
@@ -1300,7 +1301,7 @@ export default function Home() {
               </div>
               <span className="earlybird-badge">{slotStats.badge}</span>
             </div>
-            {affiliate.active ? (
+            {affiliate.active && affiliateUnlocked ? (
               <p className="fineprint">
                 Potongan afiliasi 15% ({formatIDR(affiliate.discount)}) sudah
                 dihitung dari {formatIDR(slotStats.price)}.
@@ -1341,24 +1342,26 @@ export default function Home() {
                 disabled={checkoutLoading}
               />
             </label>
-            <label className="checkout-phone">
-              <span>Kode kupon afiliasi (opsional)</span>
-              <input
-                autoComplete="off"
-                spellCheck={false}
-                placeholder="Isi kalau punya kode dari teman"
-                value={couponCode}
-                onChange={(event) =>
-                  setCouponCode(
-                    event.target.value
-                      .toUpperCase()
-                      .replace(/[^A-Z0-9]/g, '')
-                      .slice(0, 16),
-                  )
-                }
-                disabled={checkoutLoading}
-              />
-            </label>
+            {affiliateUnlocked ? (
+              <label className="checkout-phone">
+                <span>Kode kupon afiliasi (opsional)</span>
+                <input
+                  autoComplete="off"
+                  spellCheck={false}
+                  placeholder="Isi kalau punya kode dari teman"
+                  value={couponCode}
+                  onChange={(event) =>
+                    setCouponCode(
+                      event.target.value
+                        .toUpperCase()
+                        .replace(/[^A-Z0-9]/g, '')
+                        .slice(0, 16),
+                    )
+                  }
+                  disabled={checkoutLoading}
+                />
+              </label>
+            ) : null}
             <button className="cta" onClick={createCheckout} disabled={checkoutLoading}>
               {checkoutLoading ? 'Menyiapkan pembayaran...' : 'Lanjut ke pembayaran'}
             </button>

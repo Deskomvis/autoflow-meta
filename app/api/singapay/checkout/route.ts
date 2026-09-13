@@ -131,17 +131,18 @@ export async function POST(request: Request) {
     }
 
     const jar = await cookies();
-    const rawCode = normalizeCode(
-      requestBody?.couponCode || jar.get('afm_aff')?.value || '',
-    );
+    const paidCount = await getPaidMembershipAccessCount();
+    const activeTier = getCurrentPricingTier(paidCount ?? 0);
+    const affiliateUnlocked = activeTier.id === 'regular';
+    const rawCode = affiliateUnlocked
+      ? normalizeCode(requestBody?.couponCode || jar.get('afm_aff')?.value || '')
+      : '';
     let affiliate = rawCode ? await resolveAffiliateByCode(rawCode) : null;
     // An affiliate can't earn a discount or commission on their own purchase.
     if (affiliate && affiliate.whatsapp_phone === whatsappPhone) {
       affiliate = null;
     }
 
-    const paidCount = await getPaidMembershipAccessCount();
-    const activeTier = getCurrentPricingTier(paidCount ?? 0);
     const pricing = applyAffiliateDiscount(activeTier.price);
     const amount = affiliate ? pricing.finalAmount : activeTier.price;
     const commissionAmount = affiliate ? affiliateCommission(activeTier.price) : 0;
