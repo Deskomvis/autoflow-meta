@@ -926,6 +926,24 @@ export default function Home() {
           </div>
           <div className="mcp-stage" aria-label="Visualisasi workflow Meta Ads Autoflow">
             <div className="mcp-orbit" aria-hidden="true">
+              <div className="mcp-brand-orbs">
+                <Image
+                  unoptimized
+                  src="/images/meta.webp"
+                  alt=""
+                  width="180"
+                  height="180"
+                  loading="lazy"
+                />
+                <Image
+                  unoptimized
+                  src="/images/claude.webp"
+                  alt=""
+                  width="150"
+                  height="150"
+                  loading="lazy"
+                />
+              </div>
               <div className="mcp-core">
                 <span>Claude</span>
                 <strong>Meta Ads MCP</strong>

@@ -915,6 +915,34 @@ h2 span {
   transform-style: preserve-3d;
   transform: rotateX(58deg) rotateZ(-16deg);
 }
+.mcp-brand-orbs {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 4;
+  width: 260px;
+  height: 190px;
+  pointer-events: none;
+  transform: translate3d(-50%, -54%, 132px) rotateZ(16deg) rotateX(-58deg);
+}
+.mcp-brand-orbs img {
+  position: absolute;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 28px #0007);
+}
+.mcp-brand-orbs img:first-child {
+  left: 14px;
+  bottom: 8px;
+  width: 142px;
+  z-index: 2;
+}
+.mcp-brand-orbs img:last-child {
+  right: 16px;
+  top: 4px;
+  width: 116px;
+  z-index: 1;
+}
 .mcp-core {
   position: absolute;
   left: 50%;
@@ -2745,9 +2773,13 @@ h2 span {
 .offer-card .fineprint { font-size: 11px; }
 @media (prefers-reduced-motion: no-preference) {
   .mcp-orbit { animation: mcp-orbit-drift 12s ease-in-out infinite; }
+  .mcp-brand-orbs img:first-child { animation: mcp-meta-float 4400ms ease-in-out infinite; }
+  .mcp-brand-orbs img:last-child { animation: mcp-claude-float 3900ms ease-in-out infinite; }
   .mcp-core { animation: mcp-core-float 4200ms ease-in-out infinite; }
   .mcp-node { animation: mcp-node-float 4200ms ease-in-out infinite; animation-delay: calc(var(--node-index) * -240ms); }
   @keyframes mcp-orbit-drift { 0%, 100% { transform: rotateX(58deg) rotateZ(-16deg); } 50% { transform: rotateX(60deg) rotateZ(-12deg); } }
+  @keyframes mcp-meta-float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-2deg); } 50% { transform: translate3d(-4px, -9px, 0) rotate(3deg); } }
+  @keyframes mcp-claude-float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(3deg); } 50% { transform: translate3d(5px, -7px, 0) rotate(-4deg); } }
   @keyframes mcp-core-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
   @keyframes mcp-node-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
   .offer-price-stage { animation: offer-depth 7s ease-in-out infinite; }
@@ -2762,6 +2794,9 @@ h2 span {
   .mcp-stage::before { inset: 30px 3% 40px; transform: none; }
   .mcp-core { width: 156px; transform: translate3d(-50%, -50%, 0); }
   .mcp-core strong { font-size: 17px; }
+  .mcp-brand-orbs { width: 220px; height: 160px; transform: translate3d(-50%, -58%, 0); }
+  .mcp-brand-orbs img:first-child { width: 118px; }
+  .mcp-brand-orbs img:last-child { width: 96px; }
   .mcp-node {
     width: 128px;
     min-height: 84px;
@@ -2773,6 +2808,9 @@ h2 span {
 }
 @media (max-width: 480px) {
   .mcp-stage { min-height: 560px; }
+  .mcp-brand-orbs { width: 188px; height: 138px; }
+  .mcp-brand-orbs img:first-child { width: 98px; }
+  .mcp-brand-orbs img:last-child { width: 82px; }
   .mcp-node { width: 112px; min-height: 78px; padding: 11px 10px; }
   .mcp-node strong { font-size: 13px; }
   .offer-card { padding: 23px 20px; border-radius: 21px; }
