@@ -519,8 +519,7 @@ export default function Home() {
       </a>
       <header className="header wrap">
         <a className="brand" href="#main" aria-label="Auto Flow Meta Ads, beranda">
-          AUTO<span>FLOW</span>
-          <small>META ADS / CLAUDE AI</small>
+          <img src="/images/Logo-autoflow.gif" alt="Auto Flow Meta Ads / Claude AI" />
         </a>
         <nav aria-label="Navigasi utama">
           <a href="#mesin">Cara kerjanya</a>
@@ -1125,9 +1124,8 @@ export default function Home() {
         </section>
       </main>
       <footer className="wrap footer">
-        <a className="brand" href="#main">
-          AUTO<span>FLOW</span>
-          <small>OLEH GUS REZHA COZY</small>
+        <a className="brand" href="#main" aria-label="Auto Flow Meta Ads, kembali ke atas">
+          <img src="/images/Logo-autoflow.gif" alt="Auto Flow Meta Ads / Claude AI" />
         </a>
         <p>
           Materi edukasi independen. Tidak berafiliasi dengan Meta atau

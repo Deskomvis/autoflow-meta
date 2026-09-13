@@ -120,21 +120,13 @@ h2 span {
   border-bottom: 1px solid #243043;
 }
 .brand {
-  font-size: 24px;
-  letter-spacing: -1.2px;
-  font-weight: 900;
-  line-height: 1;
-}
-.brand span {
-  color: var(--blue);
-}
-.brand small {
   display: block;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  color: #afc2d9;
-  margin-top: 8px;
-  font-weight: 600;
+  width: clamp(170px, 16vw, 230px);
+  line-height: 0;
+}
+.brand img {
+  width: 100%;
+  height: auto;
 }
 .header nav {
   display: flex;
@@ -2136,11 +2128,7 @@ h2 span {
     padding-block: 20px;
   }
   .brand {
-    font-size: 21px;
-  }
-  .brand small {
-    font-size: 10px;
-    letter-spacing: 1px;
+    width: 170px;
   }
   .header nav {
     display: none;
