@@ -1,4 +1,4 @@
-export const INITIAL_PAID_SLOTS = 7;
+export const INITIAL_PAID_SLOTS = 0;
 
 export const PRICING_TIERS = [
   {
