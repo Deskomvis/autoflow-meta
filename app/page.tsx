@@ -447,9 +447,6 @@ export default function Home() {
       <a className="skip-link" href="#main">
         Langsung ke isi
       </a>
-      <div className="announcement">
-        Auto Flow - Video + Konfigurasi Modul System Meta Ads Modern
-      </div>
       <header className="header wrap">
         <a className="brand" href="#main" aria-label="Auto Flow Meta Ads, beranda">
           AUTO<span>FLOW</span>

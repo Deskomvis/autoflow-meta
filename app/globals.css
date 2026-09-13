@@ -112,18 +112,6 @@ h2 span {
   margin-bottom: 22px;
   line-height: 1.6;
 }
-.announcement {
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 0.045em;
-  padding: 12px 20px;
-  background: #122b48;
-  color: #d9ebff;
-}
-.announcement span {
-  padding: 0 16px;
-  color: #69d8ff;
-}
 .header {
   display: flex;
   align-items: center;
@@ -2013,14 +2001,6 @@ h2 span {
 @media (max-width: 700px) {
   .wrap {
     width: calc(100% - 36px);
-  }
-  .announcement {
-    font-size: 12px;
-    line-height: 1.7;
-    padding: 8px 15px;
-  }
-  .announcement span {
-    padding: 0 5px;
   }
   .header {
     padding-block: 20px;
