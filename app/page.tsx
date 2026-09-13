@@ -132,6 +132,63 @@ const mcpFlow = [
   ['Optimize', 'kill / keep'],
   ['Scale', 'budget + creative'],
 ];
+const mcpAccessGroups = [
+  {
+    title: 'Campaign, Ad Set, Ads & Creative',
+    summary: 'Membuat campaign, ad set, ads, creative, preview, upload image/video, dan boost IG post.',
+    tools: ['ads_create_campaign', 'ads_create_ad_set', 'ads_create_ad', 'ads_create_creative', 'ads_activate_entity', 'ads_update_entity', 'ads_get_ad_preview', 'ads_creative_upload_image', 'ads_creative_upload_video', 'ads_boost_ig_post'],
+  },
+  {
+    title: 'Ad Library / Riset Kompetitor',
+    summary: 'Mencari iklan aktif, membaca durasi tayang, advertiser, creative, dan pola produk berulang.',
+    tools: ['ads_library_search'],
+  },
+  {
+    title: 'Insight & Analisis Performa',
+    summary: 'Membaca tren, anomali, benchmark, auction signal, opportunity score, dan histori aktivitas.',
+    tools: ['ads_insights_performance_trend', 'ads_insights_anomaly_signal', 'ads_insights_industry_benchmark', 'ads_get_opportunity_score', 'ads_account_get_activity_logs'],
+  },
+  {
+    title: 'Audience',
+    summary: 'Membuat, membaca, update, dan menghapus Custom Audience untuk retargeting atau segmentasi.',
+    tools: ['ads_create_custom_audience', 'ads_get_custom_audience', 'ads_get_ad_account_custom_audiences', 'ads_update_custom_audience', 'ads_delete_custom_audience'],
+  },
+  {
+    title: 'Pixel, Event & Parameter',
+    summary: 'Mengelola event pixel dan parameter seperti ViewContent, AddToCart, Checkout, Purchase.',
+    tools: ['ads_pixel_event_create', 'ads_pixel_event_read', 'ads_pixel_event_update', 'ads_pixel_event_delete', 'ads_pixel_parameter_create', 'ads_pixel_parameter_update'],
+  },
+  {
+    title: 'Dataset & Conversion Tracking',
+    summary: 'Mengecek dataset, kualitas tracking, statistik event, dan Custom Conversion.',
+    tools: ['ads_get_datasets', 'ads_get_dataset_details', 'ads_get_dataset_stats', 'ads_get_dataset_quality', 'ads_get_customconversions'],
+  },
+  {
+    title: 'Experiment / A-B Testing',
+    summary: 'Membuat dan membaca A/B Test atau Lift Test untuk membandingkan creative, audience, dan setup campaign.',
+    tools: ['ads_experiment_check_eligibility', 'ads_experiment_abtest_create_test', 'ads_experiment_abtest_get_test', 'ads_experiment_lift_create_test', 'ads_experiment_list_tests'],
+  },
+  {
+    title: 'Instagram & Facebook Page',
+    summary: 'Mengambil akun IG, media IG, Facebook Page, dan page yang bisa dipakai akun iklan.',
+    tools: ['ads_get_ig_accounts', 'ads_get_ig_media', 'ads_get_user_pages', 'ads_get_pages_for_business', 'ads_get_ad_account_pages'],
+  },
+  {
+    title: 'Ad Account',
+    summary: 'Melihat akun iklan, error, field context, help article, dan log aktivitas untuk troubleshooting.',
+    tools: ['ads_get_ad_accounts', 'ads_account_get_activity_logs', 'ads_get_errors', 'ads_get_field_context', 'ads_get_help_article'],
+  },
+  {
+    title: 'Catalog / Commerce',
+    summary: 'Mengelola katalog, produk, product set, product feed, feed rule, diagnostics, dan Dynamic Ads.',
+    tools: ['ads_catalog_create', 'ads_catalog_list_catalogs', 'ads_catalog_product_create', 'ads_catalog_update_product', 'ads_catalog_create_product_set', 'ads_catalog_create_product_feed', 'ads_catalog_get_diagnostics'],
+  },
+  {
+    title: 'Catalog Event Source',
+    summary: 'Menghubungkan katalog dengan pixel/dataset agar Dynamic Product Ads membaca event produk.',
+    tools: ['ads_catalog_event_source_connect', 'ads_catalog_event_source_disconnect', 'ads_catalog_event_source_get', 'ads_catalog_event_source_get_health', 'ads_catalog_event_source_get_recommendations'],
+  },
+];
 const toolNames: Record<string, string> = {
   claude: 'Claude',
   claudinary: 'Cloudinary',
@@ -314,6 +371,7 @@ export default function Home() {
     };
   }, []);
   const [selected, setSelected] = useState<number | null>(null);
+  const [fullAccess, setFullAccess] = useState(false);
   const [checkout, setCheckout] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
@@ -909,15 +967,10 @@ export default function Home() {
               asset, pembuatan campaign, targeting, tracking, monitoring,
               optimasi, testing, sampai scale.
             </p>
-            <div className="mcp-sequence">
-              <span>DISCOVER</span>
-              <span>FILTER</span>
-              <span>VALIDATE</span>
-              <span>LAUNCH</span>
-              <span>MONITOR</span>
-              <span>OPTIMIZE</span>
-              <span>SCALE</span>
-            </div>
+            <button className="mcp-access-button" onClick={() => setFullAccess(true)}>
+              <span className="mcp-access-signal" aria-hidden="true"></span>
+              Lihat Full Akses
+            </button>
             <p className="fineprint">
               Aktivasi, budget, dan keputusan akhir tetap di tanganmu. Claude
               membantu membaca sinyal, merapikan eksekusi, dan mempercepat
@@ -1081,6 +1134,35 @@ export default function Home() {
           Lihat akses paket
         </button>
       </div>
+      <Dialog open={fullAccess} onOpenChange={setFullAccess}>
+        <DialogContent className="mcp-access-dialog">
+          <p className="eyebrow">FULL AKSES META ADS MCP</p>
+          <DialogTitle>Yang bisa dikerjakan Claude saat terhubung ke Meta Ads MCP</DialogTitle>
+          <DialogDescription>
+            Dari riset winning signal sampai launch, monitor, optimasi, testing,
+            dan scale dalam satu alur kerja.
+          </DialogDescription>
+          <div className="mcp-access-grid">
+            {mcpAccessGroups.map((group, index) => (
+              <article className="mcp-access-card" key={group.title}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{group.title}</h3>
+                <p>{group.summary}</p>
+                <div>
+                  {group.tools.map((tool) => (
+                    <small key={tool}>{tool}</small>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+          <p className="fineprint">
+            Nama fungsi mengikuti daftar MCP yang tersedia. Fungsi yang nama
+            aslinya terpotong di screenshot ditulis sebagai kelompok kerja agar
+            tidak menampilkan klaim yang keliru.
+          </p>
+        </DialogContent>
+      </Dialog>
       <Dialog
         open={selected !== null}
         onOpenChange={(open) => {

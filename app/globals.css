@@ -877,22 +877,51 @@ h2 span {
   color: #b6c6da;
   font-size: 17px;
 }
-.mcp-sequence {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  max-width: 560px;
+.mcp-access-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
   margin: 28px 0 20px;
-}
-.mcp-sequence span {
-  border: 1px solid #3f637b;
-  border-radius: 8px;
-  padding: 8px 10px;
-  background: #10243a;
-  color: #bcefff;
-  font-size: 10px;
+  border: 1px solid #78d8ef78;
+  border-radius: 12px;
+  padding: 14px 18px 14px 15px;
+  background: linear-gradient(145deg, #17334c, #0d1b2d);
+  box-shadow: 0 1px 0 #d9fbff24 inset, 0 16px 34px #0004, 0 0 32px #39c9ea1f;
+  color: #effcff;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: .08em;
+  cursor: pointer;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+.mcp-access-button:hover {
+  transform: translateY(-2px);
+  border-color: #a9f4ff;
+  box-shadow: 0 1px 0 #d9fbff2e inset, 0 20px 40px #0005, 0 0 38px #39c9ea36;
+}
+.mcp-access-button:focus-visible {
+  outline: 3px solid #b7f4ff;
+  outline-offset: 5px;
+}
+.mcp-access-signal {
+  position: relative;
+  width: 12px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ffbd74;
+  box-shadow: 0 0 18px #ffbd74;
+}
+.mcp-access-signal::before,
+.mcp-access-signal::after {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  border: 1px solid #ffbd7485;
+  border-radius: inherit;
+}
+.mcp-access-signal::after {
+  inset: -16px;
+  opacity: .45;
 }
 .mcp-stage {
   position: relative;
@@ -1164,6 +1193,70 @@ h2 span {
 }
 .course-dialog .fineprint {
   margin: 0;
+}
+.mcp-access-dialog {
+  max-width: min(940px, calc(100% - 36px)) !important;
+  padding: 25px !important;
+  max-height: 90dvh;
+  overflow: auto;
+}
+.mcp-access-dialog .eyebrow {
+  margin: 0;
+}
+.mcp-access-dialog [data-slot='dialog-title'] {
+  max-width: 720px;
+  font-size: 26px;
+  line-height: 1.2;
+  padding-right: 28px;
+}
+.mcp-access-dialog [data-slot='dialog-description'] {
+  max-width: 680px;
+  color: #b8c9dc;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.mcp-access-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  margin: 20px 0 16px;
+}
+.mcp-access-card {
+  border: 1px solid #385772;
+  border-radius: 12px;
+  padding: 16px;
+  background: linear-gradient(145deg, #12273c, #0d1929);
+}
+.mcp-access-card > span {
+  color: #ffbd74;
+  font-size: 11px;
+  font-weight: 900;
+}
+.mcp-access-card h3 {
+  margin: 7px 0 8px;
+  color: #f3fbff;
+  font-size: 16px;
+  line-height: 1.25;
+}
+.mcp-access-card p {
+  margin: 0 0 12px;
+  color: #b5c5d7;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.mcp-access-card div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.mcp-access-card small {
+  border: 1px solid #40617a;
+  border-radius: 7px;
+  padding: 5px 7px;
+  background: #0b1727;
+  color: #a9dff0;
+  font-size: 10px;
+  line-height: 1.2;
 }
 .checkout-dialog {
   display: grid !important;
@@ -2772,6 +2865,9 @@ h2 span {
 .offer-private { padding-top: 17px; border-top: 1px solid #385167; color: #bfd1e0; font-size: 12px; line-height: 1.7; }
 .offer-card .fineprint { font-size: 11px; }
 @media (prefers-reduced-motion: no-preference) {
+  .mcp-access-signal::before { animation: signal-pulse 1700ms ease-out infinite; }
+  .mcp-access-signal::after { animation: signal-pulse 1700ms ease-out 520ms infinite; }
+  @keyframes signal-pulse { 0% { transform: scale(.5); opacity: .9; } 100% { transform: scale(1.35); opacity: 0; } }
   .mcp-orbit { animation: mcp-orbit-drift 12s ease-in-out infinite; }
   .mcp-brand-orbs img:first-child { animation: mcp-meta-float 4400ms ease-in-out infinite; }
   .mcp-brand-orbs img:last-child { animation: mcp-claude-float 3900ms ease-in-out infinite; }
@@ -2805,8 +2901,13 @@ h2 span {
       translateX(min(35vw, 158px))
       rotate(var(--node-angle-reverse));
   }
+  .mcp-access-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
+  .mcp-access-button { width: 100%; justify-content: center; }
+  .mcp-access-dialog { padding: 21px !important; }
+  .mcp-access-dialog [data-slot='dialog-title'] { font-size: 22px; }
+  .mcp-access-card { padding: 14px; }
   .mcp-stage { min-height: 560px; }
   .mcp-brand-orbs { width: 188px; height: 138px; }
   .mcp-brand-orbs img:first-child { width: 98px; }
