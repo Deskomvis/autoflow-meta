@@ -989,14 +989,15 @@ h2 span {
   transform: translate3d(-50%, -50%, 82px) rotateZ(16deg) rotateX(-58deg);
 }
 .mcp-core span {
-  font-size: 13px;
+  border: 1px solid #d8fbff55;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: #0620338f;
+  color: #dffaff;
+  font-size: 11px;
   font-weight: 900;
-}
-.mcp-core strong {
-  max-width: 120px;
-  color: #082137;
-  font-size: 20px;
-  line-height: 1.05;
+  letter-spacing: .08em;
+  text-transform: uppercase;
 }
 .mcp-node {
   position: absolute;
@@ -1243,6 +1244,14 @@ h2 span {
   color: #b5c5d7;
   font-size: 13px;
   line-height: 1.6;
+}
+.mcp-access-card blockquote {
+  margin: 0 0 12px;
+  border-left: 2px solid #ffbd74;
+  padding: 9px 0 9px 11px;
+  color: #e0f5ff;
+  font-size: 12px;
+  line-height: 1.55;
 }
 .mcp-access-card div {
   display: flex;
@@ -2889,7 +2898,6 @@ h2 span {
   .mcp-orbit { inset: 70px 0 0; transform: none; }
   .mcp-stage::before { inset: 30px 3% 40px; transform: none; }
   .mcp-core { width: 156px; transform: translate3d(-50%, -50%, 0); }
-  .mcp-core strong { font-size: 17px; }
   .mcp-brand-orbs { width: 220px; height: 160px; transform: translate3d(-50%, -58%, 0); }
   .mcp-brand-orbs img:first-child { width: 118px; }
   .mcp-brand-orbs img:last-child { width: 96px; }

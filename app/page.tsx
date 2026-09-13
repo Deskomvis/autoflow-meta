@@ -76,6 +76,7 @@ const modules = [
   'Analisa & Optimasi Meta Ads',
   'Prompt Library & Checklist',
   'Modul Lengkap: Kompilasi 0–5 + Bonus',
+  'CARA PAKAI META MCP',
 ];
 const flow = [
   [
@@ -136,56 +137,67 @@ const mcpAccessGroups = [
   {
     title: 'Campaign, Ad Set, Ads & Creative',
     summary: 'Membuat campaign, ad set, ads, creative, preview, upload image/video, dan boost IG post.',
+    prompt: 'Buat rancangan campaign Sales dengan 3 ad set dan 3 creative per ad set. Tampilkan struktur dulu; setelah saya setujui, buat semua entity dalam status PAUSED.',
     tools: ['ads_create_campaign', 'ads_create_ad_set', 'ads_create_ad', 'ads_create_creative', 'ads_activate_entity', 'ads_update_entity', 'ads_get_ad_preview', 'ads_creative_upload_image', 'ads_creative_upload_video', 'ads_boost_ig_post'],
   },
   {
     title: 'Ad Library / Riset Kompetitor',
     summary: 'Mencari iklan aktif, membaca durasi tayang, advertiser, creative, dan pola produk berulang.',
+    prompt: 'Gunakan ads_library_search untuk mencari 100+ iklan berdasarkan keyword ini, lalu urutkan berdasarkan longevity dan pola creative yang berulang.',
     tools: ['ads_library_search'],
   },
   {
     title: 'Insight & Analisis Performa',
     summary: 'Membaca tren, anomali, benchmark, auction signal, opportunity score, dan histori aktivitas.',
+    prompt: 'Analisa tren 14 hari terakhir. Fokus spend, CTR, CPC, CPA, ROAS, frequency, anomaly signal, dan rekomendasi kill/keep/scale.',
     tools: ['ads_insights_performance_trend', 'ads_insights_anomaly_signal', 'ads_insights_industry_benchmark', 'ads_get_opportunity_score', 'ads_account_get_activity_logs'],
   },
   {
     title: 'Audience',
     summary: 'Membuat, membaca, update, dan menghapus Custom Audience untuk retargeting atau segmentasi.',
+    prompt: 'Buat Custom Audience Website Visitors 30D dan exclude Purchase 180D. Tampilkan konfigurasi sebelum dibuat.',
     tools: ['ads_create_custom_audience', 'ads_get_custom_audience', 'ads_get_ad_account_custom_audiences', 'ads_update_custom_audience', 'ads_delete_custom_audience'],
   },
   {
     title: 'Pixel, Event & Parameter',
     summary: 'Mengelola event pixel dan parameter seperti ViewContent, AddToCart, Checkout, Purchase.',
+    prompt: 'Audit event Purchase dan parameter value, currency, content_ids. Tandai parameter kosong atau tidak konsisten sebelum ada perubahan.',
     tools: ['ads_pixel_event_create', 'ads_pixel_event_read', 'ads_pixel_event_update', 'ads_pixel_event_delete', 'ads_pixel_parameter_create', 'ads_pixel_parameter_update'],
   },
   {
     title: 'Dataset & Conversion Tracking',
     summary: 'Mengecek dataset, kualitas tracking, statistik event, dan Custom Conversion.',
+    prompt: 'Audit dataset quality, statistik event 7 hari terakhir, Custom Conversion, dan masalah deduplication atau data delay.',
     tools: ['ads_get_datasets', 'ads_get_dataset_details', 'ads_get_dataset_stats', 'ads_get_dataset_quality', 'ads_get_customconversions'],
   },
   {
     title: 'Experiment / A-B Testing',
     summary: 'Membuat dan membaca A/B Test atau Lift Test untuk membandingkan creative, audience, dan setup campaign.',
+    prompt: 'Cek eligibility campaign untuk A/B test creative. Jika bisa, buat desain eksperimen dengan KPI cost per purchase.',
     tools: ['ads_experiment_check_eligibility', 'ads_experiment_abtest_create_test', 'ads_experiment_abtest_get_test', 'ads_experiment_lift_create_test', 'ads_experiment_list_tests'],
   },
   {
     title: 'Instagram & Facebook Page',
     summary: 'Mengambil akun IG, media IG, Facebook Page, dan page yang bisa dipakai akun iklan.',
+    prompt: 'Ambil 20 posting Instagram terbaru, kelompokkan Reels, Feed, dan Carousel, lalu rekomendasikan mana yang layak dijadikan iklan.',
     tools: ['ads_get_ig_accounts', 'ads_get_ig_media', 'ads_get_user_pages', 'ads_get_pages_for_business', 'ads_get_ad_account_pages'],
   },
   {
     title: 'Ad Account',
     summary: 'Melihat akun iklan, error, field context, help article, dan log aktivitas untuk troubleshooting.',
+    prompt: 'Cari error aktif pada campaign ini. Kelompokkan error blocking, warning, dan rekomendasi perbaikannya.',
     tools: ['ads_get_ad_accounts', 'ads_account_get_activity_logs', 'ads_get_errors', 'ads_get_field_context', 'ads_get_help_article'],
   },
   {
     title: 'Catalog / Commerce',
     summary: 'Mengelola katalog, produk, product set, product feed, feed rule, diagnostics, dan Dynamic Ads.',
+    prompt: 'Audit katalog ini: produk missing image, price, availability, broken URL, feed error, dan Dynamic Ads health.',
     tools: ['ads_catalog_create', 'ads_catalog_list_catalogs', 'ads_catalog_product_create', 'ads_catalog_update_product', 'ads_catalog_create_product_set', 'ads_catalog_create_product_feed', 'ads_catalog_get_diagnostics'],
   },
   {
     title: 'Catalog Event Source',
     summary: 'Menghubungkan katalog dengan pixel/dataset agar Dynamic Product Ads membaca event produk.',
+    prompt: 'Cek event source katalog dan tandai masalah match rate, event coverage, atau product ID sebelum memberi rekomendasi.',
     tools: ['ads_catalog_event_source_connect', 'ads_catalog_event_source_disconnect', 'ads_catalog_event_source_get', 'ads_catalog_event_source_get_health', 'ads_catalog_event_source_get_recommendations'],
   },
 ];
@@ -207,7 +219,7 @@ const faqs = [
   ],
   [
     'Apakah Rp497.000 sudah termasuk biaya tools dan iklan?',
-    'Harga earlybird ini untuk materi video webinar dan ecourse, 8 file modul, grup support, serta bonus riset. Langganan Claude, tools pendukung, kredit pembuatan aset, dan budget Meta Ads berada di luar harga materi.',
+    'Harga earlybird ini untuk materi video webinar dan ecourse, 9 file modul, grup support, serta bonus riset. Langganan Claude, tools pendukung, kredit pembuatan aset, dan budget Meta Ads berada di luar harga materi.',
   ],
   [
     'Apa maksudnya mesin cuan semi-auto pilot?',
@@ -218,8 +230,8 @@ const faqs = [
     'Bonus berisi 118 data iklan produk digital dari 53 page dalam 7 kategori, berdasarkan riset 9 September 2026. Scoresheet membaca sinyal iklan aktif. Data ini tidak membuktikan profit atau ROAS pengiklan dan bukan jaminan produkmu akan laku.',
   ],
   [
-    'Apa saja 8 modul yang didapat?',
-    'Paket berisi 6 modul inti (Modul 0 sampai 5), 1 Prompt Library & Checklist, dan 1 file kompilasi modul lengkap. Kompilasi menggabungkan materi agar mudah dibaca dalam satu file; bukan 8 topik yang seluruhnya berbeda.',
+    'Apa saja 9 modul yang didapat?',
+    'Paket berisi 6 modul inti (Modul 0 sampai 5), 1 Prompt Library & Checklist, 1 file kompilasi modul lengkap, dan 1 panduan Cara Pakai Meta MCP. Kompilasi menggabungkan materi agar mudah dibaca dalam satu file; panduan Meta MCP berisi kamus fungsi, kegunaan, dan contoh prompt pemanggilan fitur Meta Ads.',
   ],
   [
     'Apakah saya boleh recreate produk dari hasil riset?',
@@ -492,7 +504,7 @@ export default function Home() {
   async function copyOrder() {
     try {
       await navigator.clipboard.writeText(
-        'Saya ingin membeli Auto Flow Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket earlybird Rp497.000: 9 video teknis, 8 file modul, grup support, dan bonus riset.',
+        'Saya ingin membeli Auto Flow Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket earlybird Rp497.000: 9 video teknis, 9 file modul, grup support, dan bonus riset.',
       );
       setCopied(true);
       setCopyError(false);
@@ -610,7 +622,7 @@ export default function Home() {
             </span>
           </div>
           <div>
-            <strong>08</strong>
+              <strong>09</strong>
             <span>
               File modul
               <br />
@@ -788,9 +800,9 @@ export default function Home() {
                 <span>Buka panduannya.</span>
               </h2>
               <p>
-                8 file modul Autoflow menemani praktikmu. Ada panduan koneksi,
-                prompt, checklist, dan diagnosis saat hasilnya belum sesuai
-                harapan.
+                9 file modul Autoflow menemani praktikmu. Ada panduan koneksi,
+                prompt, checklist, diagnosis, dan kamus fungsi Meta Ads MCP
+                dengan contoh prompt pemanggilan.
               </p>
               <div className="document-mark">
                 <strong>71</strong>
@@ -800,7 +812,7 @@ export default function Home() {
                   modul kompilasi lengkap
                 </span>
               </div>
-              <small>6 modul inti + prompt & checklist + 1 kompilasi.</small>
+              <small>6 modul inti + prompt & checklist + 1 kompilasi + panduan Meta MCP.</small>
             </div>
             <ol className="module-list">
               {modules.map((m, i) => (
@@ -811,56 +823,6 @@ export default function Home() {
                 </li>
               ))}
             </ol>
-          </div>
-        </section>
-        <section className="bonus section wrap" id="bonus">
-          <div className="bonus-visual">
-            <Image unoptimized
-              src="/images/flow-riset-adlibrary.webp"
-              alt="Flow riset Meta Ad Library dengan Claude AI"
-              width="700"
-              height="357"
-              loading="lazy"
-            />
-            <div className="research-stats">
-              <div>
-                <strong>118</strong>
-                <span>data iklan</span>
-              </div>
-              <div>
-                <strong>53</strong>
-                <span>page unik</span>
-              </div>
-              <div>
-                <strong>7</strong>
-                <span>kategori produk</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <p className="eyebrow">BONUS RISET + SCORESHEET</p>
-            <h2>
-              Jangan mulai
-              <br />
-              dari kertas kosong.
-              <br />
-              <span>Mulai dari sinyal.</span>
-            </h2>
-            <p>
-              Kamu mendapat{' '}
-              <strong>100+ data riset iklan produk digital</strong> lengkap
-              dengan kategori, page, link iklan, dan penilaian sinyal. Pilih
-              peluang, bedah angle, lalu kembangkan versi produkmu sendiri.
-            </p>
-            <ul className="check-list">
-              <li>Data mentah untuk menelusuri sumber iklan</li>
-              <li>Ringkasan untuk membandingkan peluang</li>
-              <li>Metodologi agar tahu arti dan batas skornya</li>
-            </ul>
-            <p className="fineprint">
-              Snapshot riset 9 September 2026. Skor menunjukkan sinyal iklan
-              aktif, bukan bukti profit atau ROAS pengiklan.
-            </p>
           </div>
         </section>
         <section className="mentor wrap">
@@ -998,8 +960,7 @@ export default function Home() {
                 />
               </div>
               <div className="mcp-core">
-                <span>Claude</span>
-                <strong>Meta Ads MCP</strong>
+                <span>Connector</span>
               </div>
               {mcpFlow.map(([label, tool], index) => {
                 const angle = index * 51.43 - 90;
@@ -1021,6 +982,56 @@ export default function Home() {
                 );
               })}
             </div>
+          </div>
+        </section>
+        <section className="bonus section wrap" id="bonus">
+          <div className="bonus-visual">
+            <Image unoptimized
+              src="/images/flow-riset-adlibrary.webp"
+              alt="Flow riset Meta Ad Library dengan Claude AI"
+              width="700"
+              height="357"
+              loading="lazy"
+            />
+            <div className="research-stats">
+              <div>
+                <strong>118</strong>
+                <span>data iklan</span>
+              </div>
+              <div>
+                <strong>53</strong>
+                <span>page unik</span>
+              </div>
+              <div>
+                <strong>7</strong>
+                <span>kategori produk</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p className="eyebrow">BONUS RISET + SCORESHEET</p>
+            <h2>
+              Jangan mulai
+              <br />
+              dari kertas kosong.
+              <br />
+              <span>Mulai dari sinyal.</span>
+            </h2>
+            <p>
+              Kamu mendapat{' '}
+              <strong>100+ data riset iklan produk digital</strong> lengkap
+              dengan kategori, page, link iklan, dan penilaian sinyal. Pilih
+              peluang, bedah angle, lalu kembangkan versi produkmu sendiri.
+            </p>
+            <ul className="check-list">
+              <li>Data mentah untuk menelusuri sumber iklan</li>
+              <li>Ringkasan untuk membandingkan peluang</li>
+              <li>Metodologi agar tahu arti dan batas skornya</li>
+            </ul>
+            <p className="fineprint">
+              Snapshot riset 9 September 2026. Skor menunjukkan sinyal iklan
+              aktif, bukan bukti profit atau ROAS pengiklan.
+            </p>
           </div>
         </section>
         <section className="offer section wrap" id="akses">
@@ -1074,7 +1085,7 @@ export default function Home() {
                 <small>{slotStats.label}</small>
               </div>
             </div>
-            <div className="offer-includes" aria-label="Isi utama paket"><div><strong>09</strong><span>Video teknis</span></div><div><strong>08</strong><span>File modul</span></div><div><strong>100+</strong><span>Data riset iklan</span></div></div>
+            <div className="offer-includes" aria-label="Isi utama paket"><div><strong>09</strong><span>Video teknis</span></div><div><strong>09</strong><span>File modul</span></div><div><strong>100+</strong><span>Data riset iklan</span></div></div>
             <ul className="check-list">
               <li>Alur praktik dari riset sampai iklan tayang</li>
               <li>Scoresheet, prompt library & checklist siap pakai</li>
@@ -1139,8 +1150,9 @@ export default function Home() {
           <p className="eyebrow">FULL AKSES META ADS MCP</p>
           <DialogTitle>Yang bisa dikerjakan Claude saat terhubung ke Meta Ads MCP</DialogTitle>
           <DialogDescription>
-            Dari riset winning signal sampai launch, monitor, optimasi, testing,
-            dan scale dalam satu alur kerja.
+            Kamus fungsi, kegunaan, dan contoh prompt pemanggilan fitur Meta Ads:
+            dari riset winning signal sampai launch, monitor, optimasi, testing,
+            dan scale.
           </DialogDescription>
           <div className="mcp-access-grid">
             {mcpAccessGroups.map((group, index) => (
@@ -1148,6 +1160,7 @@ export default function Home() {
                 <span>{String(index + 1).padStart(2, '0')}</span>
                 <h3>{group.title}</h3>
                 <p>{group.summary}</p>
+                <blockquote>{group.prompt}</blockquote>
                 <div>
                   {group.tools.map((tool) => (
                     <small key={tool}>{tool}</small>
@@ -1213,7 +1226,7 @@ export default function Home() {
             <p className="eyebrow">RINGKASAN PAKET</p>
             <DialogTitle>Auto Flow Meta Ads</DialogTitle>
             <DialogDescription>
-              9 video, 8 file modul, grup support, dan bonus riset.
+              9 video, 9 file modul, grup support, dan bonus riset.
             </DialogDescription>
             <div className="checkout-preview">
               <Image
