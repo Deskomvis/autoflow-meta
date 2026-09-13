@@ -332,6 +332,7 @@ function TeaserVideoPlayer({ onEnded }: { onEnded: () => void }) {
   );
 }
 export default function Home() {
+  const [activeMcp, setActiveMcp] = useState(0);
   const [heroPlaying, setHeroPlaying] = useState(false);
   function playHero() {
     setHeroPlaying(true);
@@ -379,6 +380,7 @@ export default function Home() {
       const elapsed = Math.min(time - previous || 16, 64);
       previous = time;
       const bounds = (desktop.matches ? track! : media!).getBoundingClientRect();
+      const sceneBounds = scenes.map(scene => scene.getBoundingClientRect());
       const target = preference.matches ? 0 : clamp((-bounds.top / Math.max(1, bounds.height - window.innerHeight) - 0.12) / 0.88);
       current += (target - current) * (1 - Math.exp(-elapsed / 260));
       const progress = preference.matches ? 0 : current;
@@ -388,8 +390,8 @@ export default function Home() {
       stage!.style.setProperty('--device-scale', `${1 - progress * 0.16}`);
       stage!.style.setProperty('--screen-opacity', `${1 - clamp(progress / 0.04)}`);
       stage!.classList.toggle('duo-ready', progress < 0.04);
-      scenes.forEach(scene => {
-        const rect = scene.getBoundingClientRect();
+      scenes.forEach((scene, index) => {
+        const rect = sceneBounds[index];
         const reveal = preference.matches ? 1 : clamp((window.innerHeight - rect.top) / (window.innerHeight * 0.72));
         scene.style.setProperty('--scene-y', `${(1 - reveal) * 65}px`);
         scene.style.setProperty('--scene-opacity', `${0.3 + reveal * 0.7}`);
@@ -566,27 +568,12 @@ export default function Home() {
             <p className="eyebrow">
               AUTO FLOW META ADS DENGAN CLAUDE AI
             </p>
-            <h1>
-              Jangan habiskan
-              <br />
-              berbulan-bulan
-              <br />
-              <span>
-                merakit flow
-                <br />
-                dari nol.
-              </span>
-            </h1>
-            <p className="hero-lead">
-              Menemukan autoflow yang benar-benar layak dijalankan itu mahal:
-              waktu testing, biaya riset, dan banyak eksperimen yang tidak
-              terlihat. Kamu tidak sedang membeli kumpulan video. Kamu membeli{' '}
-              <strong>informasi kerja yang sudah dipadatkan</strong> menjadi
-              satu mesin dari riset sampai iklan tayang.
-            </p>
+            <h1>Bangun alur Meta Ads.<br /><span>Dari riset sampai evaluasi bersama Claude.</span></h1>
+            <p className="hero-lead">Hubungkan riset, landing page, creative, dan campaign dalam satu alur yang bisa dipakai ulang. Pelajari koneksi serta konfigurasinya, lalu praktikkan dengan produkmu.</p>
+            <p className="hero-deliverables">9 video teknis · 9 panduan PDF · Workflow & grup support</p>
             <div className="hero-actions">
               <a className="cta" href="#akses">
-                Saya mau bangun mesin ini <span aria-hidden="true">↗</span>
+                Lihat paket & akses <span aria-hidden="true">↗</span>
               </a>
               <a className="text-link" href="#materi">
                 Intip 9 video teknisnya
@@ -759,6 +746,156 @@ export default function Home() {
             </p>
           </div>
         </section>
+        <section className="meta-mcp section wrap" aria-labelledby="mcp-title">
+          <div className="mcp-copy">
+            <p className="eyebrow">META ADS AUTOFLOW</p>
+            <h2 id="mcp-title">
+              Claude bukan cuma
+              <br />
+              melihat dashboard.
+              <br />
+              <span>Ia bisa jadi operator iklan.</span>
+            </h2>
+            <p>
+              Saat Claude terhubung ke Meta Ads MCP, alurnya bisa mencakup hampir
+              seluruh siklus: riset Ad Library, analisis competitor, persiapan
+              asset, pembuatan campaign, targeting, tracking, monitoring,
+              optimasi, testing, sampai scale.
+            </p>
+            <button className="mcp-access-button" onClick={() => setFullAccess(true)}>
+              <span className="mcp-access-signal" aria-hidden="true"></span>
+              Lihat Full Akses
+            </button>
+            <p className="fineprint">
+              Aktivasi, budget, dan keputusan akhir tetap di tanganmu. Claude
+              membantu membaca sinyal, merapikan eksekusi, dan mempercepat
+              putaran testing.
+            </p>
+          </div>
+          <div className="mcp-experience"><div className="mcp-stage" aria-label="Visualisasi workflow Meta Ads Autoflow">
+            <div className="mcp-orbit">
+              <div className="mcp-brand-orbs">
+                <Image
+                  unoptimized
+                  src="/images/meta.webp"
+                  alt=""
+                  width="180"
+                  height="180"
+                  loading="lazy"
+                />
+                <Image
+                  unoptimized
+                  src="/images/claude.webp"
+                  alt=""
+                  width="150"
+                  height="150"
+                  loading="lazy"
+                />
+              </div>
+              <div className="mcp-core" aria-hidden="true"></div>
+              {mcpFlow.map((item, index) => {
+                const angle = index * 51.43 - 90;
+
+                return (
+                  <div
+                    className="mcp-node-wrap"
+                    key={item.label}
+                    style={{
+                      '--node-index': index,
+                      '--node-angle': `${angle}deg`,
+                      '--node-angle-reverse': `${-angle}deg`,
+                    } as CSSProperties}
+                  >
+                    <button
+                      type="button"
+                      className="mcp-node"
+                      aria-label={`${item.label}: ${item.detail}`}
+                      aria-pressed={activeMcp === index}
+                      aria-controls="mcp-detail"
+                      onMouseEnter={() => setActiveMcp(index)}
+                      onFocus={() => setActiveMcp(index)}
+                      onClick={() => setActiveMcp(index)}
+                    >
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <strong>{item.label}</strong>
+                      <small>{item.tool}</small>
+
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+            <div className="mcp-detail" id="mcp-detail" role="region" aria-label="Detail tahap workflow">
+              <span className="eyebrow">{String(activeMcp + 1).padStart(2, '0')} / {mcpFlow[activeMcp].label}</span>
+              <p>{mcpFlow[activeMcp].detail}</p>
+              <small>Contoh output</small>
+              <strong>{['Shortlist iklan dan angle untuk ditinjau.', 'Daftar kandidat dengan skor dan alasan pemilihan.', 'Hipotesis produk dan rencana testing.', 'Draft struktur campaign untuk diperiksa sebelum aktif.', 'Ringkasan tren dan indikasi anomali performa.', 'Rekomendasi keep, pause, atau perubahan creative.', 'Usulan pengembangan budget, audience, dan creative.'][activeMcp]}</strong>
+            </div>
+            <p className="mcp-hint">Pilih tahap untuk melihat pekerjaannya. Aktivasi dan perubahan budget tetap memerlukan keputusanmu.</p>
+          </div>
+        </section>
+        <section className="proof wrap section" aria-labelledby="proof-title">
+          <div className="proof-copy">
+            <p className="eyebrow">BUKTI BACK TEST · SATU PRODUK</p>
+            <h2 id="proof-title">
+              Bukan teori yang belum
+              <br />
+              menyentuh <span>market.</span>
+            </h2>
+            <p>
+              Flow ini sudah diback test pada <strong>satu produk</strong>.
+              Hasilnya menunjukkan iklan berjalan, order masuk, dan ada profit
+              bersih pada periode pengujian yang ditampilkan.
+            </p>
+            <div className="proof-metrics" aria-label="Ringkasan hasil back test">
+              <div>
+                <strong>53</strong>
+                <span>pembelian</span>
+              </div>
+              <div>
+                <strong>1,98</strong>
+                <span>purchase ROAS</span>
+              </div>
+              <div className="profit-highlight">
+                <strong>Rp2,34 jt</strong>
+                <span>profit tercatat*</span>
+              </div>
+            </div>
+            <p className="fineprint">
+              *Angka profit mengikuti laporan yang ditampilkan; rincian komponen biaya belum disajikan di halaman ini. Jumlah order dan purchases memakai sumber pengukuran berbeda. Berdasarkan screenshot Ads Manager untuk 1–22 Agustus 2026: 53
+              purchases, purchase conversion value Rp4.717.000, purchase ROAS
+              1,98, dan profit bersih tercatat Rp2.340.533. Screenshot dashboard
+              order juga menunjukkan 76 order selesai dengan estimasi gross
+              revenue Rp6.772.000. Ini satu hasil back test, bukan jaminan hasil
+              yang sama untuk setiap produk atau campaign.
+            </p>
+          </div>
+          <div className="proof-visuals">
+            <figure className="proof-meta">
+              <Image
+                unoptimized
+                src="/images/backtest-meta-ads.png"
+                alt="Screenshot Meta Ads Manager menampilkan 53 purchases, ROAS 1,98, dan profit bersih Rp2.340.533"
+                width="1387"
+                height="425"
+                loading="lazy"
+              />
+              <figcaption>Ads Manager · 53 purchases teratribusi · 1–22 Agustus 2026</figcaption>
+            </figure>
+            <figure className="proof-orders">
+              <Image
+                unoptimized
+                src="/images/backtest-order-dashboard.png"
+                alt="Screenshot dashboard order dengan estimasi gross revenue Rp6.772.000 dan 76 order selesai"
+                width="1152"
+                height="586"
+                loading="lazy"
+              />
+              <figcaption>Dashboard penjualan · 76 order selesai · metrik berbeda dari atribusi iklan</figcaption>
+            </figure>
+          </div>
+        </section>
         <section className="section wrap" id="materi">
           <div className="section-heading">
             <div>
@@ -774,6 +911,7 @@ export default function Home() {
               dicek. Pelajari per langkah, lalu praktikkan di akunmu.
             </p>
           </div>
+          <div className="curriculum-map" aria-label="Urutan belajar"><span>01 · Setup koneksi</span><span>02 · Produksi aset</span><span>03 · Launch campaign</span><span>04 · Evaluasi & ulangi</span></div>
           <div className="video-grid">
             {videos.map((v, i) => (
               <button
@@ -782,7 +920,7 @@ export default function Home() {
                 onClick={() => setSelected(i)}
               >
                 <div className="thumb">
-                  <Image unoptimized
+                  <Image sizes="(max-width: 700px) 92vw, (max-width: 1000px) 45vw, 30vw"
                     src={`/images/video-${i + 1}.webp`}
                     alt={`Thumbnail video ${i + 1}: ${v[0]}`}
                     width="1400"
@@ -880,143 +1018,6 @@ export default function Home() {
             </span>
           </div>
         </section>
-        <section className="proof wrap section" aria-labelledby="proof-title">
-          <div className="proof-copy">
-            <p className="eyebrow">BUKTI BACK TEST · SATU PRODUK</p>
-            <h2 id="proof-title">
-              Bukan teori yang belum
-              <br />
-              menyentuh <span>market.</span>
-            </h2>
-            <p>
-              Flow ini sudah diback test pada <strong>satu produk</strong>.
-              Hasilnya menunjukkan iklan berjalan, order masuk, dan ada profit
-              bersih pada periode pengujian yang ditampilkan.
-            </p>
-            <div className="proof-metrics" aria-label="Ringkasan hasil back test">
-              <div>
-                <strong>53</strong>
-                <span>pembelian</span>
-              </div>
-              <div>
-                <strong>1,98</strong>
-                <span>purchase ROAS</span>
-              </div>
-              <div className="profit-highlight">
-                <strong>Rp2,34 jt</strong>
-                <span>profit bersih</span>
-              </div>
-            </div>
-            <p className="fineprint">
-              Berdasarkan screenshot Ads Manager untuk 1–22 Agustus 2026: 53
-              purchases, purchase conversion value Rp4.717.000, purchase ROAS
-              1,98, dan profit bersih tercatat Rp2.340.533. Screenshot dashboard
-              order juga menunjukkan 76 order selesai dengan estimasi gross
-              revenue Rp6.772.000. Ini satu hasil back test, bukan jaminan hasil
-              yang sama untuk setiap produk atau campaign.
-            </p>
-          </div>
-          <div className="proof-visuals">
-            <figure className="proof-meta">
-              <Image
-                unoptimized
-                src="/images/backtest-meta-ads.png"
-                alt="Screenshot Meta Ads Manager menampilkan 53 purchases, ROAS 1,98, dan profit bersih Rp2.340.533"
-                width="1387"
-                height="425"
-                loading="lazy"
-              />
-              <figcaption>Data performa campaign pada Ads Manager</figcaption>
-            </figure>
-            <figure className="proof-orders">
-              <Image
-                unoptimized
-                src="/images/backtest-order-dashboard.png"
-                alt="Screenshot dashboard order dengan estimasi gross revenue Rp6.772.000 dan 76 order selesai"
-                width="1152"
-                height="586"
-                loading="lazy"
-              />
-              <figcaption>Dashboard order dari produk yang diback test</figcaption>
-            </figure>
-          </div>
-        </section>
-        <section className="meta-mcp section wrap" aria-labelledby="mcp-title">
-          <div className="mcp-copy">
-            <p className="eyebrow">META ADS AUTOFLOW</p>
-            <h2 id="mcp-title">
-              Claude bukan cuma
-              <br />
-              melihat dashboard.
-              <br />
-              <span>Ia bisa jadi operator iklan.</span>
-            </h2>
-            <p>
-              Saat Claude terhubung ke Meta Ads MCP, alurnya bisa mencakup hampir
-              seluruh siklus: riset Ad Library, analisis competitor, persiapan
-              asset, pembuatan campaign, targeting, tracking, monitoring,
-              optimasi, testing, sampai scale.
-            </p>
-            <button className="mcp-access-button" onClick={() => setFullAccess(true)}>
-              <span className="mcp-access-signal" aria-hidden="true"></span>
-              Lihat Full Akses
-            </button>
-            <p className="fineprint">
-              Aktivasi, budget, dan keputusan akhir tetap di tanganmu. Claude
-              membantu membaca sinyal, merapikan eksekusi, dan mempercepat
-              putaran testing.
-            </p>
-          </div>
-          <div className="mcp-stage" aria-label="Visualisasi workflow Meta Ads Autoflow">
-            <div className="mcp-orbit">
-              <div className="mcp-brand-orbs">
-                <Image
-                  unoptimized
-                  src="/images/meta.webp"
-                  alt=""
-                  width="180"
-                  height="180"
-                  loading="lazy"
-                />
-                <Image
-                  unoptimized
-                  src="/images/claude.webp"
-                  alt=""
-                  width="150"
-                  height="150"
-                  loading="lazy"
-                />
-              </div>
-              <div className="mcp-core" aria-hidden="true"></div>
-              {mcpFlow.map((item, index) => {
-                const angle = index * 51.43 - 90;
-
-                return (
-                  <div
-                    className="mcp-node-wrap"
-                    key={item.label}
-                    style={{
-                      '--node-index': index,
-                      '--node-angle': `${angle}deg`,
-                      '--node-angle-reverse': `${-angle}deg`,
-                    } as CSSProperties}
-                  >
-                    <button
-                      type="button"
-                      className="mcp-node"
-                      aria-label={`${item.label}: ${item.detail}`}
-                    >
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                      <strong>{item.label}</strong>
-                      <small>{item.tool}</small>
-                      <em>{item.detail}</em>
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
         <section className="bonus section wrap" id="bonus">
           <div className="bonus-visual">
             <Image unoptimized
@@ -1070,24 +1071,9 @@ export default function Home() {
         <section className="offer section wrap" id="akses">
           <div className="offer-copy">
             <p className="eyebrow">SEKARANG GILIRANMU</p>
-            <h2>
-              Kamu tidak sedang
-              <br />
-              membeli kelas.
-              <br />
-              <span>Kamu membeli informasi.</span>
-            </h2>
-            <p>
-              Informasi yang tepat bisa memangkas jalan memutar: dari menebak
-              produk, membangun halaman, menyiapkan creative, sampai membaca
-              hasil campaign.
-            </p>
-            <p>
-              Racikan ini lahir dari proses testing berbulan-bulan dan sudah
-              diback test pada satu produk. Pelajari alurnya, praktikkan dengan
-              produkmu, lalu gunakan lagi saat kamu siap menguji peluang
-              berikutnya.
-            </p>
+            <h2>Siapkan sistemnya.<br /><span>Praktikkan pada produkmu.</span></h2>
+            <p>Dapatkan video langkah demi langkah, panduan konfigurasi, prompt, dan checklist untuk membangun alur dari riset sampai evaluasi campaign.</p>
+            <p>Gunakan modul sebagai referensi saat praktik, lalu ulangi prosesnya ketika menguji produk atau penawaran berikutnya.</p>
             <div className="support-note">
               <strong>Belajar dengan tempat bertanya.</strong>
               <p>
