@@ -125,13 +125,41 @@ const flowTools = [
   ['meta', 'claude'],
 ];
 const mcpFlow = [
-  ['Discover', 'ads_library_search'],
-  ['Filter', 'AI filtering + scoring'],
-  ['Validate', 'winning signal'],
-  ['Launch', 'campaign + ad set + ad'],
-  ['Monitor', 'trend + anomaly'],
-  ['Optimize', 'kill / keep'],
-  ['Scale', 'budget + creative'],
+  {
+    label: 'Discover',
+    tool: 'ads_library_search',
+    detail: 'Mencari iklan aktif, membaca advertiser, angle, creative, dan sinyal longevity dari Ad Library.',
+  },
+  {
+    label: 'Filter',
+    tool: 'AI filtering + scoring',
+    detail: 'Menghapus duplikasi, mengelompokkan pola produk, dan memberi skor kandidat testing.',
+  },
+  {
+    label: 'Validate',
+    tool: 'winning signal',
+    detail: 'Memilih produk atau angle yang layak diuji berdasarkan sinyal berulang, bukan feeling.',
+  },
+  {
+    label: 'Launch',
+    tool: 'campaign + ad set + ad',
+    detail: 'Menyusun campaign, ad set, ads, creative, targeting, budget, dan tracking dalam status review.',
+  },
+  {
+    label: 'Monitor',
+    tool: 'trend + anomaly',
+    detail: 'Membaca performa, mendeteksi anomali, dan melihat perubahan spend, CPA, ROAS, CTR, serta frequency.',
+  },
+  {
+    label: 'Optimize',
+    tool: 'kill / keep',
+    detail: 'Memberi rekomendasi pause, keep, creative change, atau perbaikan tracking sebelum budget dinaikkan.',
+  },
+  {
+    label: 'Scale',
+    tool: 'budget + creative',
+    detail: 'Mengembangkan campaign yang menang lewat penyesuaian budget, audience, dan variasi creative.',
+  },
 ];
 const mcpAccessGroups = [
   {
@@ -939,7 +967,7 @@ export default function Home() {
             </p>
           </div>
           <div className="mcp-stage" aria-label="Visualisasi workflow Meta Ads Autoflow">
-            <div className="mcp-orbit" aria-hidden="true">
+            <div className="mcp-orbit">
               <div className="mcp-brand-orbs">
                 <Image
                   unoptimized
@@ -958,26 +986,27 @@ export default function Home() {
                   loading="lazy"
                 />
               </div>
-              <div className="mcp-core">
-                <span>Connector</span>
-              </div>
-              {mcpFlow.map(([label, tool], index) => {
+              <div className="mcp-core" aria-hidden="true"></div>
+              {mcpFlow.map((item, index) => {
                 const angle = index * 51.43 - 90;
 
                 return (
-                  <div
+                  <button
+                    type="button"
                     className="mcp-node"
-                    key={label}
+                    key={item.label}
                     style={{
                       '--node-index': index,
                       '--node-angle': `${angle}deg`,
                       '--node-angle-reverse': `${-angle}deg`,
                     } as CSSProperties}
+                    aria-label={`${item.label}: ${item.detail}`}
                   >
                     <span>{String(index + 1).padStart(2, '0')}</span>
-                    <strong>{label}</strong>
-                    <small>{tool}</small>
-                  </div>
+                    <strong>{item.label}</strong>
+                    <small>{item.tool}</small>
+                    <em>{item.detail}</em>
+                  </button>
                 );
               })}
             </div>

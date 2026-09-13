@@ -968,8 +968,6 @@ h2 span {
   position: absolute;
   left: 50%;
   top: 50%;
-  display: grid;
-  place-items: center;
   width: 190px;
   aspect-ratio: 1;
   border: 1px solid #9af3ff70;
@@ -979,17 +977,6 @@ h2 span {
   color: #06121f;
   text-align: center;
   transform: translate3d(-50%, -50%, 82px) rotateZ(16deg) rotateX(-58deg);
-}
-.mcp-core span {
-  border: 1px solid #d8fbff55;
-  border-radius: 999px;
-  padding: 7px 11px;
-  background: #0620338f;
-  color: #dffaff;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .08em;
-  text-transform: uppercase;
 }
 .mcp-node {
   position: absolute;
@@ -1004,12 +991,27 @@ h2 span {
   border-radius: 12px;
   background: linear-gradient(145deg, #142d43f2, #0d1a2ceb);
   box-shadow: 0 18px 35px #0005, 0 1px 0 #dbfbff1f inset;
+  text-align: left;
+  cursor: pointer;
+  transform-style: preserve-3d;
   transform:
     rotate(var(--node-angle))
     translateX(205px)
     rotate(var(--node-angle-reverse))
     rotateZ(16deg)
     rotateX(-58deg);
+  transition: border-color 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+}
+.mcp-node:hover,
+.mcp-node:focus-visible {
+  border-color: #b8f5ff;
+  box-shadow: 0 24px 42px #0007, 0 1px 0 #ffffff30 inset, 0 0 32px #57dbf036;
+  filter: saturate(1.15);
+  z-index: 9;
+}
+.mcp-node:focus-visible {
+  outline: 3px solid #b7f4ff;
+  outline-offset: 5px;
 }
 .mcp-node span {
   color: #ffbf78;
@@ -1025,6 +1027,43 @@ h2 span {
   color: #9fb8ce;
   font-size: 10px;
   line-height: 1.3;
+}
+.mcp-node em {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 12px);
+  z-index: 12;
+  width: 230px;
+  border: 1px solid #9aefff66;
+  border-radius: 12px;
+  padding: 12px 13px;
+  background: #081523f2;
+  box-shadow: 0 18px 38px #0008, 0 0 24px #49d5ef24;
+  color: #dcf8ff;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.5;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 10px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.mcp-node em::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 10px;
+  aspect-ratio: 1;
+  border-right: 1px solid #9aefff66;
+  border-bottom: 1px solid #9aefff66;
+  background: #081523f2;
+  transform: translate(-50%, -5px) rotate(45deg);
+}
+.mcp-node:hover em,
+.mcp-node:focus-visible em {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 .offer {
   display: grid;
