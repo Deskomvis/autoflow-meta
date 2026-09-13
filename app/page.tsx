@@ -251,7 +251,7 @@ const faqs = [
   ],
   [
     'Apa maksudnya mesin cuan semi-auto pilot?',
-    'Ini adalah cara menghubungkan pekerjaan riset, pembuatan halaman, creative, dan campaign melalui Claude. AI membantu eksekusi. Pemilihan produk, kualitas penawaran, budget, dan keputusan tayang tetap kamu kendalikan. Tidak berarti pendapatan otomatis atau dijamin.',
+    'Ini adalah metode untuk membongkar sinyal riset, menyusun offer, menyiapkan halaman, creative, campaign, dan membaca hasil testing dalam satu flow. Claude dan MCP dipakai sebagai alat eksekusi. Pemilihan produk, kualitas penawaran, budget, dan keputusan tayang tetap kamu kendalikan. Tidak berarti pendapatan otomatis atau dijamin.',
   ],
   [
     'Bonus 100+ itu produk yang pasti profit?',
@@ -566,10 +566,10 @@ export default function Home() {
         <section className="hero wrap">
           <div className="hero-copy">
             <p className="eyebrow">
-              AUTO FLOW META ADS DENGAN CLAUDE AI
+              AUTOFLOW METHOD UNTUK META ADS
             </p>
-            <h1>Bangun alur Meta Ads.<br /><span>Dari riset sampai evaluasi bersama Claude.</span></h1>
-            <p className="hero-lead">Hubungkan riset, landing page, creative, dan campaign dalam satu alur yang bisa dipakai ulang. Pelajari koneksi serta konfigurasinya, lalu praktikkan dengan produkmu.</p>
+            <h1>Bangun sistem flow Meta Ads.<br /><span>Dari riset sampai analisa iklan.</span></h1>
+            <p className="hero-lead">Pelajari metode untuk membongkar sinyal pasar, breakdown competitor, susun landing page, siapkan creative, launch campaign, lalu baca hasilnya dalam alur yang bisa diulang.</p>
             <p className="hero-deliverables">9 video teknis · 9 panduan PDF · Workflow & grup support</p>
             <div className="hero-actions">
               <a className="cta" href="#akses">
@@ -580,9 +580,9 @@ export default function Home() {
               </a>
             </div>
             <p className="hero-note">
-              Diback test pada satu produk dan menghasilkan profit. Kamu pegang
-              strategi. AI bantu eksekusi. Cocok untuk produk fisik, digital,
-              maupun jasa.
+              Diback test pada satu produk dan menghasilkan profit. Kamu belajar
+              kerangka berpikirnya, bukan cuma cara menyambungkan tools. Cocok
+              untuk produk fisik, digital, maupun jasa.
             </p>
           </div>
           <div className="hero-media">
@@ -750,26 +750,26 @@ export default function Home() {
           <div className="mcp-copy">
             <p className="eyebrow">META ADS AUTOFLOW</p>
             <h2 id="mcp-title">
-              Claude bukan cuma
+              AutoFlow Method
               <br />
-              melihat dashboard.
+              membongkar sinyal.
               <br />
-              <span>Ia bisa jadi operator iklan.</span>
+              <span>Lalu mengubahnya jadi flow iklan.</span>
             </h2>
             <p>
-              Saat Claude terhubung ke Meta Ads MCP, alurnya bisa mencakup hampir
-              seluruh siklus: riset Ad Library, analisis competitor, persiapan
-              asset, pembuatan campaign, targeting, tracking, monitoring,
-              optimasi, testing, sampai scale.
+              Kekuatan utamanya bukan sekadar Claude terhubung ke Meta Ads MCP.
+              Metodenya mengajarkan cara membaca Ad Library, menilai competitor,
+              memecah pola creative dan offer, lalu menyusun sistem kerja dari
+              riset, validasi, launch, monitoring, optimasi, testing, sampai scale.
             </p>
             <button className="mcp-access-button" onClick={() => setFullAccess(true)}>
               <span className="mcp-access-signal" aria-hidden="true"></span>
               Lihat Full Akses
             </button>
             <p className="fineprint">
-              Aktivasi, budget, dan keputusan akhir tetap di tanganmu. Claude
-              membantu membaca sinyal, merapikan eksekusi, dan mempercepat
-              putaran testing.
+              Claude membantu sebagai operator teknis. AutoFlow Method memberi
+              struktur keputusan agar riset, eksekusi, dan analisa tidak berjalan
+              acak.
             </p>
           </div>
           <div className="mcp-experience"><div className="mcp-stage" aria-label="Visualisasi workflow Meta Ads Autoflow">
@@ -1166,7 +1166,7 @@ export default function Home() {
       <Dialog open={fullAccess} onOpenChange={setFullAccess}>
         <DialogContent className="mcp-access-dialog">
           <p className="eyebrow">FULL AKSES META ADS MCP</p>
-          <DialogTitle>Yang bisa dikerjakan Claude saat terhubung ke Meta Ads MCP</DialogTitle>
+          <DialogTitle>Yang bisa dijalankan lewat Meta Ads MCP dalam AutoFlow Method</DialogTitle>
           <DialogDescription>
             Kamus fungsi, kegunaan, dan contoh prompt pemanggilan fitur Meta Ads:
             dari riset winning signal sampai launch, monitor, optimasi, testing,
