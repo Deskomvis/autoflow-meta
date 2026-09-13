@@ -2670,7 +2670,7 @@ h2 span {
 @media (max-width: 600px) {
   .wa-bubble {
     right: 14px;
-    bottom: 14px;
+    bottom: calc(92px + env(safe-area-inset-bottom));
   }
   .wa-bubble-label {
     display: none;
@@ -2921,21 +2921,34 @@ h2 span {
 }
 @media (max-width: 900px) {
   .meta-mcp { grid-template-columns: 1fr; gap: 32px; }
-  .mcp-stage { min-height: 620px; overflow: hidden; }
-  .mcp-orbit { inset: 70px 0 0; transform: none; }
-  .mcp-stage::before { inset: 30px 3% 40px; transform: none; }
-  .mcp-core { width: 156px; transform: translate3d(-50%, -50%, 0); }
-  .mcp-brand-orbs { width: 220px; height: 160px; transform: translate3d(-50%, -58%, 0); }
+  .mcp-stage { min-height: 0; overflow: visible; perspective: none; }
+  .mcp-stage::before { inset: 16px 10% auto; height: 190px; transform: none; }
+  .mcp-orbit {
+    position: relative;
+    inset: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding-top: 190px;
+    transform: none;
+    transform-style: flat;
+    animation: none;
+  }
+  .mcp-core { display: none; }
+  .mcp-brand-orbs { left: 50%; top: 0; width: 220px; height: 160px; transform: translateX(-50%); }
   .mcp-brand-orbs img:first-child { width: 118px; }
   .mcp-brand-orbs img:last-child { width: 96px; }
   .mcp-node {
-    width: 128px;
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
     min-height: 84px;
-    transform:
-      rotate(var(--node-angle))
-      translateX(min(35vw, 158px))
-      rotate(var(--node-angle-reverse));
+    transform: none;
   }
+  .mcp-node em { left: 12px; right: 12px; bottom: calc(100% + 10px); width: auto; transform: translateY(10px); }
+  .mcp-node:hover em,
+  .mcp-node:focus-visible em { transform: none; }
   .mcp-access-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
@@ -2943,11 +2956,12 @@ h2 span {
   .mcp-access-dialog { padding: 21px !important; }
   .mcp-access-dialog [data-slot='dialog-title'] { font-size: 22px; }
   .mcp-access-card { padding: 14px; }
-  .mcp-stage { min-height: 560px; }
+  .mcp-orbit { grid-template-columns: 1fr; padding-top: 166px; }
+  .mcp-stage::before { height: 165px; }
   .mcp-brand-orbs { width: 188px; height: 138px; }
   .mcp-brand-orbs img:first-child { width: 98px; }
   .mcp-brand-orbs img:last-child { width: 82px; }
-  .mcp-node { width: 112px; min-height: 78px; padding: 11px 10px; }
+  .mcp-node { width: auto; min-height: 78px; padding: 11px 10px; }
   .mcp-node strong { font-size: 13px; }
   .offer-card { padding: 23px 20px; border-radius: 21px; }
   .offer-topline .package-label { font-size: 10px; }
