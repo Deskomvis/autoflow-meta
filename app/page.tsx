@@ -992,22 +992,26 @@ export default function Home() {
                 const angle = index * 51.43 - 90;
 
                 return (
-                  <button
-                    type="button"
-                    className="mcp-node"
+                  <div
+                    className="mcp-node-wrap"
                     key={item.label}
                     style={{
                       '--node-index': index,
                       '--node-angle': `${angle}deg`,
                       '--node-angle-reverse': `${-angle}deg`,
                     } as CSSProperties}
-                    aria-label={`${item.label}: ${item.detail}`}
                   >
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    <strong>{item.label}</strong>
-                    <small>{item.tool}</small>
-                    <em>{item.detail}</em>
-                  </button>
+                    <button
+                      type="button"
+                      className="mcp-node"
+                      aria-label={`${item.label}: ${item.detail}`}
+                    >
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <strong>{item.label}</strong>
+                      <small>{item.tool}</small>
+                      <em>{item.detail}</em>
+                    </button>
+                  </div>
                 );
               })}
             </div>

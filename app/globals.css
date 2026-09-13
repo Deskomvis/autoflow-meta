@@ -916,25 +916,34 @@ h2 span {
   opacity: .45;
 }
 .mcp-stage {
+  --orbit-size: min(100%, 620px);
+  --orbit-radius: clamp(150px, 16vw, 205px);
   position: relative;
-  min-height: 520px;
+  min-height: 560px;
+  overflow: hidden;
   perspective: 1100px;
 }
 .mcp-stage::before {
   content: '';
   position: absolute;
-  inset: 11% 6%;
+  left: 50%;
+  top: 50%;
+  width: min(92%, 560px);
+  aspect-ratio: 1;
   border: 1px solid #4fd5f12b;
   border-radius: 50%;
   background: radial-gradient(ellipse at center, #52cdeb18, transparent 60%);
-  transform: rotateX(64deg) rotateZ(-18deg);
+  transform: translate(-50%, -50%) rotateX(64deg) rotateZ(-18deg);
   box-shadow: 0 28px 80px #0006;
 }
 .mcp-orbit {
   position: absolute;
-  inset: 24px;
+  left: 50%;
+  top: 50%;
+  width: var(--orbit-size);
+  aspect-ratio: 1;
   transform-style: preserve-3d;
-  transform: rotateX(58deg) rotateZ(-16deg);
+  transform: translate(-50%, -50%) rotateX(58deg) rotateZ(-16deg);
 }
 .mcp-brand-orbs {
   position: absolute;
@@ -968,7 +977,7 @@ h2 span {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 190px;
+  width: clamp(156px, 14vw, 190px);
   aspect-ratio: 1;
   border: 1px solid #9af3ff70;
   border-radius: 50%;
@@ -978,13 +987,23 @@ h2 span {
   text-align: center;
   transform: translate3d(-50%, -50%, 82px) rotateZ(16deg) rotateX(-58deg);
 }
-.mcp-node {
+.mcp-node-wrap {
   position: absolute;
   left: 50%;
   top: 50%;
+  transform:
+    rotate(var(--node-angle))
+    translateX(var(--orbit-radius))
+    rotate(var(--node-angle-reverse))
+    rotateZ(16deg)
+    rotateX(-58deg);
+  transform-style: preserve-3d;
+}
+.mcp-node {
+  position: relative;
   display: grid;
   gap: 4px;
-  width: 142px;
+  width: clamp(124px, 11vw, 142px);
   min-height: 92px;
   padding: 13px 14px;
   border: 1px solid #78d8ef5c;
@@ -994,12 +1013,7 @@ h2 span {
   text-align: left;
   cursor: pointer;
   transform-style: preserve-3d;
-  transform:
-    rotate(var(--node-angle))
-    translateX(205px)
-    rotate(var(--node-angle-reverse))
-    rotateZ(16deg)
-    rotateX(-58deg);
+  transform: translate(-50%, -50%);
   transition: border-color 220ms ease, box-shadow 220ms ease, filter 220ms ease;
 }
 .mcp-node:hover,
@@ -2909,7 +2923,7 @@ h2 span {
   .mcp-brand-orbs img:last-child { animation: mcp-claude-float 3900ms ease-in-out infinite; }
   .mcp-core { animation: mcp-core-float 4200ms ease-in-out infinite; }
   .mcp-node { animation: mcp-node-float 4200ms ease-in-out infinite; animation-delay: calc(var(--node-index) * -240ms); }
-  @keyframes mcp-orbit-drift { 0%, 100% { transform: rotateX(58deg) rotateZ(-16deg); } 50% { transform: rotateX(60deg) rotateZ(-12deg); } }
+  @keyframes mcp-orbit-drift { 0%, 100% { transform: translate(-50%, -50%) rotateX(58deg) rotateZ(-16deg); } 50% { transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-12deg); } }
   @keyframes mcp-meta-float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-2deg); } 50% { transform: translate3d(-4px, -9px, 0) rotate(3deg); } }
   @keyframes mcp-claude-float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(3deg); } 50% { transform: translate3d(5px, -7px, 0) rotate(-4deg); } }
   @keyframes mcp-core-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
@@ -2938,10 +2952,13 @@ h2 span {
   .mcp-brand-orbs { left: 50%; top: 0; width: 220px; height: 160px; transform: translateX(-50%); }
   .mcp-brand-orbs img:first-child { width: 118px; }
   .mcp-brand-orbs img:last-child { width: 96px; }
-  .mcp-node {
+  .mcp-node-wrap {
     position: relative;
     left: auto;
     top: auto;
+    transform: none;
+  }
+  .mcp-node {
     width: auto;
     min-height: 84px;
     transform: none;
