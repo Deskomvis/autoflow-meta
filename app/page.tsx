@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useFlowScroll } from '@/components/use-flow-scroll';
 import Image from 'next/image';
 import {
   BASE_PRICE,
@@ -327,6 +328,8 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const [active, setActive] = useState(0);
+  const flowRef = useRef<HTMLDivElement>(null);
+  const { selectStep, direction } = useFlowScroll(flowRef, active, setActive, flow.length);
   const currentPrice = affiliate.active ? affiliate.price : slotStats.price;
   useEffect(() => {
     let activeRequest = true;
@@ -608,11 +611,13 @@ export default function Home() {
               Satu pusat kendali. Pekerjaan saling tersambung. Kamu punya alur
               yang bisa diulang setiap kali menemukan peluang produk baru.
             </p>
+            <div ref={flowRef} className="flow-interaction" data-direction={direction}>
             <div className="flow-selector" aria-label="Tahapan mesin">
+              <span className="flow-indicator" aria-hidden="true" style={{ '--column': active % 3, '--step': active, '--row': Math.floor(active / 3) } as React.CSSProperties} />
               {flow.map((f, i) => (
                 <button
                   key={f[0]}
-                  onClick={() => setActive(i)}
+                  onClick={() => selectStep(i)}
                   aria-pressed={active === i}
                   className={active === i ? 'active' : ''}
                 >
@@ -621,7 +626,7 @@ export default function Home() {
                 </button>
               ))}
             </div>
-            <div className="flow-detail" aria-live="polite">
+            <div aria-live="polite" aria-atomic="true"><div key={active} className="flow-detail">
               <span className="flow-number">
                 {String(active + 1).padStart(2, '0')}
               </span>
@@ -648,6 +653,8 @@ export default function Home() {
                 <br />
                 <strong>pegang kendali.</strong>
               </span>
+            </div>
+            </div>
             </div>
             <p className="machine-bottom">
               Bayangkan kalau energi yang habis untuk klik berulang bisa kamu
