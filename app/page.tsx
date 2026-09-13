@@ -1,4 +1,5 @@
 'use client';
+import type { CSSProperties } from 'react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
@@ -122,6 +123,15 @@ const flowTools = [
   ['meta', 'claude'],
   ['meta', 'claude'],
 ];
+const mcpFlow = [
+  ['Discover', 'ads_library_search'],
+  ['Filter', 'AI filtering + scoring'],
+  ['Validate', 'winning signal'],
+  ['Launch', 'campaign + ad set + ad'],
+  ['Monitor', 'trend + anomaly'],
+  ['Optimize', 'kill / keep'],
+  ['Scale', 'budget + creative'],
+];
 const toolNames: Record<string, string> = {
   claude: 'Claude',
   claudinary: 'Cloudinary',
@@ -231,7 +241,7 @@ export default function Home() {
   }
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const elements = Array.from(document.querySelectorAll<HTMLElement>('.proof-visuals figure, .proof-metrics > div, .machine .video-card, #materi .video-card, .modules-inner > div'));
+    const elements = Array.from(document.querySelectorAll<HTMLElement>('.proof-visuals figure, .proof-metrics > div, .machine .video-card, #materi .video-card, .modules-inner > div, .mcp-copy > *, .mcp-stage'));
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -262,7 +272,7 @@ export default function Home() {
     const stage = document.querySelector<HTMLElement>('.duo-stage');
     const track = document.querySelector<HTMLElement>('.hero-scroll-track');
     const media = document.querySelector<HTMLElement>('.hero-media');
-    const scenes = Array.from(document.querySelectorAll<HTMLElement>('.problem, .machine, #materi, .modules, .bonus, .mentor, .proof, .offer'));
+    const scenes = Array.from(document.querySelectorAll<HTMLElement>('.problem, .machine, #materi, .modules, .bonus, .mentor, .proof, .meta-mcp, .offer'));
     if (!stage || !track || !media) return;
     let frame = 0;
     let current = 0;
@@ -886,6 +896,65 @@ export default function Home() {
             </figure>
           </div>
         </section>
+        <section className="meta-mcp section wrap" aria-labelledby="mcp-title">
+          <div className="mcp-copy">
+            <p className="eyebrow">META ADS AUTOFLOW</p>
+            <h2 id="mcp-title">
+              Claude bukan cuma
+              <br />
+              melihat dashboard.
+              <br />
+              <span>Ia bisa jadi operator iklan.</span>
+            </h2>
+            <p>
+              Saat Claude terhubung ke Meta Ads MCP, alurnya bisa mencakup hampir
+              seluruh siklus: riset Ad Library, analisis competitor, persiapan
+              asset, pembuatan campaign, targeting, tracking, monitoring,
+              optimasi, testing, sampai scale.
+            </p>
+            <div className="mcp-sequence">
+              <span>DISCOVER</span>
+              <span>FILTER</span>
+              <span>VALIDATE</span>
+              <span>LAUNCH</span>
+              <span>MONITOR</span>
+              <span>OPTIMIZE</span>
+              <span>SCALE</span>
+            </div>
+            <p className="fineprint">
+              Aktivasi, budget, dan keputusan akhir tetap di tanganmu. Claude
+              membantu membaca sinyal, merapikan eksekusi, dan mempercepat
+              putaran testing.
+            </p>
+          </div>
+          <div className="mcp-stage" aria-label="Visualisasi workflow Meta Ads Autoflow">
+            <div className="mcp-orbit" aria-hidden="true">
+              <div className="mcp-core">
+                <span>Claude</span>
+                <strong>Meta Ads MCP</strong>
+              </div>
+              {mcpFlow.map(([label, tool], index) => {
+                const angle = index * 51.43 - 90;
+
+                return (
+                  <div
+                    className="mcp-node"
+                    key={label}
+                    style={{
+                      '--node-index': index,
+                      '--node-angle': `${angle}deg`,
+                      '--node-angle-reverse': `${-angle}deg`,
+                    } as CSSProperties}
+                  >
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{label}</strong>
+                    <small>{tool}</small>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
         <section className="offer section wrap" id="akses">
           <div className="offer-copy">
             <p className="eyebrow">SEKARANG GILIRANMU</p>
@@ -920,13 +989,22 @@ export default function Home() {
             <h3>Dari ide produk.<br /><span>Sampai iklan tayang.</span></h3>
             <p className="offer-intro">Pelajari alurnya. Pakai modulnya. Mulai praktik dengan produkmu.</p>
             <div className="offer-price-stage">
-            <span className="offer-price-label">AKSES PAKET {slotStats.label.toUpperCase()}</span>
-            <p className="price"><span>Rp</span>{slotStats.price.toLocaleString('id-ID').replace(/^Rp/, '')}</p>
-            <p className="price-note">
-              {slotStats.limit
-                ? `Harga ${slotStats.label.toLowerCase()} untuk ${slotStats.limit} slot`
-                : 'Harga extended setelah kuota reguler habis'}
-            </p>
+              <div className="offer-price-main">
+                <span className="offer-price-label">AKSES PAKET {slotStats.label.toUpperCase()}</span>
+                <p className="price"><span>Rp</span>{slotStats.price.toLocaleString('id-ID').replace(/^Rp/, '')}</p>
+                <p className="price-note">
+                  {slotStats.limit
+                    ? `Harga ${slotStats.label.toLowerCase()} untuk ${slotStats.limit} slot`
+                    : 'Harga extended setelah kuota reguler habis'}
+                </p>
+              </div>
+              <div className="slot-badge" aria-label={slotStats.remaining === null ? `Akses paket ${slotStats.label}` : `Tersisa ${slotStats.remaining} slot ${slotStats.label}`}>
+                <span className="slot-badge-ring" aria-hidden="true">
+                  <span>{slotStats.remaining === null ? '∞' : slotStats.remaining}</span>
+                </span>
+                <strong>{slotStats.remaining === null ? 'Slot fleksibel' : 'Slot tersisa'}</strong>
+                <small>{slotStats.label}</small>
+              </div>
             </div>
             <div className="offer-includes" aria-label="Isi utama paket"><div><strong>09</strong><span>Video teknis</span></div><div><strong>08</strong><span>File modul</span></div><div><strong>100+</strong><span>Data riset iklan</span></div></div>
             <ul className="check-list">
