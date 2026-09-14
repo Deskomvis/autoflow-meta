@@ -1,6 +1,6 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { NextResponse } from 'next/server';
-import { sendRoketchatText } from '@/lib/roketchat';
+import { normalizeWhatsappPhone, sendRoketchatText } from '@/lib/roketchat';
 
 export const runtime = 'nodejs';
 
@@ -35,7 +35,7 @@ function verifySignature(rawBody: string, signature: string | null) {
 }
 
 function normalizePhone(jid?: string) {
-  return jid?.split('@')[0]?.replace(/\D/g, '') ?? '';
+  return normalizeWhatsappPhone(jid?.split('@')[0] ?? '');
 }
 
 function greetingMessage() {

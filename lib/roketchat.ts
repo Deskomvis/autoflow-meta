@@ -22,7 +22,15 @@ export function getRoketchatToken() {
 }
 
 export function normalizeWhatsappPhone(phone: string) {
-  const digits = phone.replace(/\D/g, '');
+  let digits = phone.normalize('NFKC').replace(/\D/g, '');
+
+  while (digits.startsWith('6262')) {
+    digits = digits.slice(2);
+  }
+
+  if (digits.startsWith('620')) {
+    digits = `62${digits.slice(3)}`;
+  }
 
   if (digits.startsWith('0')) return `62${digits.slice(1)}`;
   if (digits.startsWith('8')) return `62${digits}`;
@@ -32,9 +40,14 @@ export function normalizeWhatsappPhone(phone: string) {
 
 export async function sendRoketchatText(phone: string, body: string) {
   const token = getRoketchatToken();
+  const normalizedPhone = normalizeWhatsappPhone(phone);
 
   if (!token) {
     throw new Error('ROKETCHAT_API_KEY is not configured');
+  }
+
+  if (!/^62\d{8,14}$/.test(normalizedPhone)) {
+    throw new Error('Invalid WhatsApp phone number');
   }
 
   const response = await fetch(`${getMessagesBaseUrl()}/text`, {
@@ -43,7 +56,7 @@ export async function sendRoketchatText(phone: string, body: string) {
       'Content-Type': 'application/json',
       token,
     },
-    body: JSON.stringify({ phone, body }),
+    body: JSON.stringify({ phone: normalizedPhone, body }),
     cache: 'no-store',
   });
 

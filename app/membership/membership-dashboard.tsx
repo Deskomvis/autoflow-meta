@@ -63,6 +63,14 @@ const lessons = [
     ],
   },
   {
+    id: 'bNBMBu3IIYs',
+    title: 'Install Skill dan Schema LP Scalev Builder',
+    notes: [
+      'Download modul Google Drive, buka folder "Upload Skill & Schema". Atau lewat link: https://drive.google.com/drive/folders/1B1uh_M_4LJHEFSjn1vR7jU4Y3KCTp9QD?usp=sharing',
+      'Stepnya: Upload skill > Upload 2 file referensi schema > Upload contoh file template Scalev berisi komponen untuk LP model builder.',
+    ],
+  },
+  {
     id: 'Cgi8QuN2iW4',
     title: 'Menghubungkan Vistudio MCP di Claude Connector',
     notes: [
@@ -76,14 +84,6 @@ const lessons = [
     notes: [
       'Bikin akun gratis di https://cloudinary.com',
       'Isikan key sesuai yang ditunjukkan di video.',
-    ],
-  },
-  {
-    id: 'bNBMBu3IIYs',
-    title: 'Install Skill dan Schema LP Scalev Builder',
-    notes: [
-      'Download modul Google Drive, buka folder "Upload Skill & Schema". Atau lewat link: https://drive.google.com/drive/folders/1B1uh_M_4LJHEFSjn1vR7jU4Y3KCTp9QD?usp=sharing',
-      'Stepnya: Upload skill > Upload 2 file referensi schema > Upload contoh file template Scalev berisi komponen untuk LP model builder.',
     ],
   },
   {

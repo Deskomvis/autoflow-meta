@@ -84,21 +84,24 @@ function extractPaymentFields(body: JsonValue) {
   const dataObject =
     data && typeof data === 'object' && !Array.isArray(data) ? data : {};
   const reference =
+    readString(body.payment_link_reff_no) ||
+    readString(dataObject.payment_link_reff_no) ||
     readString(body.reff_no) ||
     readString(body.merchant_reff_no) ||
     readString(body.reference) ||
-    readString(body.payment_link_reff_no) ||
     readString(dataObject.reff_no) ||
     readString(dataObject.merchant_reff_no) ||
-    readString(dataObject.reference) ||
-    readString(dataObject.payment_link_reff_no);
+    readString(dataObject.reference);
   const status =
     readString(body.status) ||
     readString(body.transaction_status) ||
     readString(dataObject.status) ||
     readString(dataObject.transaction_status);
   const transactionId =
-    readString(body.transaction_id) || readString(dataObject.transaction_id);
+    readString(body.transaction_id) ||
+    readString(dataObject.transaction_id) ||
+    readString(body.reff_no) ||
+    readString(dataObject.reff_no);
 
   return { reference, status, transactionId };
 }

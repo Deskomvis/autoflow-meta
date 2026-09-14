@@ -135,6 +135,9 @@ export async function isSingapayPaymentReferencePaid(reference: string) {
   const directMatches = await listHistories({ reff_no: reference });
   if (directMatches.some(hasPaidReference)) return true;
 
+  const paymentLinkMatches = await listHistories({ payment_link_reff_no: reference });
+  if (paymentLinkMatches.some(hasPaidReference)) return true;
+
   const recentPaid = await listHistories({ status: 'paid' });
   return recentPaid.some(hasPaidReference);
 }
