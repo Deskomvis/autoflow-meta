@@ -1624,6 +1624,7 @@ h2 span {
 }
 .membership-hero .brand {
   display: inline-block;
+  width: clamp(220px, 24vw, 340px);
   margin-bottom: 54px;
 }
 .membership-hero h1 {

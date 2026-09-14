@@ -436,8 +436,7 @@ export default function MembershipDashboard({
       <section className="membership-hero wrap">
         <div>
           <Link className="brand" href="/">
-            AUTO<span>FLOW</span>
-            <small>MEMBERSHIP AREA</small>
+            <img src="/images/Logo-autoflow.gif" alt="Auto Flow Meta Ads / Claude AI" />
           </Link>
           <p className="eyebrow">DASHBOARD MEMBERSHIP</p>
           <h1>Masuk dengan kode referensi pembayaranmu.</h1>
