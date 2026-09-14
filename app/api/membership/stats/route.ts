@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getPaidMembershipAccessCount } from '@/lib/membership-access';
-import { getCurrentPricingTier } from '@/lib/pricing';
+import { getCurrentPricingTier, RESERVED_RESELLER_SLOTS } from '@/lib/pricing';
 
 export const runtime = 'nodejs';
 
@@ -17,5 +17,7 @@ export async function GET() {
     taken: tier.taken,
     remaining: tier.remaining,
     totalTaken: tier.totalTaken,
+    reservedSlots: RESERVED_RESELLER_SLOTS,
+    paidCount: paidCount ?? 0,
   });
 }

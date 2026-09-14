@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
   BASE_PRICE,
-  INITIAL_PAID_SLOTS,
   PRICING_TIERS,
+  RESERVED_RESELLER_SLOTS,
   formatIDR,
 } from '@/lib/pricing';
 import {
@@ -287,6 +287,8 @@ type SlotStatsResponse = {
   taken?: number;
   remaining?: number | null;
   totalTaken?: number;
+  reservedSlots?: number;
+  paidCount?: number;
 };
 type SlotStats = {
   tier: string;
@@ -430,9 +432,9 @@ export default function Home() {
     badge: PRICING_TIERS[0].badge,
     price: PRICING_TIERS[0].price,
     limit: PRICING_TIERS[0].limit,
-    taken: INITIAL_PAID_SLOTS,
-    remaining: PRICING_TIERS[0].limit - INITIAL_PAID_SLOTS,
-    totalTaken: INITIAL_PAID_SLOTS,
+    taken: RESERVED_RESELLER_SLOTS,
+    remaining: PRICING_TIERS[0].limit - RESERVED_RESELLER_SLOTS,
+    totalTaken: RESERVED_RESELLER_SLOTS,
   });
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
@@ -460,12 +462,12 @@ export default function Home() {
             typeof data.limit === 'number' || data.limit === null
               ? data.limit
               : PRICING_TIERS[0].limit,
-          taken: Number(data.taken) || INITIAL_PAID_SLOTS,
+          taken: Number(data.taken) || RESERVED_RESELLER_SLOTS,
           remaining:
             typeof data.remaining === 'number' || data.remaining === null
               ? data.remaining
-              : PRICING_TIERS[0].limit - INITIAL_PAID_SLOTS,
-          totalTaken: Number(data.totalTaken) || INITIAL_PAID_SLOTS,
+              : PRICING_TIERS[0].limit - RESERVED_RESELLER_SLOTS,
+          totalTaken: Number(data.totalTaken) || RESERVED_RESELLER_SLOTS,
         });
       })
       .catch(() => {});

@@ -1,4 +1,4 @@
-export const INITIAL_PAID_SLOTS = 0;
+export const RESERVED_RESELLER_SLOTS = 7;
 
 export const PRICING_TIERS = [
   {
@@ -43,7 +43,7 @@ export function affiliateCommission(base: number = BASE_PRICE) {
 }
 
 export function getCurrentPricingTier(paidCount = 0) {
-  const totalTaken = INITIAL_PAID_SLOTS + Math.max(0, paidCount);
+  const totalTaken = RESERVED_RESELLER_SLOTS + Math.max(0, paidCount);
   let consumedBeforeTier = 0;
 
   for (const tier of PRICING_TIERS) {
