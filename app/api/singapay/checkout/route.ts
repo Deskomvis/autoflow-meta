@@ -133,10 +133,10 @@ export async function POST(request: Request) {
     const jar = await cookies();
     const paidCount = await getPaidMembershipAccessCount();
     const activeTier = getCurrentPricingTier(paidCount ?? 0);
-    const affiliateUnlocked = activeTier.id === 'regular';
-    const rawCode = affiliateUnlocked
-      ? normalizeCode(requestBody?.couponCode || jar.get('afm_aff')?.value || '')
-      : '';
+    const couponUnlocked = activeTier.id === 'regular';
+    const rawCouponCode = couponUnlocked ? normalizeCode(requestBody?.couponCode || '') : '';
+    const rawLinkCode = normalizeCode(jar.get('afm_aff')?.value || '');
+    const rawCode = rawCouponCode || rawLinkCode;
     let affiliate = rawCode ? await resolveAffiliateByCode(rawCode) : null;
     // An affiliate can't earn a discount or commission on their own purchase.
     if (affiliate && affiliate.whatsapp_phone === whatsappPhone) {
@@ -144,9 +144,10 @@ export async function POST(request: Request) {
     }
 
     const pricing = applyAffiliateDiscount(activeTier.price);
-    const amount = affiliate ? pricing.finalAmount : activeTier.price;
+    const discountApplies = Boolean(affiliate && rawCouponCode);
+    const amount = discountApplies ? pricing.finalAmount : activeTier.price;
     const commissionAmount = affiliate ? affiliateCommission(activeTier.price) : 0;
-    const discountAmount = affiliate ? pricing.discountAmount : 0;
+    const discountAmount = discountApplies ? pricing.discountAmount : 0;
 
     const baseUrl = getBaseUrl();
     const apiKey = requiredEnv('SINGAPAY_API_KEY');
@@ -241,7 +242,8 @@ export async function POST(request: Request) {
       paymentUrl,
       reference,
       amount,
-      discountApplied: Boolean(affiliate),
+      discountApplied: discountApplies,
+      affiliateAttributed: Boolean(affiliate),
     });
   } catch (error) {
     return NextResponse.json(

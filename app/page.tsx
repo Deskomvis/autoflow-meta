@@ -270,9 +270,11 @@ type CheckoutResponse = {
   paymentUrl?: string;
   message?: string;
   discountApplied?: boolean;
+  affiliateAttributed?: boolean;
 };
 type AffiliateContextResponse = {
   active?: boolean;
+  couponUnlocked?: boolean;
   code?: string | null;
   basePrice?: number;
   discountedPrice?: number;
@@ -439,8 +441,8 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const [active, setActive] = useState(0);
-  const affiliateUnlocked = slotStats.tier === 'regular';
-  const currentPrice = affiliate.active && affiliateUnlocked ? affiliate.price : slotStats.price;
+  const couponUnlocked = slotStats.tier === 'regular';
+  const currentPrice = affiliate.active && couponUnlocked ? affiliate.price : slotStats.price;
   useEffect(() => {
     let activeRequest = true;
 
@@ -512,7 +514,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           whatsappPhone: checkoutPhone,
-          couponCode: affiliateUnlocked ? couponCode.trim() || undefined : undefined,
+          couponCode: couponUnlocked ? couponCode.trim() || undefined : undefined,
         }),
       });
       const body = (await response
@@ -1293,10 +1295,16 @@ export default function Home() {
               </div>
               <span className="earlybird-badge">{slotStats.badge}</span>
             </div>
-            {affiliate.active && affiliateUnlocked ? (
+            {affiliate.active && couponUnlocked ? (
               <p className="fineprint">
                 Potongan afiliasi 15% ({formatIDR(affiliate.discount)}) sudah
                 dihitung dari {formatIDR(slotStats.price)}.
+              </p>
+            ) : null}
+            {affiliate.active && !couponUnlocked ? (
+              <p className="fineprint">
+                Link affiliate terdeteksi. Harga earlybird tetap sama, komisi
+                partner akan tercatat setelah pembayaran berhasil.
               </p>
             ) : null}
             <div className="pricing-tiers" aria-label="Tier harga">
@@ -1334,7 +1342,7 @@ export default function Home() {
                 disabled={checkoutLoading}
               />
             </label>
-            {affiliateUnlocked ? (
+            {couponUnlocked ? (
               <label className="checkout-phone">
                 <span>Kode kupon afiliasi (opsional)</span>
                 <input
