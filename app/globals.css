@@ -2047,6 +2047,60 @@ h2 span {
   color: #9fb3ca;
   line-height: 1.5;
 }
+.series-vote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.series-vote span {
+  color: #9fb3ca;
+  font-size: 12px;
+}
+.series-vote span strong {
+  color: #f7fbff;
+  font-size: 16px;
+}
+.series-vote small {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  color: #6fe4ff;
+  font-size: 12px;
+  font-weight: 800;
+}
+.series-vote button {
+  min-height: 34px;
+  border: 1px solid #4ccfff;
+  border-radius: 6px;
+  padding: 0 12px;
+  background: #0b2a3f;
+  color: #d8f6ff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.series-vote button:hover:not(:disabled),
+.series-vote button:focus-visible {
+  background: #123955;
+  box-shadow: 0 0 0 3px #4ccfff29;
+}
+.series-vote button:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+.series-vote button.has-voted {
+  border-color: #ffb36a;
+  background: #2b2116;
+  color: #ffd6a2;
+}
+.series-vote-error {
+  margin: 14px 0 0;
+  color: #ffb4a6;
+  font-size: 13px;
+}
 .series-thumb {
   position: relative;
   overflow: hidden;

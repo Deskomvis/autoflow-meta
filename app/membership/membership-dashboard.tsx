@@ -2,38 +2,12 @@
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { seriesCourses } from '@/lib/course-series';
 import ProfileSection from './profile-section';
 
 const filesUrl =
   'https://drive.google.com/drive/folders/1GlUFAsbVnToGVeD9cpcLAYxnd__S7eJr?usp=sharing';
 const telegramUrl = 'https://t.me/+v8NHYYcrq-9jMWM1';
-
-const seriesCourses = [
-  {
-    image: '/images/claude-mcp-ws.webp',
-    title: 'Auto Flow Meta Ads',
-    subtitle: 'Flow Orchestration Claude AI MCP · Scalev, Meta Ads, Vistudio, Cloudinary',
-    unlocked: true,
-  },
-  {
-    image: '/images/vibecoding-monetize.webp',
-    title: 'Vibe Coding Monetize Plan',
-    subtitle: 'Membangun pabrik digital ala vibe coding jalanan',
-    unlocked: false,
-  },
-  {
-    image: '/images/aichat-ctwa.webp',
-    title: '24/7 AI Chat for CTWA',
-    subtitle: 'CRM auto flow untuk iklan CTWA yang bekerja non stop',
-    unlocked: false,
-  },
-  {
-    image: '/images/hermes-agent-flow.webp',
-    title: 'Hermes Agent Flow for Business',
-    subtitle: 'Agent auto flow 24 jam untuk daily task bisnis',
-    unlocked: false,
-  },
-];
 
 // A note line that starts with "*" renders as an italic hint instead of a bullet.
 const lessons = [
@@ -308,6 +282,12 @@ type MembershipDashboardProps = {
   initialReference: string;
 };
 
+type CourseVotesResponse = {
+  ok?: boolean;
+  totals?: Record<string, number>;
+  votedCourseIds?: string[];
+};
+
 export default function MembershipDashboard({
   initialReference,
 }: MembershipDashboardProps) {
@@ -317,6 +297,10 @@ export default function MembershipDashboard({
   const [error, setError] = useState('');
   const [activeLesson, setActiveLesson] = useState(0);
   const [activeTab, setActiveTab] = useState<'course' | 'profile'>('course');
+  const [courseVotes, setCourseVotes] = useState<Record<string, number>>({});
+  const [votedCourseIds, setVotedCourseIds] = useState<string[]>([]);
+  const [votingCourseId, setVotingCourseId] = useState('');
+  const [voteError, setVoteError] = useState('');
 
   const goToNextLesson = useCallback(() => {
     setActiveLesson(current =>
@@ -355,6 +339,61 @@ export default function MembershipDashboard({
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (!verifiedReference) return;
+
+    let cancelled = false;
+    setVoteError('');
+
+    fetch(`/api/membership/course-votes?reference=${encodeURIComponent(verifiedReference)}`)
+      .then(async response => {
+        const body = (await response.json().catch(() => null)) as CourseVotesResponse | null;
+        if (cancelled || !response.ok || !body?.ok) return;
+        setCourseVotes(body.totals ?? {});
+        setVotedCourseIds(body.votedCourseIds ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setVoteError('Vote belum bisa dimuat. Coba refresh sebentar lagi.');
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [verifiedReference]);
+
+  async function voteForCourse(courseId: string) {
+    if (!verifiedReference || votingCourseId || votedCourseIds.includes(courseId)) return;
+
+    setVotingCourseId(courseId);
+    setVoteError('');
+
+    try {
+      const response = await fetch('/api/membership/course-votes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reference: verifiedReference, courseId }),
+      });
+      const body = (await response.json().catch(() => null)) as CourseVotesResponse | null;
+
+      if (!response.ok || !body?.ok) {
+        throw new Error('Vote belum tersimpan. Coba lagi sebentar.');
+      }
+
+      setCourseVotes(body.totals ?? {});
+      setVotedCourseIds(body.votedCourseIds ?? []);
+    } catch (voteFailure) {
+      setVoteError(
+        voteFailure instanceof Error
+          ? voteFailure.message
+          : 'Vote belum tersimpan. Coba lagi sebentar.',
+      );
+    } finally {
+      setVotingCourseId('');
+    }
+  }
 
   async function verifyAccess(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -532,10 +571,15 @@ export default function MembershipDashboard({
             <p className="eyebrow">E-Course Series Lanjutan</p>
             <h2>Roadmap course berikutnya</h2>
             <div className="series-grid">
-              {seriesCourses.map(course => (
+              {seriesCourses.map(course => {
+                const voteCount = courseVotes[course.id] ?? 0;
+                const hasVoted = votedCourseIds.includes(course.id);
+                const isVoting = votingCourseId === course.id;
+
+                return (
                 <div
                   className={`series-card${course.unlocked ? ' is-unlocked' : ''}`}
-                  key={course.title}
+                  key={course.id}
                 >
                   <div className="series-thumb">
                     <img src={course.image} alt={course.title} loading="lazy" />
@@ -556,9 +600,28 @@ export default function MembershipDashboard({
                   </div>
                   <h3>{course.title}</h3>
                   <p>{course.subtitle}</p>
+                  <div className="series-vote">
+                    <span>
+                      <strong>{voteCount}</strong> vote
+                    </span>
+                    {course.unlocked ? (
+                      <small>Materi aktif</small>
+                    ) : (
+                      <button
+                        type="button"
+                        className={hasVoted ? 'has-voted' : undefined}
+                        disabled={hasVoted || isVoting}
+                        onClick={() => voteForCourse(course.id)}
+                      >
+                        {isVoting ? 'Menyimpan...' : hasVoted ? 'Sudah vote' : 'Vote materi ini'}
+                      </button>
+                    )}
+                  </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
+            {voteError ? <p className="series-vote-error">{voteError}</p> : null}
             <p className="fineprint">
               Course baru akan otomatis muncul di dashboard membership begitu
               rilis. Tidak perlu kode referensi tambahan.
