@@ -1,0 +1,19 @@
+import { NextResponse } from "next/server";
+import { isAdminRequestAuthorized } from "@/lib/adminku-auth";
+import { getSummaryStats, type RangeKey } from "@/lib/adminku-data";
+
+export const runtime = "nodejs";
+
+const RANGES: RangeKey[] = ["7d", "30d", "90d", "all"];
+
+export async function GET(request: Request) {
+  if (!isAdminRequestAuthorized(request)) {
+    return NextResponse.json({ ok: false }, { status: 401 });
+  }
+
+  const requested = new URL(request.url).searchParams.get("range");
+  const range = RANGES.includes(requested as RangeKey) ? (requested as RangeKey) : "30d";
+
+  const stats = await getSummaryStats(range);
+  return NextResponse.json({ ok: true, range, stats });
+}
