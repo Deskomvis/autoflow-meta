@@ -1095,7 +1095,7 @@ export default function Home() {
                 <p className="price-note">
                   {slotStats.limit
                     ? `Harga ${slotStats.label.toLowerCase()} untuk ${slotStats.limit} slot`
-                    : 'Harga extended setelah kuota reguler habis'}
+                    : 'Harga extended setelah kuota release/normal habis'}
                 </p>
               </div>
               <div className="slot-badge" aria-label={slotStats.remaining === null ? `Akses paket ${slotStats.label}` : `Tersisa ${slotStats.remaining} slot ${slotStats.label}`}>
@@ -1117,7 +1117,7 @@ export default function Home() {
               Saya mau mulai sekarang <span aria-hidden="true">↗</span>
             </button>
             <p className="offer-next-step">Pilih paket & lihat detail pembayaran di langkah berikutnya.</p>
-            <p className="offer-private">Butuh pendampingan? Tersedia pilihan Private 1on1 + Setup Hermes Agent.</p>
+            <p className="offer-private">Butuh pendampingan? Tersedia pilihan Private 1on1 + Private Live Setting.</p>
             <p className="fineprint">
               Biaya tools, kredit aset, dan budget iklan terpisah. Hasil
               bergantung pada produk, penawaran, dan eksekusimu.
@@ -1313,7 +1313,7 @@ export default function Home() {
               <div>
                 <span>Private 1on1</span>
                 <strong>2.999.000</strong>
-                <small>+ Setup Hermes Agent</small>
+                <small>Private Live Setting</small>
               </div>
             </div>
             <div className="checkout-notice">

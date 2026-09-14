@@ -10,8 +10,8 @@ export const PRICING_TIERS = [
   },
   {
     id: 'regular',
-    label: 'Reguler',
-    badge: 'Harga reguler',
+    label: 'Release/Normal',
+    badge: 'Harga release/normal',
     price: 697_000,
     limit: 50,
   },
@@ -20,7 +20,7 @@ export const PRICING_TIERS = [
     label: 'Extended',
     badge: 'Harga extended',
     price: 997_000,
-    limit: null,
+    limit: 100,
   },
 ] as const;
 
@@ -47,15 +47,6 @@ export function getCurrentPricingTier(paidCount = 0) {
   let consumedBeforeTier = 0;
 
   for (const tier of PRICING_TIERS) {
-    if (tier.limit === null) {
-      return {
-        ...tier,
-        taken: Math.max(0, totalTaken - consumedBeforeTier),
-        remaining: null,
-        totalTaken,
-      };
-    }
-
     if (totalTaken < consumedBeforeTier + tier.limit) {
       return {
         ...tier,
@@ -68,7 +59,7 @@ export function getCurrentPricingTier(paidCount = 0) {
     consumedBeforeTier += tier.limit;
   }
 
-  const extended = PRICING_TIERS[PRICING_TIERS.length - 1];
+  const extended = PRICING_TIERS.at(-1)!;
   return {
     ...extended,
     taken: Math.max(0, totalTaken - consumedBeforeTier),
