@@ -83,6 +83,15 @@ async function requestAccessToken(baseUrl: string) {
   return body?.access_token ?? body?.data?.access_token ?? null;
 }
 
+export async function isSingapayPaymentLinkFullyPaid(paymentUrl: string) {
+  const response = await fetch(paymentUrl, { cache: 'no-store' }).catch(() => null);
+
+  if (!response?.ok) return false;
+
+  const html = await response.text().catch(() => '');
+  return /payment link has been fully paid/i.test(html);
+}
+
 export async function isSingapayPaymentReferencePaid(reference: string) {
   const baseUrl = getBaseUrl();
   const apiKey = requiredEnv('SINGAPAY_API_KEY');

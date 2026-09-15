@@ -6,7 +6,10 @@ import {
 } from '@/lib/membership-access';
 import { creditAndNotifyAffiliate } from '@/lib/affiliate';
 import { sendPaidAccessMessage } from '@/lib/roketchat';
-import { isSingapayPaymentReferencePaid } from '@/lib/singapay-payment-status';
+import {
+  isSingapayPaymentLinkFullyPaid,
+  isSingapayPaymentReferencePaid,
+} from '@/lib/singapay-payment-status';
 
 export const runtime = 'nodejs';
 
@@ -32,12 +35,14 @@ export async function POST(request: Request) {
   let paidAccess = reference ? await isMembershipReferencePaid(reference) : false;
 
   if (reference && paidAccess === false && looksLikePaymentReference(reference)) {
-    const singapayPaid = await isSingapayPaymentReferencePaid(reference).catch(
-      () => false,
-    );
+    const access = await getMembershipAccess(reference);
+    const singapayPaid =
+      (await isSingapayPaymentReferencePaid(reference).catch(() => false)) ||
+      (access?.payment_url
+        ? await isSingapayPaymentLinkFullyPaid(access.payment_url).catch(() => false)
+        : false);
 
     if (singapayPaid) {
-      const access = await getMembershipAccess(reference);
       let paidMessageSentAt: string | undefined;
 
       if (access?.whatsapp_phone && !access.paid_message_sent_at) {
