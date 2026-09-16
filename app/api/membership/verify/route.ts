@@ -1,15 +1,7 @@
 import { NextResponse } from 'next/server';
-import {
-  getMembershipAccess,
-  isMembershipReferencePaid,
-  markMembershipAccessPaid,
-} from '@/lib/membership-access';
-import { creditAndNotifyAffiliate } from '@/lib/affiliate';
-import { sendPaidAccessMessage } from '@/lib/roketchat';
-import {
-  isSingapayPaymentLinkFullyPaid,
-  isSingapayPaymentReferencePaid,
-} from '@/lib/singapay-payment-status';
+import { isMembershipReferencePaid } from '@/lib/membership-access';
+import { syncPaidMembershipAccessFromPaymentLink } from '@/lib/singapay-paid-sync';
+import { isSingapayPaymentReferencePaid } from '@/lib/singapay-payment-status';
 
 export const runtime = 'nodejs';
 
@@ -35,38 +27,15 @@ export async function POST(request: Request) {
   let paidAccess = reference ? await isMembershipReferencePaid(reference) : false;
 
   if (reference && paidAccess === false && looksLikePaymentReference(reference)) {
-    const access = await getMembershipAccess(reference);
-    const singapayPaid =
-      (await isSingapayPaymentReferencePaid(reference).catch(() => false)) ||
-      (access?.payment_url
-        ? await isSingapayPaymentLinkFullyPaid(access.payment_url).catch(() => false)
-        : false);
+    const singapayPaid = await isSingapayPaymentReferencePaid(reference).catch(
+      () => false,
+    );
+    const syncResult = await syncPaidMembershipAccessFromPaymentLink(
+      reference,
+      singapayPaid ? 'membership_verify_api' : 'membership_verify_payment_link',
+    ).catch(() => ({ synced: false }));
 
-    if (singapayPaid) {
-      let paidMessageSentAt: string | undefined;
-
-      if (access?.whatsapp_phone && !access.paid_message_sent_at) {
-        try {
-          await sendPaidAccessMessage({
-            phone: access.whatsapp_phone,
-            reference,
-          });
-          paidMessageSentAt = new Date().toISOString();
-        } catch (error) {
-          console.warn(
-            'roketchat-paid-message-failed',
-            JSON.stringify({
-              reference,
-              message: error instanceof Error ? error.message : 'Unknown error',
-            }),
-          );
-        }
-      }
-
-      await markMembershipAccessPaid({ reference, paid_message_sent_at: paidMessageSentAt });
-      await creditAndNotifyAffiliate(reference);
-      paidAccess = true;
-    }
+    if (singapayPaid || syncResult.synced) paidAccess = true;
   }
 
   const isAllowed =

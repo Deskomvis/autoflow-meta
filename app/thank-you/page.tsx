@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { syncPaidMembershipAccessFromPaymentLink } from '@/lib/singapay-paid-sync';
 
 type ThankYouPageProps = {
   searchParams?: Promise<{
@@ -15,6 +16,20 @@ export const metadata = {
 export default async function ThankYouPage({ searchParams }: ThankYouPageProps) {
   const params = await searchParams;
   const reference = params?.ref;
+
+  if (reference) {
+    await syncPaidMembershipAccessFromPaymentLink(reference, 'thank_you_return').catch(
+      error => {
+        console.warn(
+          'thank-you-paid-sync-failed',
+          JSON.stringify({
+            reference,
+            message: error instanceof Error ? error.message : 'Unknown error',
+          }),
+        );
+      },
+    );
+  }
 
   return (
     <main className="thankyou-page">
