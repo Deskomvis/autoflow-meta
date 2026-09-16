@@ -2,11 +2,5 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": "next build --webpack",
-  "outputDirectory": null,
-  "crons": [
-    {
-      "path": "/api/singapay/sync-pending",
-      "schedule": "*/5 * * * *"
-    }
-  ]
+  "outputDirectory": null
 }
