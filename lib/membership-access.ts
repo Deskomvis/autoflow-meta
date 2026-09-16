@@ -20,6 +20,11 @@ type MembershipAccessPayload = {
   affiliate_message_sent_at?: string;
 };
 
+export type MembershipAccessRow = MembershipAccessPayload & {
+  reference: string;
+  status: AccessStatus;
+};
+
 export function getSupabaseConfig() {
   const url = process.env.SUPABASE_URL?.replace(/\/+$/, '');
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -198,4 +203,64 @@ export async function getPaidMembershipAccessCount() {
   const count = total ? Number(total) : NaN;
 
   return Number.isFinite(count) ? count : null;
+}
+
+async function readMembershipRows(path: string, context: string) {
+  const response = await requestSupabase(path, {
+    method: 'GET',
+    headers: {
+      Prefer: '',
+    },
+  });
+
+  if (!response) return [];
+  if (!response.ok) {
+    console.warn(
+      `membership-access-${context}-failed`,
+      JSON.stringify({ status: response.status, body: await response.text() }),
+    );
+    return [];
+  }
+
+  return (await response.json().catch(() => [])) as MembershipAccessRow[];
+}
+
+export async function listPendingMembershipAccess(limit = 25) {
+  const safeLimit = Math.min(Math.max(Math.floor(limit), 1), 50);
+
+  return readMembershipRows(
+    `membership_access?status=eq.pending&payment_url=not.is.null&select=reference,status,payment_url,whatsapp_phone,paid_message_sent_at,affiliate_code,affiliate_owner_reference,commission_amount,commission_credited_at,affiliate_message_sent_at&order=created_at.asc&limit=${safeLimit}`,
+    'pending-list',
+  );
+}
+
+export async function listPaidMembershipAccessWithoutMessage(limit = 25) {
+  const safeLimit = Math.min(Math.max(Math.floor(limit), 1), 50);
+
+  return readMembershipRows(
+    `membership_access?status=eq.paid&paid_message_sent_at=is.null&whatsapp_phone=not.is.null&select=reference,status,payment_url,whatsapp_phone,paid_message_sent_at,affiliate_code,affiliate_owner_reference,commission_amount,commission_credited_at,affiliate_message_sent_at&order=paid_at.asc&limit=${safeLimit}`,
+    'paid-message-list',
+  );
+}
+
+export async function markMembershipPaidMessageSent(
+  reference: string,
+  paidMessageSentAt = new Date().toISOString(),
+) {
+  const response = await requestSupabase(
+    `membership_access?reference=eq.${encodeURIComponent(reference)}`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify({
+        paid_message_sent_at: paidMessageSentAt,
+      }),
+    },
+  );
+
+  if (!response || response.ok) return;
+
+  console.warn(
+    'membership-access-paid-message-failed',
+    JSON.stringify({ status: response.status, body: await response.text() }),
+  );
 }
