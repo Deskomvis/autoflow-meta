@@ -42,9 +42,9 @@ function getBaseUrl() {
   );
 }
 
-function jakartaDate() {
+function formattedDate(timeZone: string) {
   return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Jakarta',
+    timeZone,
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
@@ -57,30 +57,33 @@ async function requestAccessToken(baseUrl: string) {
   const clientId = requiredEnv('SINGAPAY_CLIENT_ID');
   const clientSecret = requiredEnv('SINGAPAY_CLIENT_SECRET');
   const apiKey = requiredEnv('SINGAPAY_API_KEY');
-  const payload = `${clientId}_${clientSecret}_${jakartaDate()}`;
-  const signature = createHmac('sha512', clientSecret)
-    .update(payload)
-    .digest('hex');
+  for (const timeZone of ['Asia/Jakarta', 'UTC']) {
+    const payload = `${clientId}_${clientSecret}_${formattedDate(timeZone)}`;
+    const signature = createHmac('sha512', clientSecret)
+      .update(payload)
+      .digest('hex');
 
-  const response = await fetch(`${baseUrl}/api/v1.1/access-token/b2b`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-PARTNER-ID': apiKey,
-      'X-CLIENT-ID': clientId,
-      'X-Signature': signature,
-    },
-    body: JSON.stringify({ grant_type: 'client_credentials' }),
-    cache: 'no-store',
-  });
+    const response = await fetch(`${baseUrl}/api/v1.1/access-token/b2b`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-PARTNER-ID': apiKey,
+        'X-CLIENT-ID': clientId,
+        'X-Signature': signature,
+      },
+      body: JSON.stringify({ grant_type: 'client_credentials' }),
+      cache: 'no-store',
+    });
 
-  const body = (await response
-    .json()
-    .catch(() => null)) as SingapayTokenResponse | null;
+    const body = (await response
+      .json()
+      .catch(() => null)) as SingapayTokenResponse | null;
+    const accessToken = body?.access_token ?? body?.data?.access_token;
 
-  if (!response.ok) return null;
+    if (response.ok && accessToken) return accessToken;
+  }
 
-  return body?.access_token ?? body?.data?.access_token ?? null;
+  return null;
 }
 
 export async function isSingapayPaymentLinkFullyPaid(paymentUrl: string) {

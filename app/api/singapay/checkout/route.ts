@@ -46,9 +46,9 @@ function requiredEnv(name: string) {
   return value;
 }
 
-function jakartaDate() {
+function formattedDate(timeZone: string) {
   return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Jakarta',
+    timeZone,
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
@@ -79,36 +79,40 @@ async function requestAccessToken(baseUrl: string) {
   const clientId = requiredEnv('SINGAPAY_CLIENT_ID');
   const clientSecret = requiredEnv('SINGAPAY_CLIENT_SECRET');
   const apiKey = requiredEnv('SINGAPAY_API_KEY');
-  const payload = `${clientId}_${clientSecret}_${jakartaDate()}`;
-  const signature = createHmac('sha512', clientSecret)
-    .update(payload)
-    .digest('hex');
+  let lastFailure: { status: number; body: SingapayTokenResponse | null } | null = null;
 
-  const response = await fetch(`${baseUrl}/api/v1.1/access-token/b2b`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-PARTNER-ID': apiKey,
-      'X-CLIENT-ID': clientId,
-      'X-Signature': signature,
-    },
-    body: JSON.stringify({ grant_type: 'client_credentials' }),
-    cache: 'no-store',
-  });
+  for (const timeZone of ['Asia/Jakarta', 'UTC']) {
+    const payload = `${clientId}_${clientSecret}_${formattedDate(timeZone)}`;
+    const signature = createHmac('sha512', clientSecret)
+      .update(payload)
+      .digest('hex');
 
-  const body = (await response
-    .json()
-    .catch(() => null)) as SingapayTokenResponse | null;
-  const accessToken = body?.access_token ?? body?.data?.access_token;
-  if (!response.ok || !accessToken) {
-    return {
-      error: true as const,
-      status: response.status,
-      body,
-    };
+    const response = await fetch(`${baseUrl}/api/v1.1/access-token/b2b`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-PARTNER-ID': apiKey,
+        'X-CLIENT-ID': clientId,
+        'X-Signature': signature,
+      },
+      body: JSON.stringify({ grant_type: 'client_credentials' }),
+      cache: 'no-store',
+    });
+
+    const body = (await response
+      .json()
+      .catch(() => null)) as SingapayTokenResponse | null;
+    const accessToken = body?.access_token ?? body?.data?.access_token;
+
+    if (response.ok && accessToken) return { error: false as const, accessToken };
+    lastFailure = { status: response.status, body };
   }
 
-  return { error: false as const, accessToken };
+  return {
+    error: true as const,
+    status: lastFailure?.status ?? 0,
+    body: lastFailure?.body ?? null,
+  };
 }
 
 export async function POST(request: Request) {
@@ -166,6 +170,7 @@ export async function POST(request: Request) {
     }
 
     const origin = getSiteUrl(request);
+    const webhookUrl = `${origin}/api/singapay/webhook`;
     const reference = `AFM-${Date.now().toString(36).toUpperCase()}`;
     const response = await fetch(
       `${baseUrl}/api/v2.0/payment-link/${accountId}`,
@@ -184,6 +189,9 @@ export async function POST(request: Request) {
           max_usage: 1,
           success_redirect_url: `${origin}/thank-you?ref=${reference}`,
           expired_redirect_url: `${origin}/?payment=expired#akses`,
+          callback_url: webhookUrl,
+          webhook_url: webhookUrl,
+          notification_url: webhookUrl,
           optional_metadata: {
             product: 'autoflow-meta',
             source: 'landing-page',

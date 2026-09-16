@@ -37,7 +37,7 @@ function safeEqualHex(a: string, b: string) {
   return left.length === right.length && timingSafeEqual(left, right);
 }
 
-function verifySignature(request: Request, body: JsonValue) {
+function verifySignature(request: Request, body: JsonValue, rawBody: string) {
   const secret =
     process.env.SINGAPAY_HMAC_VALIDATION_KEY ||
     process.env.SINGAPAY_CLIENT_SECRET;
@@ -55,20 +55,29 @@ function verifySignature(request: Request, body: JsonValue) {
   }
 
   const endpoint = new URL(request.url).pathname;
-  const normalizedBody = JSON.stringify(sortJson(body));
-  const bodyHash = createHash('sha256').update(normalizedBody).digest('hex');
-  const stringToSign = [
-    request.method.toUpperCase(),
-    endpoint,
-    callbackToken,
-    bodyHash,
-    timestamp,
-  ].join(':');
-  const expected = createHmac('sha512', secret)
-    .update(stringToSign)
-    .digest('hex');
+  const bodyCandidates = [
+    rawBody,
+    JSON.stringify(body),
+    JSON.stringify(sortJson(body)),
+  ].filter((entry): entry is string => Boolean(entry));
 
-  return safeEqualHex(expected, signature) ? 'valid' : 'invalid';
+  for (const candidate of new Set(bodyCandidates)) {
+    const bodyHash = createHash('sha256').update(candidate).digest('hex');
+    const stringToSign = [
+      request.method.toUpperCase(),
+      endpoint,
+      callbackToken,
+      bodyHash,
+      timestamp,
+    ].join(':');
+    const expected = createHmac('sha512', secret)
+      .update(stringToSign)
+      .digest('hex');
+
+    if (safeEqualHex(expected, signature)) return 'valid';
+  }
+
+  return 'invalid';
 }
 
 function readString(value: unknown) {
@@ -108,14 +117,15 @@ function extractPaymentFields(body: JsonValue) {
 
 export async function POST(request: Request) {
   let body: JsonValue = null;
+  const rawBody = await request.text();
 
   try {
-    body = (await request.json()) as JsonValue;
+    body = JSON.parse(rawBody || 'null') as JsonValue;
   } catch {
     body = null;
   }
 
-  const signature = verifySignature(request, body);
+  const signature = verifySignature(request, body, rawBody);
   console.info(
     'singapay-webhook',
     JSON.stringify({
