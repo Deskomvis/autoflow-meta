@@ -43,7 +43,13 @@ export async function POST(request: Request) {
   const limit = Number.isFinite(pendingLimit)
     ? Math.min(Math.max(Math.floor(pendingLimit), 1), 50)
     : 25;
-  const pendingAccess = await listPendingMembershipAccess(limit);
+  const pendingNewest = await listPendingMembershipAccess(limit, 'desc');
+  const pendingOldest = await listPendingMembershipAccess(limit, 'asc');
+  const pendingAccess = Array.from(
+    new Map(
+      [...pendingNewest, ...pendingOldest].map(access => [access.reference, access]),
+    ).values(),
+  );
   const paidWithoutMessage = await listPaidMembershipAccessWithoutMessage(limit);
   const synced: string[] = [];
   const messaged: string[] = [];

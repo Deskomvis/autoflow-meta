@@ -225,12 +225,15 @@ async function readMembershipRows(path: string, context: string) {
   return (await response.json().catch(() => [])) as MembershipAccessRow[];
 }
 
-export async function listPendingMembershipAccess(limit = 25) {
+export async function listPendingMembershipAccess(
+  limit = 25,
+  order: 'asc' | 'desc' = 'desc',
+) {
   const safeLimit = Math.min(Math.max(Math.floor(limit), 1), 50);
 
   return readMembershipRows(
-    `membership_access?status=eq.pending&payment_url=not.is.null&select=reference,status,payment_url,whatsapp_phone,paid_message_sent_at,affiliate_code,affiliate_owner_reference,commission_amount,commission_credited_at,affiliate_message_sent_at&order=created_at.asc&limit=${safeLimit}`,
-    'pending-list',
+    `membership_access?status=eq.pending&payment_url=not.is.null&select=reference,status,payment_url,whatsapp_phone,paid_message_sent_at,affiliate_code,affiliate_owner_reference,commission_amount,commission_credited_at,affiliate_message_sent_at&order=created_at.${order}&limit=${safeLimit}`,
+    `pending-list-${order}`,
   );
 }
 
