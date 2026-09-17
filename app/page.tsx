@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
   BASE_PRICE,
+  EARLYBIRD_RELEASED_SLOTS,
   PRICING_TIERS,
   RESERVED_RESELLER_SLOTS,
   formatIDR,
@@ -246,8 +247,8 @@ const faqs = [
     'Mulai dari video pengantar dan Modul 0. Materinya membahas koneksi dan pengujian tools sebelum masuk ke riset, landing page, creative, dan campaign. Siapkan waktu untuk praktik, akun tools, serta akses akun iklan yang diperlukan.',
   ],
   [
-    'Apakah Rp497.000 sudah termasuk biaya tools dan iklan?',
-    'Harga earlybird ini untuk materi video webinar dan ecourse, 9 file modul, grup support, serta bonus riset. Langganan Claude, tools pendukung, kredit pembuatan aset, dan budget Meta Ads berada di luar harga materi.',
+    'Apakah harga release Rp697.000 sudah termasuk biaya tools dan iklan?',
+    'Harga release/normal ini untuk materi video webinar dan ecourse, 9 file modul, grup support, serta bonus riset. Langganan Claude, tools pendukung, kredit pembuatan aset, dan budget Meta Ads berada di luar harga materi.',
   ],
   [
     'Apa maksudnya mesin cuan semi-auto pilot?',
@@ -429,14 +430,14 @@ export default function Home() {
     discount: number;
   }>({ active: false, price: BASE_PRICE, discount: 0 });
   const [slotStats, setSlotStats] = useState<SlotStats>({
-    tier: PRICING_TIERS[0].id,
-    label: PRICING_TIERS[0].label,
-    badge: PRICING_TIERS[0].badge,
-    price: PRICING_TIERS[0].price,
-    limit: PRICING_TIERS[0].limit,
-    taken: RESERVED_RESELLER_SLOTS,
-    remaining: PRICING_TIERS[0].limit - RESERVED_RESELLER_SLOTS,
-    totalTaken: RESERVED_RESELLER_SLOTS,
+    tier: PRICING_TIERS[1].id,
+    label: PRICING_TIERS[1].label,
+    badge: PRICING_TIERS[1].badge,
+    price: PRICING_TIERS[1].price,
+    limit: PRICING_TIERS[1].limit,
+    taken: 0,
+    remaining: PRICING_TIERS[1].limit,
+    totalTaken: EARLYBIRD_RELEASED_SLOTS,
   });
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
@@ -456,20 +457,22 @@ export default function Home() {
         if (!activeRequest || !data) return;
 
         setSlotStats({
-          tier: data.tier || PRICING_TIERS[0].id,
-          label: data.label || PRICING_TIERS[0].label,
-          badge: data.badge || PRICING_TIERS[0].badge,
-          price: Number(data.price) || PRICING_TIERS[0].price,
+          tier: data.tier || PRICING_TIERS[1].id,
+          label: data.label || PRICING_TIERS[1].label,
+          badge: data.badge || PRICING_TIERS[1].badge,
+          price: Number(data.price) || PRICING_TIERS[1].price,
           limit:
             typeof data.limit === 'number' || data.limit === null
               ? data.limit
-              : PRICING_TIERS[0].limit,
-          taken: Number(data.taken) || RESERVED_RESELLER_SLOTS,
+              : PRICING_TIERS[1].limit,
+          taken: Number.isFinite(Number(data.taken)) ? Number(data.taken) : 0,
           remaining:
             typeof data.remaining === 'number' || data.remaining === null
               ? data.remaining
-              : PRICING_TIERS[0].limit - RESERVED_RESELLER_SLOTS,
-          totalTaken: Number(data.totalTaken) || RESERVED_RESELLER_SLOTS,
+              : PRICING_TIERS[1].limit,
+          totalTaken: Number.isFinite(Number(data.totalTaken))
+            ? Number(data.totalTaken)
+            : EARLYBIRD_RELEASED_SLOTS,
         });
       })
       .catch(() => {});
@@ -539,7 +542,7 @@ export default function Home() {
   async function copyOrder() {
     try {
       await navigator.clipboard.writeText(
-        'Saya ingin membeli Auto Flow Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket earlybird Rp497.000: 9 video teknis, 9 file modul, grup support, dan bonus riset.',
+        'Saya ingin membeli Auto Flow Meta Ads dengan Claude AI oleh Gus Rezha Cozy, paket release/normal Rp697.000: 9 video teknis, 9 file modul, grup support, dan bonus riset.',
       );
       setCopied(true);
       setCopyError(false);
@@ -1303,21 +1306,27 @@ export default function Home() {
             ) : null}
             {affiliate.active && !couponUnlocked ? (
               <p className="fineprint">
-                Link affiliate terdeteksi. Harga earlybird tetap sama, komisi
-                partner akan tercatat setelah pembayaran berhasil.
+                Link affiliate terdeteksi. Potongan kupon hanya terbuka di harga
+                release/normal, dan komisi partner tercatat setelah pembayaran berhasil.
               </p>
             ) : null}
             <div className="pricing-tiers" aria-label="Tier harga">
-              {PRICING_TIERS.map((tier) => (
-                <div
-                  key={tier.id}
-                  className={slotStats.tier === tier.id ? 'active' : undefined}
-                >
-                  <span>{tier.label}</span>
-                  <strong>{tier.price.toLocaleString('id-ID')}</strong>
-                  {tier.limit ? <small>{tier.limit} slot</small> : null}
-                </div>
-              ))}
+              {PRICING_TIERS.map((tier) => {
+                const soldOut = tier.id === 'earlybird';
+                return (
+                  <div
+                    key={tier.id}
+                    className={[slotStats.tier === tier.id ? 'active' : '', soldOut ? 'sold-out' : '']
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    <span>{tier.label}</span>
+                    <strong>{tier.price.toLocaleString('id-ID')}</strong>
+                    {soldOut ? <em>Sold out</em> : null}
+                    {tier.limit ? <small>{tier.limit} slot</small> : null}
+                  </div>
+                );
+              })}
               <div>
                 <span>Private 1on1</span>
                 <strong>2.999.000</strong>

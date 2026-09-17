@@ -1432,6 +1432,29 @@ h2 span {
   border-color: #ffbd78;
   background: #201506;
 }
+
+.pricing-tiers .sold-out {
+  position: relative;
+  border-color: #4a5d72;
+  background: #091320;
+  opacity: .74;
+}
+.pricing-tiers .sold-out strong,
+.pricing-tiers .sold-out small { color: #7f92a7; }
+.pricing-tiers .sold-out em {
+  display: inline-block;
+  margin-top: 7px;
+  border: 1px solid #ff8f8f78;
+  border-radius: 999px;
+  padding: 4px 7px;
+  color: #ffc2c2;
+  background: #351018;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
 .pricing-tiers span {
   display: block;
   color: #9fb3ca;

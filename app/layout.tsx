@@ -4,7 +4,7 @@ import WhatsappBubble from '@/components/whatsapp-bubble';
 export const metadata: Metadata = {
   title: 'Auto Flow Meta Ads dengan Claude AI | Gus Rezha Cozy',
   description:
-    'Bangun alur riset, landing page, creative, dan campaign melalui Claude AI untuk produk fisik, produk digital, maupun jasa. 9 video teknis, 8 file modul, grup support, dan bonus riset. Harga launch Rp497.000.',
+    'Bangun alur riset, landing page, creative, dan campaign melalui Claude AI untuk produk fisik, produk digital, maupun jasa. 9 video teknis, 8 file modul, grup support, dan bonus riset. Harga release Rp697.000.',
 };
 export default function RootLayout({
   children,

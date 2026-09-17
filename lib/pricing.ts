@@ -1,10 +1,12 @@
 export const RESERVED_RESELLER_SLOTS = 7;
+export const EARLYBIRD_RELEASED_SLOTS = 50;
+export const NORMAL_RELEASE_BASE_PAID_COUNT = 36;
 
 export const PRICING_TIERS = [
   {
     id: 'earlybird',
     label: 'Earlybird',
-    badge: 'Harga earlybird',
+    badge: 'Sold out',
     price: 497_000,
     limit: 50,
   },
@@ -24,7 +26,7 @@ export const PRICING_TIERS = [
   },
 ] as const;
 
-export const BASE_PRICE = PRICING_TIERS[0].price;
+export const BASE_PRICE = PRICING_TIERS[1].price;
 
 // Downline (buyer via an affiliate) gets this off the base price.
 export const AFFILIATE_DISCOUNT_RATE = 0.15;
@@ -43,10 +45,16 @@ export function affiliateCommission(base: number = BASE_PRICE) {
 }
 
 export function getCurrentPricingTier(paidCount = 0) {
-  const totalTaken = RESERVED_RESELLER_SLOTS + Math.max(0, paidCount);
+  const paidAfterNormalRelease = Math.max(0, paidCount - NORMAL_RELEASE_BASE_PAID_COUNT);
+  const totalTaken = EARLYBIRD_RELEASED_SLOTS + paidAfterNormalRelease;
   let consumedBeforeTier = 0;
 
   for (const tier of PRICING_TIERS) {
+    if (tier.id === 'earlybird') {
+      consumedBeforeTier += tier.limit;
+      continue;
+    }
+
     if (totalTaken < consumedBeforeTier + tier.limit) {
       return {
         ...tier,

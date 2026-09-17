@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { getPaidMembershipAccessCount } from '@/lib/membership-access';
-import { getCurrentPricingTier, RESERVED_RESELLER_SLOTS } from '@/lib/pricing';
+import {
+  EARLYBIRD_RELEASED_SLOTS,
+  getCurrentPricingTier,
+  RESERVED_RESELLER_SLOTS,
+} from '@/lib/pricing';
 
 export const runtime = 'nodejs';
 
@@ -18,6 +22,8 @@ export async function GET() {
     remaining: tier.remaining,
     totalTaken: tier.totalTaken,
     reservedSlots: RESERVED_RESELLER_SLOTS,
+    earlybirdSoldOut: true,
+    earlybirdReleasedSlots: EARLYBIRD_RELEASED_SLOTS,
     paidCount: paidCount ?? 0,
   });
 }
