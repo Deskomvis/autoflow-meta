@@ -1,0 +1,21 @@
+name: Supabase keepalive
+
+on:
+  schedule:
+    # Hit a lightweight internal endpoint every 5 days so Supabase keeps receiving activity.
+    - cron: '17 20 */5 * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit Supabase keepalive endpoint
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          test -n "$CRON_SECRET"
+          curl --fail --silent --show-error \
+            --max-time 30 \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            https://autoflow.roketmedia.id/api/supabase/keepalive
