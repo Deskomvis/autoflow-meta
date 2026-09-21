@@ -27,6 +27,20 @@ type PaymentHistoryResponse = {
   data?: PaymentHistory[];
 };
 
+const SUCCESSFUL_PAYMENT_STATUSES = new Set([
+  'paid',
+  'success',
+  'completed',
+  'settled',
+]);
+
+export function isSuccessfulSingapayStatus(status: unknown) {
+  return (
+    typeof status === 'string' &&
+    SUCCESSFUL_PAYMENT_STATUSES.has(status.trim().toLowerCase())
+  );
+}
+
 function requiredEnv(name: string) {
   const value = process.env[name];
   if (!value) {
@@ -155,9 +169,9 @@ export async function isSingapayPaymentReferencePaid(reference: string) {
       history.payment_link?.reff_no?.toUpperCase() === reference ||
       history.payment_link?.reference?.toUpperCase() === reference ||
       history.payment_link?.merchant_reff_no?.toUpperCase() === reference;
-    const status = (history.status_computed ?? history.status ?? '').toLowerCase();
+    const status = history.status_computed ?? history.status;
 
-    return matchesReference && status === 'paid';
+    return matchesReference && isSuccessfulSingapayStatus(status);
   }
 
   const directMatches = await listHistories({ reff_no: reference });
@@ -166,8 +180,12 @@ export async function isSingapayPaymentReferencePaid(reference: string) {
   const paymentLinkMatches = await listHistories({ payment_link_reff_no: reference });
   if (paymentLinkMatches.some(hasPaidReference)) return true;
 
-  const recentPaid = await listHistories({ status: 'paid' });
-  return recentPaid.some(hasPaidReference);
+  for (const status of SUCCESSFUL_PAYMENT_STATUSES) {
+    const recentSuccessful = await listHistories({ status });
+    if (recentSuccessful.some(hasPaidReference)) return true;
+  }
+
+  return false;
 }
 
 export async function getSingapayPaymentLinkReference(transactionId: string) {

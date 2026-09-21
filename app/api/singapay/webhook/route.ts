@@ -7,7 +7,10 @@ import {
 import { creditAndNotifyAffiliate } from '@/lib/affiliate';
 import { sendPaidAccessMessage } from '@/lib/roketchat';
 import { getRequestIp, sendMetaConversion } from '@/lib/meta-conversions';
-import { getSingapayPaymentLinkReference } from '@/lib/singapay-payment-status';
+import {
+  getSingapayPaymentLinkReference,
+  isSuccessfulSingapayStatus,
+} from '@/lib/singapay-payment-status';
 
 export const runtime = 'nodejs';
 
@@ -150,10 +153,7 @@ export async function POST(request: Request) {
   const payment = extractPaymentFields(body);
   if (
     payment.reference &&
-    payment.status &&
-    ['paid', 'success', 'completed', 'settled'].includes(
-      payment.status.toLowerCase(),
-    )
+    isSuccessfulSingapayStatus(payment.status)
   ) {
     let reference = payment.reference.toUpperCase();
     let access = await getMembershipAccess(reference);
