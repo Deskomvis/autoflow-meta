@@ -273,6 +273,19 @@ type CheckoutResponse = {
   discountApplied?: boolean;
   affiliateAttributed?: boolean;
 };
+type MetaFbq = (
+  command: 'track',
+  eventName: 'InitiateCheckout',
+  parameters: Record<string, unknown>,
+  options: { eventID: string },
+) => void;
+
+function readCookie(name: string) {
+  return document.cookie
+    .split('; ')
+    .find((entry) => entry.startsWith(`${name}=`))
+    ?.slice(name.length + 1);
+}
 type AffiliateContextResponse = {
   active?: boolean;
   couponUnlocked?: boolean;
@@ -510,6 +523,21 @@ export default function Home() {
     setCheckoutLoading(true);
     setCheckoutError('');
     try {
+      const metaEventId = crypto.randomUUID();
+      const metaParameters = {
+        currency: 'IDR',
+        value: currentPrice,
+        content_name: 'Auto Flow Meta Ads dengan Claude AI',
+        content_type: 'product',
+        content_ids: ['autoflow-meta'],
+        num_items: 1,
+      };
+      (window as typeof window & { fbq?: MetaFbq }).fbq?.(
+        'track',
+        'InitiateCheckout',
+        metaParameters,
+        { eventID: metaEventId },
+      );
       const response = await fetch('/api/singapay/checkout', {
         method: 'POST',
         headers: {
@@ -518,6 +546,12 @@ export default function Home() {
         body: JSON.stringify({
           whatsappPhone: checkoutPhone,
           couponCode: couponUnlocked ? couponCode.trim() || undefined : undefined,
+          meta: {
+            eventId: metaEventId,
+            eventSourceUrl: window.location.href,
+            fbc: readCookie('_fbc'),
+            fbp: readCookie('_fbp'),
+          },
         }),
       });
       const body = (await response

@@ -16,6 +16,7 @@ import {
   normalizeWhatsappPhone,
   sendCheckoutGreeting,
 } from '@/lib/roketchat';
+import { getRequestIp, sendMetaConversion } from '@/lib/meta-conversions';
 
 export const runtime = 'nodejs';
 
@@ -36,6 +37,12 @@ type SingapayPaymentLinkResponse = {
 type CheckoutRequest = {
   whatsappPhone?: string;
   couponCode?: string;
+  meta?: {
+    eventId?: string;
+    eventSourceUrl?: string;
+    fbc?: string;
+    fbp?: string;
+  };
 };
 
 function requiredEnv(name: string) {
@@ -232,6 +239,26 @@ export async function POST(request: Request) {
       discount_amount: discountAmount,
       commission_amount: commissionAmount,
     });
+
+    const metaEventId = requestBody?.meta?.eventId;
+    if (metaEventId) {
+      await sendMetaConversion({
+        eventName: 'InitiateCheckout',
+        eventId: metaEventId,
+        eventSourceUrl: requestBody.meta?.eventSourceUrl || origin,
+        value: amount,
+        phone: whatsappPhone,
+        fbc: requestBody.meta?.fbc,
+        fbp: requestBody.meta?.fbp,
+        clientIpAddress: getRequestIp(request),
+        clientUserAgent: request.headers.get('user-agent') || undefined,
+      }).catch((error) => {
+        console.warn(
+          'meta-initiate-checkout-failed',
+          error instanceof Error ? error.message : 'Unknown error',
+        );
+      });
+    }
 
     try {
       await sendCheckoutGreeting({ phone: whatsappPhone, paymentUrl });

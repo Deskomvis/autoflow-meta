@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import WhatsappBubble from '@/components/whatsapp-bubble';
+import MetaPixel from '@/components/meta-pixel';
 export const metadata: Metadata = {
   title: 'Auto Flow Meta Ads dengan Claude AI | Gus Rezha Cozy',
   description:
@@ -12,6 +13,7 @@ export default function RootLayout({
   return (
     <html lang="id" className="dark">
       <body>
+        <MetaPixel />
         {children}
         <WhatsappBubble />
       </body>

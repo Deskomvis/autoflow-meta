@@ -6,6 +6,8 @@ import {
 } from '@/lib/membership-access';
 import { creditAndNotifyAffiliate } from '@/lib/affiliate';
 import { sendPaidAccessMessage } from '@/lib/roketchat';
+import { getRequestIp, sendMetaConversion } from '@/lib/meta-conversions';
+import { getSingapayPaymentLinkReference } from '@/lib/singapay-payment-status';
 
 export const runtime = 'nodejs';
 
@@ -153,8 +155,30 @@ export async function POST(request: Request) {
       payment.status.toLowerCase(),
     )
   ) {
-    const reference = payment.reference.toUpperCase();
-    const access = await getMembershipAccess(reference);
+    let reference = payment.reference.toUpperCase();
+    let access = await getMembershipAccess(reference);
+
+    if (!access && payment.transactionId) {
+      const paymentLinkReference = await getSingapayPaymentLinkReference(
+        payment.transactionId,
+      ).catch(() => null);
+      if (paymentLinkReference) {
+        reference = paymentLinkReference.toUpperCase();
+        access = await getMembershipAccess(reference);
+      }
+    }
+
+    if (!access) {
+      console.warn(
+        'singapay-webhook-reference-not-found',
+        JSON.stringify({
+          paymentReference: payment.reference,
+          transactionId: payment.transactionId,
+        }),
+      );
+      return NextResponse.json({ ok: true });
+    }
+
     let paidMessageSentAt: string | undefined;
 
     if (access?.whatsapp_phone && !access.paid_message_sent_at) {
@@ -181,6 +205,23 @@ export async function POST(request: Request) {
       paid_message_sent_at: paidMessageSentAt,
       raw_payload: body,
     });
+
+    if (access?.status !== 'paid') {
+      await sendMetaConversion({
+        eventName: 'Purchase',
+        eventId: `purchase-${reference}`,
+        eventSourceUrl: `${new URL(request.url).origin}/thank-you?ref=${encodeURIComponent(reference)}`,
+        value: Number(access?.amount) || 0,
+        phone: access?.whatsapp_phone,
+        clientIpAddress: getRequestIp(request),
+        clientUserAgent: request.headers.get('user-agent') || undefined,
+      }).catch((error) => {
+        console.warn(
+          'meta-purchase-failed',
+          error instanceof Error ? error.message : 'Unknown error',
+        );
+      });
+    }
 
     await creditAndNotifyAffiliate(reference);
   }

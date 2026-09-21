@@ -2,6 +2,7 @@ import { creditAndNotifyAffiliate } from '@/lib/affiliate';
 import { getMembershipAccess, markMembershipAccessPaid } from '@/lib/membership-access';
 import { sendPaidAccessMessage } from '@/lib/roketchat';
 import { isSingapayPaymentLinkFullyPaid } from '@/lib/singapay-payment-status';
+import { sendMetaConversion } from '@/lib/meta-conversions';
 
 export async function syncPaidMembershipAccessFromPaymentLink(
   reference: string,
@@ -44,6 +45,20 @@ export async function syncPaidMembershipAccessFromPaymentLink(
       payment_link_status: 'fully_paid',
     },
   });
+  if (access.status !== 'paid') {
+    await sendMetaConversion({
+      eventName: 'Purchase',
+      eventId: `purchase-${normalizedReference}`,
+      eventSourceUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://autoflow.roketmedia.id'}/thank-you?ref=${encodeURIComponent(normalizedReference)}`,
+      value: Number(access.amount) || 0,
+      phone: access.whatsapp_phone,
+    }).catch((error) => {
+      console.warn(
+        'meta-purchase-sync-failed',
+        error instanceof Error ? error.message : 'Unknown error',
+      );
+    });
+  }
   await creditAndNotifyAffiliate(normalizedReference);
 
   return { synced: true, paidMessageSentAt };

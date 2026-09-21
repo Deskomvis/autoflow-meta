@@ -87,6 +87,22 @@ async function requestAccessToken(baseUrl: string) {
 }
 
 export async function isSingapayPaymentLinkFullyPaid(paymentUrl: string) {
+  const paymentReference = new URL(paymentUrl).pathname
+    .split('/')
+    .filter(Boolean)
+    .at(-1)
+    ?.toUpperCase();
+
+  if (
+    paymentReference &&
+    /^AFM-[A-Z0-9-]{4,}$/.test(paymentReference) &&
+    (await isSingapayPaymentReferencePaid(paymentReference).catch(() => false))
+  ) {
+    return true;
+  }
+
+  // Keep the public-page check as a fallback for older Singapay deployments
+  // that rendered the paid state in the initial HTML response.
   const response = await fetch(paymentUrl, { cache: 'no-store' }).catch(() => null);
 
   if (!response?.ok) return false;

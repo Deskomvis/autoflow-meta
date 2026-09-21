@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { syncPaidMembershipAccessFromPaymentLink } from '@/lib/singapay-paid-sync';
+import { getMembershipAccess } from '@/lib/membership-access';
+import MetaPurchase from '@/components/meta-purchase';
 
 type ThankYouPageProps = {
   searchParams?: Promise<{
@@ -16,6 +18,7 @@ export const metadata = {
 export default async function ThankYouPage({ searchParams }: ThankYouPageProps) {
   const params = await searchParams;
   const reference = params?.ref;
+  let paidAccess: Awaited<ReturnType<typeof getMembershipAccess>> = null;
 
   if (reference) {
     await syncPaidMembershipAccessFromPaymentLink(reference, 'thank_you_return').catch(
@@ -29,10 +32,17 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
         );
       },
     );
+    paidAccess = await getMembershipAccess(reference.trim().toUpperCase());
   }
 
   return (
     <main className="thankyou-page">
+      {reference && paidAccess?.status === 'paid' ? (
+        <MetaPurchase
+          reference={reference.trim().toUpperCase()}
+          value={Number(paidAccess.amount) || 0}
+        />
+      ) : null}
       <section className="thankyou-panel wrap" aria-labelledby="thankyou-title">
         <p className="eyebrow">PEMBAYARAN SELESAI</p>
         <h1 id="thankyou-title">
