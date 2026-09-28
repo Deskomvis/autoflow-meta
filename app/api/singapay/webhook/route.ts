@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import {
   getMembershipAccess,
   markMembershipAccessPaid,
+  markMembershipPaidMessageSent,
 } from '@/lib/membership-access';
 import { creditAndNotifyAffiliate } from '@/lib/affiliate';
 import { sendPaidAccessMessage } from '@/lib/roketchat';
@@ -176,10 +177,15 @@ export async function POST(request: Request) {
           transactionId: payment.transactionId,
         }),
       );
-      return NextResponse.json({ ok: true });
+      return NextResponse.json({ ok: false, retryable: true }, { status: 503 });
     }
 
-    let paidMessageSentAt: string | undefined;
+    await markMembershipAccessPaid({
+      reference,
+      singapay_transaction_id: payment.transactionId,
+      raw_payload: body,
+    });
+    let messageFailed = false;
 
     if (access?.whatsapp_phone && !access.paid_message_sent_at) {
       try {
@@ -187,8 +193,9 @@ export async function POST(request: Request) {
           phone: access.whatsapp_phone,
           reference,
         });
-        paidMessageSentAt = new Date().toISOString();
+        await markMembershipPaidMessageSent(reference);
       } catch (error) {
+        messageFailed = true;
         console.warn(
           'roketchat-paid-message-failed',
           JSON.stringify({
@@ -198,13 +205,6 @@ export async function POST(request: Request) {
         );
       }
     }
-
-    await markMembershipAccessPaid({
-      reference,
-      singapay_transaction_id: payment.transactionId,
-      paid_message_sent_at: paidMessageSentAt,
-      raw_payload: body,
-    });
 
     if (access?.status !== 'paid') {
       await sendMetaConversion({
@@ -224,6 +224,9 @@ export async function POST(request: Request) {
     }
 
     await creditAndNotifyAffiliate(reference);
+    if (messageFailed) {
+      return NextResponse.json({ ok: false, retryable: true }, { status: 503 });
+    }
   }
 
   return NextResponse.json({ ok: true });

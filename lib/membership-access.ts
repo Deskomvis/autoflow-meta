@@ -74,12 +74,17 @@ export async function createMembershipAccess(payload: MembershipAccessPayload) {
     }),
   });
 
-  if (!response || response.ok) return;
+  await requireMembershipWrite(response, 'create');
+}
 
-  console.warn(
-    'membership-access-create-failed',
-    JSON.stringify({ status: response.status, body: await response.text() }),
-  );
+async function requireMembershipWrite(response: Response | null, operation: string) {
+  if (!response?.ok) {
+    throw new Error(`Membership ${operation} failed (${response?.status ?? 'database not configured'})`);
+  }
+  const rows: unknown = await response.json();
+  if (!Array.isArray(rows) || rows.length === 0) {
+    throw new Error(`Membership ${operation} did not persist a row`);
+  }
 }
 
 export async function markMembershipAccessPaid(payload: {
@@ -103,12 +108,7 @@ export async function markMembershipAccessPaid(payload: {
     }),
   });
 
-  if (!response || response.ok) return;
-
-  console.warn(
-    'membership-access-paid-failed',
-    JSON.stringify({ status: response.status, body: await response.text() }),
-  );
+  await requireMembershipWrite(response, 'paid');
 }
 
 export async function markMembershipUnpaidMessageSent(reference: string) {
@@ -213,16 +213,18 @@ async function readMembershipRows(path: string, context: string) {
     },
   });
 
-  if (!response) return [];
+  if (!response) throw new Error('Membership database not configured');
   if (!response.ok) {
     console.warn(
       `membership-access-${context}-failed`,
       JSON.stringify({ status: response.status, body: await response.text() }),
     );
-    return [];
+    throw new Error(`Membership ${context} failed (${response.status})`);
   }
 
-  return (await response.json().catch(() => [])) as MembershipAccessRow[];
+  const rows: unknown = await response.json();
+  if (!Array.isArray(rows)) throw new Error(`Invalid membership ${context} response`);
+  return rows as MembershipAccessRow[];
 }
 
 export async function listPendingMembershipAccess(
@@ -260,10 +262,5 @@ export async function markMembershipPaidMessageSent(
     },
   );
 
-  if (!response || response.ok) return;
-
-  console.warn(
-    'membership-access-paid-message-failed',
-    JSON.stringify({ status: response.status, body: await response.text() }),
-  );
+  await requireMembershipWrite(response, 'paid-message');
 }

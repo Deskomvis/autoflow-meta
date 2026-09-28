@@ -1,5 +1,5 @@
 import { creditAndNotifyAffiliate } from '@/lib/affiliate';
-import { getMembershipAccess, markMembershipAccessPaid } from '@/lib/membership-access';
+import { getMembershipAccess, markMembershipAccessPaid, markMembershipPaidMessageSent } from '@/lib/membership-access';
 import { sendPaidAccessMessage } from '@/lib/roketchat';
 import { isSingapayPaymentLinkFullyPaid } from '@/lib/singapay-payment-status';
 import { sendMetaConversion } from '@/lib/meta-conversions';
@@ -14,7 +14,7 @@ export async function syncPaidMembershipAccessFromPaymentLink(
   }
 
   const access = await getMembershipAccess(normalizedReference);
-  if (!access?.payment_url) {
+  if (!access) {
     return { synced: false, reason: 'payment-link-missing' };
   }
 
@@ -22,29 +22,30 @@ export async function syncPaidMembershipAccessFromPaymentLink(
     return { synced: false, reason: 'already-synced' };
   }
 
-  const fullyPaid = await isSingapayPaymentLinkFullyPaid(access.payment_url).catch(
-    () => false,
-  );
+  const fullyPaid = access.status === 'paid' || (access.payment_url && await isSingapayPaymentLinkFullyPaid(access.payment_url));
   if (!fullyPaid) return { synced: false, reason: 'not-paid' };
 
-  let paidMessageSentAt: string | undefined;
-  if (access.whatsapp_phone && !access.paid_message_sent_at) {
-    await sendPaidAccessMessage({
-      phone: access.whatsapp_phone,
-      reference: normalizedReference,
-    });
-    paidMessageSentAt = new Date().toISOString();
-  }
-
-  await markMembershipAccessPaid({
+  if (access.status !== 'paid') await markMembershipAccessPaid({
     reference: normalizedReference,
-    paid_message_sent_at: paidMessageSentAt,
     raw_payload: {
       source,
       checked_at: new Date().toISOString(),
       payment_link_status: 'fully_paid',
     },
   });
+  let paidMessageSentAt: string | undefined;
+  if (access.whatsapp_phone && !access.paid_message_sent_at) {
+    try {
+      await sendPaidAccessMessage({ phone: access.whatsapp_phone, reference: normalizedReference });
+      paidMessageSentAt = new Date().toISOString();
+      await markMembershipPaidMessageSent(normalizedReference, paidMessageSentAt);
+    } catch (error) {
+      console.warn('roketchat-paid-message-failed', JSON.stringify({
+        reference: normalizedReference,
+        message: error instanceof Error ? error.message : 'Unknown error',
+      }));
+    }
+  }
   if (access.status !== 'paid') {
     await sendMetaConversion({
       eventName: 'Purchase',

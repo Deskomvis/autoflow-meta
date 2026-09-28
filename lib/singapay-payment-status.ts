@@ -87,6 +87,7 @@ async function requestAccessToken(baseUrl: string) {
       },
       body: JSON.stringify({ grant_type: 'client_credentials' }),
       cache: 'no-store',
+      signal: AbortSignal.timeout(15_000),
     });
 
     const body = (await response
@@ -97,10 +98,11 @@ async function requestAccessToken(baseUrl: string) {
     if (response.ok && accessToken) return accessToken;
   }
 
-  return null;
+  throw new Error('Singapay authentication failed; check credentials and registered server IP');
 }
 
 export async function isSingapayPaymentLinkFullyPaid(paymentUrl: string) {
+  let verificationError: unknown;
   const paymentReference = new URL(paymentUrl).pathname
     .split('/')
     .filter(Boolean)
@@ -110,7 +112,10 @@ export async function isSingapayPaymentLinkFullyPaid(paymentUrl: string) {
   if (
     paymentReference &&
     /^AFM-[A-Z0-9-]{4,}$/.test(paymentReference) &&
-    (await isSingapayPaymentReferencePaid(paymentReference).catch(() => false))
+    (await isSingapayPaymentReferencePaid(paymentReference).catch(error => {
+      verificationError = error;
+      return false;
+    }))
   ) {
     return true;
   }
@@ -119,10 +124,12 @@ export async function isSingapayPaymentLinkFullyPaid(paymentUrl: string) {
   // that rendered the paid state in the initial HTML response.
   const response = await fetch(paymentUrl, { cache: 'no-store' }).catch(() => null);
 
-  if (!response?.ok) return false;
+  if (!response?.ok) throw verificationError ?? new Error('Singapay payment page unavailable');
 
   const html = await response.text().catch(() => '');
-  return /payment link has been fully paid/i.test(html);
+  if (/payment link has been fully paid/i.test(html)) return true;
+  if (verificationError) throw verificationError;
+  return false;
 }
 
 export async function isSingapayPaymentReferencePaid(reference: string) {
@@ -151,7 +158,7 @@ export async function isSingapayPaymentReferencePaid(reference: string) {
       cache: 'no-store',
     });
 
-    if (!response.ok) return [];
+    if (!response.ok) throw new Error(`Singapay payment history failed (${response.status})`);
 
     const body = (await response
       .json()

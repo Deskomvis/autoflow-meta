@@ -1,0 +1,26 @@
+name: Reconcile paid memberships
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: payment-reconciliation
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Reconcile payments and retry unsent paid messages
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          test -n "$CRON_SECRET"
+          curl --fail --silent --show-error \
+            --max-time 480 \
+            -X POST \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            https://autoflow.roketmedia.id/api/singapay/sync-pending

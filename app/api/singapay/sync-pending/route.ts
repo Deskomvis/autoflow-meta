@@ -62,19 +62,32 @@ export async function POST(request: Request) {
       continue;
     }
 
-    const fullyPaid = await isSingapayPaymentLinkFullyPaid(access.payment_url).catch(
-      () => false,
-    );
+    let fullyPaid: boolean;
+    try {
+      fullyPaid = await isSingapayPaymentLinkFullyPaid(access.payment_url);
+    } catch (error) {
+      failed.push({ reference: access.reference, message: error instanceof Error ? error.message : 'Payment verification failed' });
+      continue;
+    }
 
     if (!fullyPaid) {
       skipped.push(access.reference);
       continue;
     }
 
-    let paidMessageSentAt: string | undefined;
-
     try {
-      paidMessageSentAt = await sendPaidMessageIfNeeded(access);
+      await markMembershipAccessPaid({
+        reference: access.reference,
+        raw_payload: {
+          source: 'auto_sync_payment_link',
+          checked_at: new Date().toISOString(),
+          payment_link_status: 'fully_paid',
+        },
+      });
+      synced.push(access.reference);
+      await creditAndNotifyAffiliate(access.reference);
+      const paidMessageSentAt = await sendPaidMessageIfNeeded(access);
+      if (paidMessageSentAt) await markMembershipPaidMessageSent(access.reference, paidMessageSentAt);
       if (paidMessageSentAt) messaged.push(access.reference);
     } catch (error) {
       failed.push({
@@ -83,17 +96,6 @@ export async function POST(request: Request) {
       });
     }
 
-    await markMembershipAccessPaid({
-      reference: access.reference,
-      paid_message_sent_at: paidMessageSentAt,
-      raw_payload: {
-        source: 'auto_sync_payment_link',
-        checked_at: new Date().toISOString(),
-        payment_link_status: 'fully_paid',
-      },
-    });
-    await creditAndNotifyAffiliate(access.reference);
-    synced.push(access.reference);
   }
 
   for (const access of paidWithoutMessage) {
@@ -111,13 +113,13 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({
-    ok: true,
+    ok: failed.length === 0,
     checked: pendingAccess.length,
     synced,
     messaged,
     skipped,
     failed,
-  });
+  }, { status: failed.length ? 503 : 200 });
 }
 
 export async function GET(request: Request) {

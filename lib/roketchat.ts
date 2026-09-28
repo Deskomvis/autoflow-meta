@@ -58,6 +58,7 @@ export async function sendRoketchatText(phone: string, body: string) {
     },
     body: JSON.stringify({ phone: normalizedPhone, body }),
     cache: 'no-store',
+    signal: AbortSignal.timeout(15_000),
   });
 
   const payload = (await response
