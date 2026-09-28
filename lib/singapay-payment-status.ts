@@ -122,7 +122,7 @@ export async function isSingapayPaymentLinkFullyPaid(paymentUrl: string) {
 
   // Keep the public-page check as a fallback for older Singapay deployments
   // that rendered the paid state in the initial HTML response.
-  const response = await fetch(paymentUrl, { cache: 'no-store' }).catch(() => null);
+  const response = await fetch(paymentUrl, { cache: 'no-store', signal: AbortSignal.timeout(15_000) }).catch(() => null);
 
   if (!response?.ok) throw verificationError ?? new Error('Singapay payment page unavailable');
 
@@ -156,6 +156,7 @@ export async function isSingapayPaymentReferencePaid(reference: string) {
         'X-PARTNER-ID': apiKey,
       },
       cache: 'no-store',
+      signal: AbortSignal.timeout(15_000),
     });
 
     if (!response.ok) throw new Error(`Singapay payment history failed (${response.status})`);
@@ -216,6 +217,7 @@ export async function getSingapayPaymentLinkReference(transactionId: string) {
       'X-PARTNER-ID': apiKey,
     },
     cache: 'no-store',
+    signal: AbortSignal.timeout(15_000),
   });
 
   if (!response.ok) return null;

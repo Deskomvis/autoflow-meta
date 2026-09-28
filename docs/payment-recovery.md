@@ -41,3 +41,12 @@ investigation, and these changes have not been deployed.
 Production configuration follow-up: a duplicate empty CRON_SECRET line in Dokploy
 overrode the configured secret and caused authenticated requests to return 401.
 The empty duplicate was removed. GitHub holds the matching secret for manual recovery.
+
+Follow-up 2026-09-29: `AFM-MU0UUQGZ` and `AFM-MU45AUMF` were bought 2026-09-14/16
+but only marked paid on 2026-09-29 (webhook never confirmed them; the scheduled
+reconciliation returned 401 until the empty CRON_SECRET was removed). Both then
+stayed without `paid_message_sent_at` because the Roketchat text API returned HTTP
+500 with an empty body. Roketchat errors now include the HTTP status, Singapay
+fetches have 15s timeouts, and reconciliation retries paid-but-unsent rows before
+the slow pending verification so they are not starved. Once Roketchat recovers,
+the next scheduled reconciliation sends both messages automatically.

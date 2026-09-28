@@ -66,7 +66,9 @@ export async function sendRoketchatText(phone: string, body: string) {
     .catch(() => null)) as RoketchatTextResponse | null;
 
   if (!response.ok || payload?.success === false) {
-    throw new Error(payload?.error ?? 'Roketchat message failed');
+    throw new Error(
+      payload?.error ?? `Roketchat message failed (HTTP ${response.status})`,
+    );
   }
 
   return payload;

@@ -56,6 +56,20 @@ export async function POST(request: Request) {
   const skipped: string[] = [];
   const failed: Array<{ reference: string; message: string }> = [];
 
+  for (const access of paidWithoutMessage) {
+    try {
+      const paidMessageSentAt = await sendPaidMessageIfNeeded(access);
+      if (!paidMessageSentAt) continue;
+      await markMembershipPaidMessageSent(access.reference, paidMessageSentAt);
+      messaged.push(access.reference);
+    } catch (error) {
+      failed.push({
+        reference: access.reference,
+        message: error instanceof Error ? error.message : 'Unknown message error',
+      });
+    }
+  }
+
   for (const access of pendingAccess) {
     if (!access.payment_url) {
       skipped.push(access.reference);
@@ -98,19 +112,6 @@ export async function POST(request: Request) {
 
   }
 
-  for (const access of paidWithoutMessage) {
-    try {
-      const paidMessageSentAt = await sendPaidMessageIfNeeded(access);
-      if (!paidMessageSentAt) continue;
-      await markMembershipPaidMessageSent(access.reference, paidMessageSentAt);
-      messaged.push(access.reference);
-    } catch (error) {
-      failed.push({
-        reference: access.reference,
-        message: error instanceof Error ? error.message : 'Unknown message error',
-      });
-    }
-  }
 
   return NextResponse.json({
     ok: failed.length === 0,
