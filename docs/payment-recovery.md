@@ -6,8 +6,8 @@ return HTTP 503 so Singapay can redeliver. Failed database writes must propagate
 they must not be acknowledged as successful.
 
 The `Reconcile paid memberships` GitHub Actions workflow calls the existing
-authenticated reconciliation endpoint every ten minutes. GitHub scheduling may
-be delayed. To activate it, deploy the updated application, set repository secret
+authenticated reconciliation endpoint on manual dispatch. The production Dokploy
+schedule runs every fifteen minutes; do not enable a second recurring scheduler. To activate it, deploy the updated application, set repository secret
 `CRON_SECRET` to the same value as the production server, and merge the workflow
 into the default branch. Confirm a successful workflow run after release.
 
@@ -37,3 +37,7 @@ need checking. The old fallback read only the HTML shell and silently converted
 authentication errors into an unpaid result; verification errors now propagate
 to reconciliation failures. The affected customer has not been messaged by this
 investigation, and these changes have not been deployed.
+
+Production configuration follow-up: a duplicate empty CRON_SECRET line in Dokploy
+overrode the configured secret and caused authenticated requests to return 401.
+The empty duplicate was removed. GitHub holds the matching secret for manual recovery.

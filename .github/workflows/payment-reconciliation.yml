@@ -1,8 +1,6 @@
 name: Reconcile paid memberships
 
 on:
-  schedule:
-    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 concurrency:
