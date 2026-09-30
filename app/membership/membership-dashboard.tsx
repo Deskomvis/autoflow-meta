@@ -86,10 +86,10 @@ const lessons = [
   {
     id: 'djUJo-Q7eEw',
     title: 'Bonus: Bikin Video Explainer menggunakan Claude',
-    cover: '/images/bonus-video-explainer-claude.webp',
     notes: [
-      'Materi bonus tambahan untuk membuat video explainer menggunakan Claude.',
-      'Gunakan alur ini sebagai referensi saat menyusun konsep, script, visual brief, dan bahan produksi video promosi.',
+      'Ikuti step ini :',
+      'Upload skill',
+      'Tulis prompt dengan melampirkan assets (Screenshoot gambar, Video referensi, Audio, dan Logo)',
     ],
   },
 ];
@@ -517,14 +517,6 @@ export default function MembershipDashboard({
                 Sedang diputar · Video {activeLesson + 1} dari {lessons.length}
               </p>
               <h2>{lessons[activeLesson].title}</h2>
-              {'cover' in lessons[activeLesson] ? (
-                <img
-                  className="course-cover"
-                  src={lessons[activeLesson].cover}
-                  alt={`Cover ${lessons[activeLesson].title}`}
-                  loading="lazy"
-                />
-              ) : null}
             </div>
             <LessonNotes notes={lessons[activeLesson].notes} />
           </div>

@@ -1745,13 +1745,6 @@ h2 span {
   font-size: 26px;
   letter-spacing: 0;
 }
-.course-cover {
-  width: min(360px, 100%);
-  margin-top: 14px;
-  border: 1px solid #2d4057;
-  border-radius: 8px;
-  box-shadow: 0 18px 42px #0005;
-}
 .course-resources {
   display: flex;
   flex-direction: column;
