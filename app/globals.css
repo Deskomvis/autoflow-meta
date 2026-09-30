@@ -2120,6 +2120,23 @@ h2 span {
   background: #2b2116;
   color: #ffd6a2;
 }
+.series-action {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #4ccfff;
+  border-radius: 6px;
+  padding: 0 12px;
+  background: #0b2a3f;
+  color: #d8f6ff;
+  font-size: 12px;
+  font-weight: 800;
+}
+.series-action.is-active {
+  border-color: var(--blue);
+  background: #062032;
+  color: var(--blue);
+}
 .series-vote-error {
   margin: 14px 0 0;
   color: #ffb4a6;
@@ -2169,6 +2186,9 @@ h2 span {
 .series-card.is-unlocked .series-status {
   border-color: var(--blue);
   color: var(--blue);
+}
+.landing-course-series {
+  padding-bottom: 72px;
 }
 
 [data-slot='dialog-overlay'] {

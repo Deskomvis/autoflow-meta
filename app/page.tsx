@@ -21,6 +21,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
+import { seriesCourses } from '@/lib/course-series';
 const videos = [
   [
     'Intro Claude MCP',
@@ -316,6 +317,15 @@ type SlotStats = {
   remaining: number | null;
   totalTaken: number;
 };
+type VerifyAccessResponse = {
+  reference?: string;
+};
+const landingSeriesVotes: Record<string, number> = {
+  'autoflow-meta-ads': 0,
+  'vibe-coding-monetize-plan': 7,
+  'ai-chat-for-ctwa': 7,
+  'hermes-agent-flow-business': 10,
+};
 const teaserVideoSources = [
   'https://cdn.vistudio.id/Teaser%20autoflow.mp4',
   'https://vistudio.b-cdn.net/Teaser%20autoflow.mp4',
@@ -454,9 +464,31 @@ export default function Home() {
   });
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
+  const [hasPurchased, setHasPurchased] = useState(false);
   const [active, setActive] = useState(0);
   const couponUnlocked = slotStats.tier === 'regular';
   const currentPrice = affiliate.active && couponUnlocked ? affiliate.price : slotStats.price;
+  useEffect(() => {
+    const savedReference = sessionStorage.getItem('afm-membership-ref');
+    if (!savedReference) return;
+
+    let live = true;
+    fetch('/api/membership/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ reference: savedReference }),
+    })
+      .then(async (response) => {
+        const body = (await response.json().catch(() => null)) as VerifyAccessResponse | null;
+        if (!live) return;
+        setHasPurchased(Boolean(response.ok && body?.reference));
+      })
+      .catch(() => {});
+
+    return () => {
+      live = false;
+    };
+  }, []);
   useEffect(() => {
     let activeRequest = true;
 
@@ -1182,6 +1214,77 @@ export default function Home() {
               </AccordionItem>
             ))}
           </Accordion>
+        </section>
+        <section className="course-series landing-course-series wrap" aria-labelledby="course-series-title">
+          <p className="eyebrow">E-Course Series Lanjutan</p>
+          <h2 id="course-series-title">Roadmap course berikutnya</h2>
+          <div className="series-grid">
+            {seriesCourses.map((course) => {
+              const isAutoflow = course.id === 'autoflow-meta-ads';
+              const voteCount = landingSeriesVotes[course.id] ?? 0;
+
+              return (
+                <article
+                  className={`series-card${course.unlocked ? ' is-unlocked' : ''}`}
+                  key={course.id}
+                >
+                  <div className="series-thumb">
+                    <Image
+                      unoptimized
+                      src={course.image}
+                      alt={course.title}
+                      width="720"
+                      height="720"
+                      loading="lazy"
+                    />
+                    <span className="series-status">
+                      {course.unlocked ? (
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M7 10V7a5 5 0 0 1 9.9-1" />
+                          <rect x="5" y="10" width="14" height="10" rx="2" />
+                        </svg>
+                      ) : (
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M7 10V7a5 5 0 0 1 10 0v3" />
+                          <rect x="5" y="10" width="14" height="10" rx="2" />
+                        </svg>
+                      )}
+                      {course.unlocked ? (hasPurchased ? 'Dimiliki' : 'Tersedia') : 'Coming soon'}
+                    </span>
+                  </div>
+                  <h3>{course.title}</h3>
+                  <p>{course.subtitle}</p>
+                  <div className="series-vote">
+                    <span>
+                      <strong>{voteCount}</strong> vote
+                    </span>
+                    {isAutoflow ? (
+                      hasPurchased ? (
+                        <a className="series-action is-active" href="/membership">
+                          Materi aktif
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setCheckout(true)}
+                        >
+                          Beli Materi
+                        </button>
+                      )
+                    ) : (
+                      <button type="button" disabled>
+                        Coming soon
+                      </button>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <p className="fineprint">
+            Course baru akan otomatis muncul di dashboard membership begitu
+            rilis. Untuk saat ini, materi yang bisa dibeli baru Auto Flow Meta Ads.
+          </p>
         </section>
       </main>
       <footer className="wrap footer">
